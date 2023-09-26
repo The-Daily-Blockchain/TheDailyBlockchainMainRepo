@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     # django rest framework
     'rest_framework',
     'rest_framework.authtoken',
-    #django-cors-headers
+    # django-cors-headers
     'corsheaders',
     # application
     'api.apps.ApiConfig',
@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-        #cors middleware
+    # cors middleware
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -131,4 +131,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# AUTH_USER_MODEL = 'api.User'
+AUTH_USER_MODEL = 'api.User'
