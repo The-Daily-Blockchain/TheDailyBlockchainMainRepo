@@ -21,16 +21,6 @@ class UserSerializer(ModelSerializer):
         user.save()
         return user
 
-# class LoginSerializer(serializers.Serializer):
-#     username = serializers.CharField()
-#     password = serializers.CharField()
-
-#     def validate(self, data):
-#         user = authenticate(username=data['username'], password=data['password'])
-#         if user and user.is_active:
-#             return user
-#         raise serializers.ValidationError("Incorrect Credentials")
-
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField(style={'input_type': 'password'})
@@ -64,7 +54,6 @@ class ProfileSerializer(ModelSerializer):
 
 class ArticleSerializer(ModelSerializer):
     author = UserSerializer(read_only=True)
-    # id = serializers.UUIDField(format='hex', read_only=True)
 
     class Meta:
         model = Article
