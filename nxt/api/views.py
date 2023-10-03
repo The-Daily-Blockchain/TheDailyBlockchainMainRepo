@@ -15,10 +15,8 @@ from rest_framework import generics, status, serializers
 from rest_framework.request import Request as DRFRequest
 from rest_framework.views import APIView
 from django.utils.decorators import method_decorator
-# from rest_framework.authentication import SessionAuthentication
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from django.contrib.sessions.models import Session
-#from rest_framework.permissions import BasePermission
 
 from .serializers import UserSerializer, LoginSerializer, ProfileSerializer, ArticleSerializer, PostSerializer, LogoutSerializer
 from django.middleware.csrf import get_token
@@ -98,8 +96,6 @@ class post_list(generics.ListCreateAPIView):
 
     def get_permissions(self):
         permission_classes = []
-        # if self.request.method != 'GET':
-        #     permission_classes = [IsAuthenticated]
         if self.request.method == 'GET':
             permission_classes = [AllowAny]
         else:

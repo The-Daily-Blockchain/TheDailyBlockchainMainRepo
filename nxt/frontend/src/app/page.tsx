@@ -1,7 +1,13 @@
-import Image from 'next/image'
+import Link from 'next/link'
 
-export default function Home() {
-  return (
-    <main><h1>hello world!</h1></main>
-  )
+async function getSomeData() {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    return {
+        data: "some data"
+    }
 }
+
+export default async function Home() {
+    const data = await getSomeData()
+    return <Link href="/dashboard">Dashboard</Link>
+} 
