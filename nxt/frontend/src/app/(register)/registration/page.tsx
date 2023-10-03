@@ -1,7 +1,11 @@
 'use client'
 import { useState } from 'react';
+import { API_URL } from '@/app/config'
+import { NextRequest } from 'next/server'
 
-
+export async function Post(request: NextRequest) {
+  const data = await fetch(`${API_URL}/register/`)
+}
 const Page: React.FC = () => {
   const [formData, setFormData] = useState({
     username: '',
