@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import { API_URL } from '@/app/config'
+import Cookies from 'js-cookie'
 
 interface FormData {
     username: string;
@@ -32,6 +33,7 @@ const Login: React.FC = () => {
                   'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(formData),
+
               });
     
               if (!response.ok) {
@@ -41,6 +43,7 @@ const Login: React.FC = () => {
               const data = await response.json();
               // Handle the response data as needed
               console.log('Response data:', data);
+              Cookies.set('token', data.token);
             } catch (error) {
               console.error('Error:', error);
             }
