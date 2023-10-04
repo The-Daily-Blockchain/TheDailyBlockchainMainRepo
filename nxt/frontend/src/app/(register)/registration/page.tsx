@@ -1,7 +1,6 @@
 'use client'
 import { useState } from 'react';
 import { API_URL } from '@/app/config'
-import { NextRequest } from 'next/server'
 
 interface FormData {
   username: string;
