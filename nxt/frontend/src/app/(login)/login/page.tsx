@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import { API_URL } from '@/app/config'
 import Cookies from 'js-cookie'
+import LogoutButton from '@/app/(logout)/logout/page';
 
 interface FormData {
     username: string;
@@ -75,6 +76,11 @@ const Login: React.FC = () => {
             </div>
             <button type="submit">Login</button>
           </form>
+          <div>
+          <LogoutButton onLogout={function (): void {
+              throw new Error('Function not implemented.');
+            } } />
+          </div>
         </div>
       );
     };
