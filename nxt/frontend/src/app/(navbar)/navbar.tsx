@@ -1,10 +1,8 @@
-'use client'
-import React from 'react'
+"use client";
+import React from "react";
 
 const NavBar: React.FC = () => {
-  return (
-    <div>NaASEDASDSADSADSADASDSA NAVSvBar</div>
-  )
-}
+  return <div>NaASEDASDSADSADSADASDSA TRY NAVSvBar</div>;
+};
 
-export default NavBar
+export default NavBar;
