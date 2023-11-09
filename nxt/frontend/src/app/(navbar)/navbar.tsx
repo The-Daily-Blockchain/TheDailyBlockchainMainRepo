@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const NavBar: React.FC = () => {
   return (
-    <div className="bg-[#FAF9F6]">
+    <div className="bg-[#fff]">
       <div className="flex border-b-2 border-gray-300">
         <div className="mx-auto">
           <Image
@@ -16,8 +16,9 @@ const NavBar: React.FC = () => {
           />
         </div>
       </div>
-      <div className="flex justify-end">
+      <div className="flex justify-center border-double border-b-4 bg-[#FFFFFF] space-x-16 py-3 text-[12px]">
         <div> About</div>
+        <div> Top News</div>
         <div> Crypto101</div>
         <div> Live Prices</div>
       </div>
