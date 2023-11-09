@@ -2,9 +2,11 @@ import React from "react";
 
 const LeftCover = () => {
   return (
-    <div className=" ">
-      <div className="flex justify-center text-3xl font-bold">Top Stories</div>
-      <div className=" mt-10 w-50 ml-6 w-4/5 justify-center">
+    <div className="grid">
+      <div className="text-3xl mt-5 font-bold grid justify-center">
+        Top Stories
+      </div>
+      <div className="justify-items-end ml-[75px]">
         <div className="text-[22px] font-medium text-[#121212]">
           LOREM LOREM IPSUMSUM SAMESSAME LOREM LOREM
         </div>

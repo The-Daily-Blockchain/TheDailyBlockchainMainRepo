@@ -9,5 +9,5 @@ async function getSomeData() {
 
 export default async function Home() {
   const data = await getSomeData();
-  return <Link href="/dashboard">Dashboard</Link>;
+  return <div></div>;
 }

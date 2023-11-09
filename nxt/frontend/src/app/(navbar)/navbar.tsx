@@ -21,6 +21,7 @@ const NavBar: React.FC = () => {
         <div> Top News</div>
         <div> Crypto101</div>
         <div> Live Prices</div>
+        <div> Donate Us</div>
       </div>
     </div>
   );
