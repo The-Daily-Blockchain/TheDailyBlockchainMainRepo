@@ -1,13 +1,13 @@
-import Link from "next/link";
+"useClient";
+import React from "react";
+import MainPage from "./(mainbody)/mainpage";
 
-async function getSomeData() {
-  await new Promise((resolve) => setTimeout(resolve, 3000));
-  return {
-    data: "some data",
-  };
-}
+const index = () => {
+  return (
+    <div>
+      <MainPage />
+    </div>
+  );
+};
 
-export default async function Home() {
-  const data = await getSomeData();
-  return <div></div>;
-}
+export default index;
