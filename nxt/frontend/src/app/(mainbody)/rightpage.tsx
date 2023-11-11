@@ -49,7 +49,7 @@ const RightPage = () => {
         </div>
         <div> by: Dexter</div>
       </div>
-      <div className="border-b-2 border-solid border-[#121212] mb-8 pb-6">
+      <div className="mb-8 pb-6">
         <div className="text-[22px] font-medium text-[#121212]">
           LOREM LOREM IPSUMSUM SAMESSAME LOREM LOREM
         </div>
