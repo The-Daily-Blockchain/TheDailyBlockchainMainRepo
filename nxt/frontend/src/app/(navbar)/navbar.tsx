@@ -2,6 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import MarQuee from "./marquee";
 
 const NavBar: React.FC = () => {
   return (
@@ -23,6 +24,7 @@ const NavBar: React.FC = () => {
         <div> Live Prices</div>
         <div> Donate Us</div>
       </div>
+      <MarQuee />
     </div>
   );
 };
