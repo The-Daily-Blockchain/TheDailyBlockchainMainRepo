@@ -5,7 +5,7 @@ import LeftCover from "./leftCover";
 
 const Cover = () => {
   return (
-    <div className="grid grid-cols-2 mt-10 pt-6 border-t-4 border-[#000]">
+    <div className="grid grid-cols-2 pt-6 border-t-4 border-[#000]">
       <LeftCover />
       <RightCover />
     </div>
