@@ -5,17 +5,17 @@ import Image from "next/image";
 const RightCover = () => {
   const slides = [
     {
-      url: "../1.png",
+      url: "/1.png",
       width: 30,
       height: 30,
     },
     {
-      url: "../2.png",
+      url: "/2.png",
       width: 30,
       height: 30,
     },
     {
-      url: "../3.png",
+      url: "/3.png",
       width: 30,
       height: 30,
     },
@@ -41,22 +41,30 @@ const RightCover = () => {
 
   return (
     <div className="mb-10">
-      <div className="h-[585px] hidden lg:block">
-        <div className="max-w-[1280] w-11/12 m-auto py-6 h-screen px-4 relative group">
-          <div
-            style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
-            className="w-full h-4/6 rounded-2xl bg-center bg-contain  duration-500"
-          ></div>
-          <div className="flex top-4 justify-center">
-            {slides.map((slide, slideIndex) => (
-              <div
-                key={slideIndex}
-                className={`slide ${
-                  slideIndex === currentIndex ? "" : ""
-                } transition-opacity duration-1000 ease-in-out`}
-                style={{ opacity: slideIndex === currentIndex ? 1 : 0.3 }}
-              ></div>
-            ))}
+      <div className="h-[585px]">
+        <div
+          className="max-w-[1280] w-11/12 mx-auto py-6 h-full px-4 relative group"
+          style={{ overflow: "hidden" }}
+        >
+          <div className="relative w-full h-3/4 overflow-hidden rounded-2xl">
+            <Image
+              src={slides[currentIndex].url}
+              alt={`Slide ${currentIndex + 1}`}
+              layout="fill"
+              className="w-full rounded-2xl duration-500"
+              objectFit="cover"
+            />
+            <div className="flex top-4 justify-center">
+              {slides.map((slide, slideIndex) => (
+                <div
+                  key={slideIndex}
+                  className={`slide ${
+                    slideIndex === currentIndex ? "" : ""
+                  } transition-opacity duration-1000 ease-in-out`}
+                  style={{ opacity: slideIndex === currentIndex ? 1 : 0.3 }}
+                ></div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
