@@ -3,6 +3,7 @@ import React, { ReactNode, useEffect, useState } from "react";
 
 import Marquee from "react-fast-marquee";
 import { Constants } from "../(values)/(constants)/constants";
+import Skeleton from "react-loading-skeleton";
 
 interface Crypto {
   symbol: string;
@@ -15,6 +16,7 @@ interface Crypto {
 
 const MarQuee = () => {
   const [crypto, setCrypto] = useState<Crypto[]>([]);
+  const [isLoading, setLoading] = useState<Boolean>(true);
 
   const crypto_api = Constants.crypto_api;
   useEffect(() => {
@@ -23,6 +25,7 @@ const MarQuee = () => {
         .then((res) => res.json())
         .then((data) => {
           setCrypto(data);
+          setLoading(false);
         });
     };
     fetchCrypto();
@@ -33,7 +36,8 @@ const MarQuee = () => {
     // Cleanup function
     return () => clearInterval(interval);
   });
-
+  if (isLoading) return <Skeleton />;
+  if (!crypto) return <Skeleton />;
   return (
     <Marquee>
       <div className="flex border-b-4 border-[#000]">
