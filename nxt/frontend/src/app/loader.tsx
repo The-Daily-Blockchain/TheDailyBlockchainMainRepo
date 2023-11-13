@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-export default function Loading() {
+export default function Loader() {
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <div className="relative h-[100px] w-[100px]">
