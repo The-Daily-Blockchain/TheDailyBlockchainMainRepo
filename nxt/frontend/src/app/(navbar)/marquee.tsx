@@ -25,12 +25,11 @@ const MarQuee = () => {
           setCrypto(data);
         });
     };
-    fetchCrypto(); // Fetch data for the first time
+    fetchCrypto();
 
     const interval = setInterval(() => {
       fetchCrypto();
-    }, 50000); // Fetch data every minute (60000 milliseconds)
-
+    }, 50000);
     // Cleanup function
     return () => clearInterval(interval);
   });
