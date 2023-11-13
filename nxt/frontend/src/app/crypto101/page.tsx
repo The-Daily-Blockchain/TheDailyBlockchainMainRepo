@@ -2,6 +2,7 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { Constants } from "../(values)/(constants)/constants";
 import Image from "next/image";
+import Loading from "./loading";
 
 interface Crypto {
   symbol: string;
@@ -14,6 +15,7 @@ interface Crypto {
 
 const CrytoPage = () => {
   const [crypto, setCrypto] = useState<Crypto[]>([]);
+  const [isLoading, setLoading] = useState<Boolean>(true);
 
   const crypto_api = Constants.crypto_api;
   useEffect(() => {
@@ -22,15 +24,19 @@ const CrytoPage = () => {
         .then((res) => res.json())
         .then((data) => {
           setCrypto(data);
+          setLoading(false);
         });
     };
     fetchCrypto();
 
     const interval = setInterval(() => {
       fetchCrypto();
-    }, 50000);
+    }, 10000);
     return () => clearInterval(interval);
   });
+
+  if (isLoading) return <Loading />;
+  if (!crypto) return <Loading />;
 
   return (
     <>
