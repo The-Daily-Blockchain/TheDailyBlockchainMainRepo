@@ -36,7 +36,7 @@ const MarQuee = () => {
 
   return (
     <Marquee>
-      <div className="flex">
+      <div className="flex border-b-4 border-[#000]">
         {crypto.map((coin) => (
           <div
             className="mr-3 flex border-solid border-black border-r-2 pr-2"
