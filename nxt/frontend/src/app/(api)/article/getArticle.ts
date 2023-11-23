@@ -21,6 +21,4 @@ export default async function handler(
     res.status(500).json({ error: "Internal Server Error" });
   }
 }
-
-// TODO
-// TODO LATER
+// fetching method of next
