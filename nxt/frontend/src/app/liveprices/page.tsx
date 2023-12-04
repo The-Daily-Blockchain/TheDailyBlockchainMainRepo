@@ -20,13 +20,15 @@ const CrytoPage = () => {
 
   const crypto_api = Constants.crypto_api;
   useEffect(() => {
-    const fetchCrypto = () => {
-      fetch(crypto_api)
-        .then((res) => res.json())
-        .then((data) => {
-          setCrypto(data);
-          setLoading(false);
-        });
+    const fetchCrypto = async () => {
+      try {
+        const res = await fetch(crypto_api);
+        const data = await res.json();
+        setCrypto(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching crypto data:", error);
+      }
     };
     fetchCrypto();
 

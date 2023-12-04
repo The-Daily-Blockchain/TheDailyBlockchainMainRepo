@@ -23,7 +23,7 @@ const RightCover = () => {
   const [currentIndex, setCurrentIndex] = useState<any>(0);
   const autoScroll = true;
   let slideInterval: any;
-  let intervalTime = 1500;
+  let intervalTime = 6000;
 
   const nextSlide = () => {
     const isLastSlide = currentIndex === slides.length - 1;
@@ -59,8 +59,8 @@ const RightCover = () => {
                 <div
                   key={slideIndex}
                   className={`slide ${
-                    slideIndex === currentIndex ? "" : ""
-                  } transition-opacity duration-1000 ease-in-out`}
+                    slideIndex === currentIndex ? "" : "opacity-30"
+                  } transition-opacity duration-2000 ease-in-out`}
                   style={{ opacity: slideIndex === currentIndex ? 1 : 0.3 }}
                 ></div>
               ))}
