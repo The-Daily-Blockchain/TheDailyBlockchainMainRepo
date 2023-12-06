@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 const onGet = async (req: NextApiRequest, res: NextApiResponse) => {
   const params = req?.query;
-  const url = `${process.env.PAYMENT_BASE_URL}/bank-account/`;
+  const url = `${process.env.BACKEND_URL}/articles/`;
   const result = await requestServer(
     url,
     {
