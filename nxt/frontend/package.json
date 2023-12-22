@@ -19,7 +19,8 @@
     "react-dom": "latest",
     "react-fast-marquee": "^1.6.2",
     "react-icons": "^4.11.0",
-    "react-loading-skeleton": "^3.3.1"
+    "react-loading-skeleton": "^3.3.1",
+    "swr": "^2.2.4"
   },
   "devDependencies": {
     "@types/cookie": "^0.6.0",

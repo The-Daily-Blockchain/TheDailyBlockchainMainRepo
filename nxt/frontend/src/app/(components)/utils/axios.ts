@@ -2,7 +2,7 @@
 // import { notification } from "antd";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import cookie from "cookie";
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
 import get from "lodash/get";
 import { NextApiRequest, NextApiResponse } from "next";
 import { CookieKey } from "../enums/common/cookie";
