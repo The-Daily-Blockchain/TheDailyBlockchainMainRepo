@@ -23,11 +23,17 @@ const MarQuee = () => {
     const fetchCrypto = async () => {
       try {
         const res = await fetch(crypto_api);
+
+        if (!res.ok) {
+          throw new Error(`Failed to fetch data. Status: ${res.status}`);
+        }
+
         const data = await res.json();
         setCrypto(data);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching crypto data:", error);
+        setLoading(false);
       }
     };
     fetchCrypto();
@@ -35,9 +41,8 @@ const MarQuee = () => {
     const interval = setInterval(() => {
       fetchCrypto();
     }, 50000);
-    // Cleanup function
     return () => clearInterval(interval);
-  });
+  }, [crypto_api]);
   if (isLoading) return <Skeleton />;
   if (!crypto) return <Skeleton />;
   return (
