@@ -32,7 +32,6 @@ const MarQuee = () => {
         setCrypto(data);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching crypto data:", error);
         setLoading(false);
       }
     };

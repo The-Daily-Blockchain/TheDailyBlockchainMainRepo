@@ -13,7 +13,6 @@ const LeftPage = () => {
   if (error) {
     return <Loader />;
   }
-  console.log("Data:", data.results);
 
   return (
     <div className="mr-6">
