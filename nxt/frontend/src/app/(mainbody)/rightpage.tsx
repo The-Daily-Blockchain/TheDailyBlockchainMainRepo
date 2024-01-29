@@ -18,15 +18,23 @@ const RightPage = () => {
       <div className="font-bold text-[22px] mb-10">Current News</div>
       {data?.results
         ?.filter((post: any) => !post.archived_post)
-        .map((x: any) => (
+        .map((x: any, index: number) => (
           <div
             key={x.id}
-            className="border-b-2 border-solid border-[#121212] mb-8 pb-6"
+            className={`mb-8 pb-6 ${
+              index === data.results.length - 1
+                ? ""
+                : "border-b-2 border-solid border-[#121212]"
+            }`}
           >
             <div className="text-[22px] font-medium text-[#121212]">
               {x.title_post}
             </div>
-            <div className="text-[#5a5a5a] text-[14px]">{x.content_post}</div>
+            <div className="text-[#5a5a5a] text-[14px]">
+              {x.content_post.length > 400
+                ? `${x.content_post.substring(0, 400)}...`
+                : x.content_post}
+            </div>
             <div>
               By: {x?.author_post?.first_name} {x?.author_post?.last_name}
             </div>

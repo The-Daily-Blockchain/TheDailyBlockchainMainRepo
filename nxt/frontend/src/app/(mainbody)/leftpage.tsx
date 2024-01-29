@@ -19,13 +19,22 @@ const LeftPage = () => {
       <div className="font-bold text-2xl mb-10">Current News LEFT</div>
       {data?.results
         ?.filter((article: any) => !article.archived)
-        .map((x: any) => (
+        .map((x: any, index: number) => (
           <div
-            className="border-b-2 border-solid border-[#121212] mb-8 pb-6"
             key={x.id}
+            className={`mb-8 pb-6 ${
+              index === data.results.length - 1
+                ? ""
+                : "border-b-2 border-solid border-[#121212]"
+            }`}
           >
             <div className="text-2xl font-medium text-[#121212]">{x.title}</div>
-            <div className="text-[#5a5a5a] text-[14px]">{x.content}</div>
+            <div className="text-[#5a5a5a] text-[14px]">
+              {" "}
+              {x.content.length > 400
+                ? `${x.content.substring(0, 400)}...`
+                : x.content}
+            </div>
             <div>
               By: {x.author.first_name} {x.author.last_name}
             </div>
