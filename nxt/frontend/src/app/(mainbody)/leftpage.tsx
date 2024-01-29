@@ -18,7 +18,7 @@ const LeftPage = () => {
     <div className="mr-6">
       <div className="font-bold text-2xl mb-10">Current News LEFT</div>
       {data?.results
-        ?.filter((post: any) => !post.archived_post)
+        ?.filter((article: any) => !article.archived)
         .map((x: any) => (
           <div
             className="border-b-2 border-solid border-[#121212] mb-8 pb-6"
