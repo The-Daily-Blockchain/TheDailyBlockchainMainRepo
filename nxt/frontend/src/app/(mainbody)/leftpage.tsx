@@ -18,7 +18,9 @@ const LeftPage = () => {
     <div className="mr-6">
       <div className="font-bold text-2xl mb-10">Current News LEFT</div>
       {data?.results
-        ?.filter((article: any) => !article.archived)
+        ?.filter(
+          (article: any, index: number) => index > 1 && !article.archived
+        )
         .map((x: any, index: number) => (
           <div
             key={x.id}
