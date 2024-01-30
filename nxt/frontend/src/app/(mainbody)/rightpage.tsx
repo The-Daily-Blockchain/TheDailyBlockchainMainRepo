@@ -15,7 +15,7 @@ const RightPage = () => {
   }
   return (
     <div className="mr-6">
-      <div className="font-bold text-[22px] mb-10">Current News</div>
+      <div className="font-bold text-[22px] mb-10">Current events</div>
       {data?.results
         ?.filter((post: any) => !post.archived_post)
         .map((x: any, index: number) => (
