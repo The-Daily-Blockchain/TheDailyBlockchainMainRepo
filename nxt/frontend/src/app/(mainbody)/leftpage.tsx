@@ -32,7 +32,6 @@ const LeftPage = () => {
           >
             <div className="text-2xl font-medium text-[#121212]">{x.title}</div>
             <div className="text-[#5a5a5a] text-[14px]">
-              {" "}
               {x.content.length > 400
                 ? `${x.content.substring(0, 400)}...`
                 : x.content}
