@@ -43,7 +43,7 @@ const RightCover = () => {
     <div className="mb-10">
       <div className="h-[585px]">
         <div
-          className="max-w-[1280] w-11/12 mx-auto py-6 h-full px-4 relative group mt-8"
+          className="max-w-[1280] w-11/12 mx-auto py-6 h-full px-4 relative group mt-32"
           style={{ overflow: "hidden" }}
         >
           <div className="relative w-full h-3/4 overflow-hidden rounded-2xl">
