@@ -17,7 +17,7 @@ const LeftCover = () => {
 
   return (
     <div className="grid">
-      <div className="text-[22px] mt-5 font-bold grid justify-center text-[#303030]">
+      <div className="text-3xl mt-5 font-bold grid justify-center text-[#303030]">
         Top Stories
       </div>
       {data?.results
