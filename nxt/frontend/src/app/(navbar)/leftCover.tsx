@@ -47,11 +47,11 @@ const LeftCover = () => {
                   By: {x.author.first_name} {x.author.last_name}
                 </div>
               </div>
-              <div>
-                <div
-                  className="text-[16px] font-medium text-[#121212]"
-                  onClick={() => router.push(`/article/${x.id}`)}
-                >
+              <div
+                onClick={() => router.push(`/article/${x.id}`)}
+                style={{ cursor: "pointer" }}
+              >
+                <div className="text-[16px] font-medium text-[#121212]">
                   {x.title}
                 </div>
                 <div className="text-[#5a5a5a] text-[12px] mt-6">

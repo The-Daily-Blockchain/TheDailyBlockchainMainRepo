@@ -3,10 +3,12 @@ import useSWR from "swr";
 import React from "react";
 import { fetcher } from "../(components)/utils/fetcher";
 import Loader from "../loader";
-import CommonPage from "./commonPage";
+import { useRouter } from "next/navigation";
 
 const LeftPage = () => {
   const { data, error, isLoading } = useSWR("/api/article", fetcher);
+  const router = useRouter();
+
   if (isLoading) {
     return <Loader />;
   }
@@ -32,24 +34,22 @@ const LeftPage = () => {
                   : "border-b-2 border-solid border-[#121212]"
               }`}
             >
-              <div className="text-2xl font-medium text-[#121212]">
-                {x.title}
-              </div>
-              <div className="text-[#5a5a5a] text-[14px]">
-                {x.content.length > 400
-                  ? `${x.content.substring(0, 400)}...`
-                  : x.content}
+              <div
+                onClick={() => router.push(`/article/${x.id}`)}
+                style={{ cursor: "pointer" }}
+              >
+                <div className="text-2xl font-medium text-[#121212]">
+                  {x.title}
+                </div>
+                <div className="text-[#5a5a5a] text-[14px]">
+                  {x.content.length > 400
+                    ? `${x.content.substring(0, 400)}...`
+                    : x.content}
+                </div>
               </div>
               <div>
                 By: {x.author.first_name} {x.author.last_name}
               </div>
-              <CommonPage
-                payload={undefined} // title={x.title}
-                isLoading={undefined} // content={x.content}
-                error={undefined} // image={x.image}
-                // author={`${x.author.first_name} ${x.author.last_name}`}
-                // date={x.date}
-              />
             </div>
           ))}
       </div>
