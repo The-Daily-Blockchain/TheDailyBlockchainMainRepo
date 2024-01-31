@@ -44,11 +44,11 @@ const LeftPage = () => {
                 By: {x.author.first_name} {x.author.last_name}
               </div>
               <CommonPage
-                title={x.title}
-                content={x.content}
-                image={x.image}
-                author={`${x.author.first_name} ${x.author.last_name}`}
-                date={x.date}
+                payload={undefined} // title={x.title}
+                isLoading={undefined} // content={x.content}
+                error={undefined} // image={x.image}
+                // author={`${x.author.first_name} ${x.author.last_name}`}
+                // date={x.date}
               />
             </div>
           ))}

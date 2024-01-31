@@ -1,27 +1,18 @@
 "use client";
 import React from "react";
 interface Props {
-  title: string;
-  content: string;
-  image: string;
-  author: string;
-  date: string;
+  payload: any;
+  isLoading: any;
+  error: any;
 }
 
-export default function CommonPage({
-  title,
-  content,
-  image,
-  author,
-  date,
-}: Props) {
+export default function CommonPage({ payload, isLoading, error }: Props) {
+  console.log(payload);
   return (
     <>
       <div>
-        <div>{title}</div>
-        <div>{author}</div>
-        <div>{date}</div>
-        <div>{content}</div>
+        <div>{payload?.title}</div>
+        <div>{payload?.content}</div>
       </div>
     </>
   );

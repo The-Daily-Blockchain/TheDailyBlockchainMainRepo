@@ -4,9 +4,12 @@ import React from "react";
 import Image from "next/image";
 import { fetcher } from "../(components)/utils/fetcher";
 import Loader from "../loader";
+import { useRouter } from "next/navigation";
 
 const LeftCover = () => {
+  const router = useRouter();
   const { data, error, isLoading } = useSWR("/api/article", fetcher);
+
   if (isLoading) {
     return <Loader />;
   }
@@ -45,7 +48,10 @@ const LeftCover = () => {
                 </div>
               </div>
               <div>
-                <div className="text-[16px] font-medium text-[#121212]">
+                <div
+                  className="text-[16px] font-medium text-[#121212]"
+                  onClick={() => router.push(`/article/${x.id}`)}
+                >
                   {x.title}
                 </div>
                 <div className="text-[#5a5a5a] text-[12px] mt-6">
