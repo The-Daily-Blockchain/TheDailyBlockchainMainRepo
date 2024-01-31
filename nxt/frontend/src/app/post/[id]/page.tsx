@@ -9,7 +9,7 @@ export default function Page({ params }: { params: { id: string } }) {
     data: dataDetails,
     error: errorDetails,
     isLoading: isLoadingDetails,
-  } = useSWR(`/api/article/details/${params.id}`, fetcher);
+  } = useSWR(`/api/post/details/${params.id}`, fetcher);
 
   return (
     <div>

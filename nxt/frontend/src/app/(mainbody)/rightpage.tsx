@@ -3,9 +3,11 @@ import useSWR from "swr";
 import React from "react";
 import { fetcher } from "../(components)/utils/fetcher";
 import Loader from "../loader";
+import { useRouter } from "next/navigation";
 
 const RightPage = () => {
   const { data, error, isLoading } = useSWR("/api/post", fetcher);
+  const router = useRouter();
   if (isLoading) {
     return <Loader />;
   }
@@ -27,7 +29,11 @@ const RightPage = () => {
                 : "border-b-2 border-solid border-[#121212]"
             }`}
           >
-            <div className="text-[22px] font-medium text-[#121212]">
+            <div
+              className="text-[22px] font-medium text-[#121212]"
+              onClick={() => router.push(`/post/${x.id}`)}
+              style={{ cursor: "pointer" }}
+            >
               {x.title_post}
             </div>
             <div className="text-[#5a5a5a] text-[14px]">
