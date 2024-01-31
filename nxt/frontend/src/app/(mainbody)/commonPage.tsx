@@ -1,5 +1,7 @@
 "use client";
-import React from "react";
+import React, { Component } from "react";
+import { formatDate } from "../(components)/utils/formattingData";
+
 interface Props {
   payload: any;
   isLoading: any;
@@ -7,11 +9,14 @@ interface Props {
 }
 
 export default function CommonPage({ payload, isLoading, error }: Props) {
-  console.log(payload);
   return (
     <>
       <div>
-        <div>{payload?.title}</div>
+        <div className="mb-10">{payload?.title}</div>
+        <div>
+          By: {payload?.author?.first_name} {payload?.author?.last_name}
+        </div>
+        <div>{formatDate(payload?.time_created)}</div>
         <div>{payload?.content}</div>
       </div>
     </>
