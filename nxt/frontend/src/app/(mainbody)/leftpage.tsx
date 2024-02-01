@@ -4,6 +4,7 @@ import React from "react";
 import { fetcher } from "../(components)/utils/fetcher";
 import Loader from "../loader";
 import { useRouter } from "next/navigation";
+import { formatDate } from "../(components)/utils/formattingData";
 
 const LeftPage = () => {
   const { data, error, isLoading } = useSWR("/api/article", fetcher);
@@ -38,18 +39,19 @@ const LeftPage = () => {
                 onClick={() => router.push(`/article/${x.id}`)}
                 style={{ cursor: "pointer" }}
               >
-                <div className="text-2xl font-medium text-[#121212]">
+                <div className="text-2xl font-medium text-[#121212] hover:opacity-50 transition-opacity duration-300">
                   {x.title}
                 </div>
-                <div className="text-[#5a5a5a] text-[14px]">
+                <div className="text-[#5a5a5a] text-[14px] hover:opacity-50 transition-opacity duration-300 mt-3">
                   {x.content.length > 400
                     ? `${x.content.substring(0, 400)}...`
                     : x.content}
                 </div>
               </div>
-              <div>
+              <div className="mt-4 font-bold">
                 By: {x.author.first_name} {x.author.last_name}
               </div>
+              <div className="text-xs">{formatDate(x.time_created)}</div>
             </div>
           ))}
       </div>

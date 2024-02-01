@@ -4,6 +4,7 @@ import React from "react";
 import { fetcher } from "../(components)/utils/fetcher";
 import Loader from "../loader";
 import { useRouter } from "next/navigation";
+import { formatDate } from "../(components)/utils/formattingData";
 
 const RightPage = () => {
   const { data, error, isLoading } = useSWR("/api/post", fetcher);
@@ -30,20 +31,22 @@ const RightPage = () => {
             }`}
           >
             <div
-              className="text-[22px] font-medium text-[#121212]"
               onClick={() => router.push(`/post/${x.id}`)}
               style={{ cursor: "pointer" }}
             >
-              {x.title_post}
+              <div className="text-[22px] font-medium text-[#121212] hover:opacity-50 transition-opacity duration-300">
+                {x.title_post}
+              </div>
+              <div className="text-[#5a5a5a] text-[14px] hover:opacity-50 transition-opacity duration-300 mt-3">
+                {x.content_post.length > 400
+                  ? `${x.content_post.substring(0, 400)}...`
+                  : x.content_post}
+              </div>
             </div>
-            <div className="text-[#5a5a5a] text-[14px]">
-              {x.content_post.length > 400
-                ? `${x.content_post.substring(0, 400)}...`
-                : x.content_post}
+            <div className="mt-4 font-bold">
+              By: {x.author_post.first_name} {x.author_post.last_name}
             </div>
-            <div>
-              By: {x?.author_post?.first_name} {x?.author_post?.last_name}
-            </div>
+            <div className="text-xs">{formatDate(x.time_created_post)}</div>
           </div>
         ))}
     </div>

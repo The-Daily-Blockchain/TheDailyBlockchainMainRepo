@@ -5,6 +5,7 @@ import Image from "next/image";
 import { fetcher } from "../(components)/utils/fetcher";
 import Loader from "../loader";
 import { useRouter } from "next/navigation";
+import { formatDate } from "../(components)/utils/formattingData";
 
 const LeftCover = () => {
   const router = useRouter();
@@ -43,18 +44,21 @@ const LeftCover = () => {
                     src={x.image}
                   />
                 </div>
-                <div className="flex justify-center items-center mt-2">
+                <div className="flex justify-center items-center mt-4 font-bold">
                   By: {x.author.first_name} {x.author.last_name}
+                </div>
+                <div className="flex justify-center items-center text-xs">
+                  {formatDate(x.time_created)}
                 </div>
               </div>
               <div
                 onClick={() => router.push(`/article/${x.id}`)}
                 style={{ cursor: "pointer" }}
               >
-                <div className="text-[16px] font-medium text-[#121212]">
+                <div className="text-[16px] font-medium text-[#121212] hover:opacity-50 transition-opacity duration-300">
                   {x.title}
                 </div>
-                <div className="text-[#5a5a5a] text-[12px] mt-6">
+                <div className="text-[#5a5a5a] text-[12px] mt-6 hover:opacity-50 transition-opacity duration-300">
                   {x.content.length > 280
                     ? `${x.content.substring(0, 280)}...`
                     : x.content}
