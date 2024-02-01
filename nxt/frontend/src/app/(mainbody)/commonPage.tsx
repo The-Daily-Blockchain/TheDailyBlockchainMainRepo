@@ -11,16 +11,23 @@ interface Props {
 export default function CommonPage({ payload, isLoading, error }: Props) {
   return (
     <>
-      <div className="h-screen">
-        <div className="mb-10">{payload?.title || payload?.title_post}</div>
+      <div className="h-screen grid grid-cols-3  mt-10">
+        <div></div>
         <div>
-          By: {payload?.author?.first_name || payload?.author_post?.first_name}
-          {payload?.author?.last_name || payload?.author_post?.last_name}
+          <div className="mb-10 font-bold text-xl">
+            {payload?.title || payload?.title_post}
+          </div>
+          <div>
+            {payload?.author?.first_name || payload?.author_post?.first_name}
+            {payload?.author?.last_name || payload?.author_post?.last_name}
+          </div>
+
+          <div className="mb-10">
+            {formatDate(payload?.time_created || payload?.time_created_post)}
+          </div>
+          <div>{payload?.content || payload?.content_post}</div>
         </div>
-        <div>
-          {formatDate(payload?.time_created || payload?.time_created_post)}
-        </div>
-        <div>{payload?.content || payload?.content_post}</div>
+        <div></div>
       </div>
     </>
   );
