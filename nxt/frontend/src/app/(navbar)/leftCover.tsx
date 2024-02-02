@@ -1,23 +1,19 @@
 "use client";
 import useSWR from "swr";
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { fetcher } from "../(components)/utils/fetcher";
 import Loader from "../loader";
 import { useRouter } from "next/navigation";
 import { formatDate } from "../(components)/utils/formattingData";
 
+interface Props {
+  onLoadingStatus: (loadingStatus: boolean) => void;
+}
+
 const LeftCover = () => {
   const router = useRouter();
-  const { data, error, isLoading } = useSWR("/api/article", fetcher);
-
-  if (isLoading) {
-    return <Loader />;
-  }
-
-  if (error) {
-    return <Loader />;
-  }
+  const { data } = useSWR("/api/article", fetcher);
 
   return (
     <div className="grid">

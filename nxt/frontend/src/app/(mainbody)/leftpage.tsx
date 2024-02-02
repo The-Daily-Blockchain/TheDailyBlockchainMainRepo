@@ -7,16 +7,8 @@ import { useRouter } from "next/navigation";
 import { formatDate } from "../(components)/utils/formattingData";
 
 const LeftPage = () => {
-  const { data, error, isLoading } = useSWR("/api/article", fetcher);
+  const { data } = useSWR("/api/article", fetcher);
   const router = useRouter();
-
-  if (isLoading) {
-    return <Loader />;
-  }
-
-  if (error) {
-    return <Loader />;
-  }
 
   return (
     <>

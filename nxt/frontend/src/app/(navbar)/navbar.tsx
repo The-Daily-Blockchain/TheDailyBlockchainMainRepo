@@ -24,11 +24,16 @@ const NavBar: React.FC = () => {
         </div>
       </div>
       <div className="flex justify-center border-double border-b-4 border-[#000] bg-[#FFFFFF] space-x-16 py-3 text-[12px]">
-        <div> About</div>
-        <div> Top News</div>
-        <div> Crypto101</div>
-        <div> Live Prices</div>
-        <div> Donate Us</div>
+        <div style={{ cursor: "pointer" }}> About</div>
+        <div style={{ cursor: "pointer" }}> Top News</div>
+        <div style={{ cursor: "pointer" }}> Crypto101</div>
+        <div
+          style={{ cursor: "pointer" }}
+          onClick={() => router.push(`/liveprices`)}
+        >
+          Live Prices
+        </div>
+        <div style={{ cursor: "pointer" }}> Donate Us</div>
       </div>
       <MarQuee />
     </div>

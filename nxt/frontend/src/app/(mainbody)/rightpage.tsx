@@ -7,15 +7,9 @@ import { useRouter } from "next/navigation";
 import { formatDate } from "../(components)/utils/formattingData";
 
 const RightPage = () => {
-  const { data, error, isLoading } = useSWR("/api/post", fetcher);
+  const { data } = useSWR("/api/post", fetcher);
   const router = useRouter();
-  if (isLoading) {
-    return <Loader />;
-  }
 
-  if (error) {
-    return <Loader />;
-  }
   return (
     <div className="mr-6">
       <div className="font-bold text-[22px] mb-10">Crypto 101</div>
