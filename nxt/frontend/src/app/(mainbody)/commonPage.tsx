@@ -11,14 +11,15 @@ interface Props {
 export default function CommonPage({ payload, isLoading, error }: Props) {
   return (
     <>
-      <div className="h-screen grid grid-cols-3  mt-10">
+      <div className="h-full grid grid-cols-3  mt-28 mb-10">
         <div></div>
         <div>
           <div className="mb-10 font-bold text-xl">
             {payload?.title || payload?.title_post}
           </div>
           <div>
-            {payload?.author?.first_name || payload?.author_post?.first_name}
+            By:{" "}
+            {payload?.author?.first_name || payload?.author_post?.first_name}{" "}
             {payload?.author?.last_name || payload?.author_post?.last_name}
           </div>
 

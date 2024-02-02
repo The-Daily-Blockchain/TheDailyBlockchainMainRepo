@@ -3,12 +3,18 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import MarQuee from "./marquee";
+import { useRouter } from "next/navigation";
 
 const NavBar: React.FC = () => {
+  const router = useRouter();
   return (
     <div className="bg-[#fff]">
       <div className="flex border-b-2 border-[#ebebeb]">
-        <div className="mx-auto">
+        <div
+          className="mx-auto"
+          onClick={() => router.push("/")}
+          style={{ cursor: "pointer" }}
+        >
           <Image
             src="/Daily.png"
             alt="Daily Blockchain Ph"
