@@ -1,13 +1,11 @@
 "useClient";
 import React from "react";
-import MainPage from "./(mainbody)/mainpage";
-import Cover from "./(navbar)/cover";
+import Body from "./(mainbody)/body";
 
 const index = () => {
   return (
     <div>
-      <Cover />
-      <MainPage />
+      <Body />
     </div>
   );
 };
