@@ -1,6 +1,7 @@
 "use client";
 import React, { Component } from "react";
 import { formatDate } from "../(components)/utils/formattingData";
+import Loader from "../loader";
 
 interface Props {
   payload: any;
@@ -9,6 +10,9 @@ interface Props {
 }
 
 export default function CommonPage({ payload, isLoading, error }: Props) {
+  if (isLoading) {
+    return <Loader />;
+  }
   return (
     <>
       <div className="h-full grid grid-cols-3  mt-28 mb-10">
