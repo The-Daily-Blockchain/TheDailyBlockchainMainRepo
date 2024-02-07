@@ -27,6 +27,7 @@ const NavBar: React.FC = () => {
       <div className="flex justify-center border-double border-b-4 border-[#000] bg-[#FFFFFF] space-x-16 py-3 text-[12px]">
         <div
           className="no-underline hover:underline hover:opacity-60"
+          onClick={() => router.push("/about")}
           style={{ cursor: "pointer" }}
         >
           {" "}
@@ -34,6 +35,7 @@ const NavBar: React.FC = () => {
         </div>
         <div
           className="no-underline hover:underline hover:opacity-60"
+          onClick={() => router.push("/topnews")}
           style={{ cursor: "pointer" }}
         >
           {" "}

@@ -15,7 +15,7 @@ const Body = () => {
   }
   return (
     <div className="flex grid-cols-2">
-      <div className="w-2/12">BANNER</div>
+      <div className="w-2/12 bg-black">BANNER</div>
       <div className="w-10/12">
         <Cover />
         <MainPage />
