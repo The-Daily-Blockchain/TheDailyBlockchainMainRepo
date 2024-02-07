@@ -27,7 +27,7 @@ export default function CommonPage({ payload, isLoading, error }: Props) {
             {payload?.author?.last_name || payload?.author_post?.last_name}
           </div>
 
-          <div className="mb-10">
+          <div className="mb-10 text-sm">
             {formatDate(payload?.time_created || payload?.time_created_post)}
           </div>
           <div>{payload?.content || payload?.content_post}</div>
