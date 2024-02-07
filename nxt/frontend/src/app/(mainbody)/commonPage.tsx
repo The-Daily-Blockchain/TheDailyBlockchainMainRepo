@@ -15,7 +15,7 @@ export default function CommonPage({ payload, isLoading, error }: Props) {
   }
   return (
     <>
-      <div className="h-full grid grid-cols-3  mt-28 mb-10">
+      <div className="h-screen grid grid-cols-3  mt-28 mb-10 overflow-y-auto">
         <div></div>
         <div>
           <div className="mb-10 font-bold text-xl">
