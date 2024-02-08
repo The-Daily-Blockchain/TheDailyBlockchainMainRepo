@@ -4,6 +4,7 @@ import Image from "next/image";
 import parse from "html-react-parser";
 import Loader from "../loader";
 import Error from "../error";
+import { useRouter } from "next/navigation";
 
 interface Props {
   data: any;
@@ -13,6 +14,8 @@ interface Props {
 }
 
 const BodyList = ({ data, isLoading, error, title }: Props) => {
+  const router = useRouter();
+
   if (isLoading) {
     return <Loader />;
   }
@@ -26,8 +29,8 @@ const BodyList = ({ data, isLoading, error, title }: Props) => {
           {title}
         </div>
         {data?.results?.map?.((x: any) => (
-          <div key={x.id} className="mx-1 mt-8">
-            <div className="font-bold">{x.title || x.title_post}</div>
+          <div key={x.id} className="mx-1 mt-8 border-b-2 mb-2">
+            <div className="font-bold mb-3">{x.title || x.title_post}</div>
             <div className="flex">
               <div>
                 <Image
@@ -37,7 +40,23 @@ const BodyList = ({ data, isLoading, error, title }: Props) => {
                   src={x.image || x.image_post}
                 />
               </div>
-              <div className="mx-10">
+              <div
+                className="mx-10 hover:cursor-pointer hover:opacity-60"
+                onClick={() => {
+                  const hasTitle = data?.results?.some(
+                    (x: { title: any }) => x.title
+                  );
+                  const hasTitlePost = data?.results?.some(
+                    (x: { title_post: any }) => x.title_post
+                  );
+
+                  if (hasTitle) {
+                    router.push(`/article/${x.id}`);
+                  } else if (hasTitlePost) {
+                    router.push(`/post/${x.id}`);
+                  }
+                }}
+              >
                 {parse(
                   (x?.content && x.content.length > 300) ||
                     (x?.content_post && x.content_post.length > 300)
@@ -46,7 +65,7 @@ const BodyList = ({ data, isLoading, error, title }: Props) => {
                 )}
               </div>
             </div>
-            <div>
+            <div className="my-2">
               By: {x?.author?.first_name || x?.author_post?.first_name}
               {x?.author?.last_name || x?.author_post?.last_name}
             </div>

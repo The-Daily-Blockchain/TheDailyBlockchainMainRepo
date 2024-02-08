@@ -31,7 +31,9 @@ export default function CommonPage({ payload, isLoading, error }: Props) {
           <div className="mb-10 text-sm">
             {formatDate(payload?.time_created || payload?.time_created_post)}
           </div>
-          <div> {parse(payload?.content || payload?.content_post)}</div>
+          <div>
+            {parse((payload?.content || "") + (payload?.content_post || ""))}
+          </div>
         </div>
         <div></div>
       </div>
