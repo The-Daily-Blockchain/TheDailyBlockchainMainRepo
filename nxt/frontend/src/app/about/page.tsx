@@ -5,12 +5,11 @@ const page = () => {
   return (
     <>
       <div className="hidden md:block">
-        <div className="flex grid-cols-3">
-          <div className="bg-black w-5/12">components</div>
+        <div className="grid grid-cols-[1fr,3fr,1fr]">
+          <div className="bg-black">components</div>
           <div>
             <div className="grid grid-cols-2">
               <div className="align-center text-center items-center">
-                {/* <img src={ black } className='mx-auto' alt='thedailyblockchainph' /> */}
                 <Image
                   className="mx-auto"
                   src="/black.png"
@@ -55,7 +54,7 @@ const page = () => {
               </div>
             </div>
           </div>
-          <div className="bg-black w-5/12"></div>
+          <div className="bg-black"></div>
         </div>
       </div>
       {/* mobile device */}
