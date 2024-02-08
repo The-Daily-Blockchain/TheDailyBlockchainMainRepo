@@ -7,8 +7,8 @@ import Error from "../error";
 
 interface Props {
   data: any;
-  isLoading: any;
-  error: any;
+  isLoading?: any;
+  error?: any;
 }
 
 const BodyList = ({ data, isLoading, error }: Props) => {
@@ -23,26 +23,30 @@ const BodyList = ({ data, isLoading, error }: Props) => {
       <div>
         {data?.results?.map?.((x: any) => (
           <div key={x.id} className="mx-1 mt-8">
-            <div className="font-bold">{x.title}</div>
+            <div className="font-bold">{x.title || x.title_post}</div>
             <div className="flex">
               <div>
                 <Image
                   width={500}
                   height={500}
                   alt="toparticlepic"
-                  src={x.image}
+                  src={x.image || x.image_post}
                 />
               </div>
               <div className="mx-10">
                 {parse(
-                  x.content.length > 200
-                    ? `${x.content.substring(0, 200)}...`
-                    : x.content
+                  x.content.length || x.content_post.length > 300
+                    ? `${
+                        x.content.substring(0, 300) ||
+                        x.content_post.substring(0, 300)
+                      }...`
+                    : x.content || x.content_post
                 )}
               </div>
             </div>
             <div>
-              By: {x.author.first_name} {x.author.last_name}
+              By: {x.author.first_name || x.author_post.first_name}
+              {x.author.last_name || x.author_post.last_name}
             </div>
           </div>
         ))}
