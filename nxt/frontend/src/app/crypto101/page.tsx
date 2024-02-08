@@ -5,10 +5,11 @@ import useSWR from "swr";
 import { fetcher } from "../(components)/utils/fetcher";
 
 const Page = () => {
+  const title = "Crypto 101";
   const { data, isLoading, error } = useSWR("/api/post", fetcher);
   return (
     <div>
-      <BodyList data={data} isLoading={isLoading} error={error} />
+      <BodyList data={data} isLoading={isLoading} error={error} title={title} />
     </div>
   );
 };

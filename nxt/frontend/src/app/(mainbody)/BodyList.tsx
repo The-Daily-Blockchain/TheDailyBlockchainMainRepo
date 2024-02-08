@@ -9,9 +9,10 @@ interface Props {
   data: any;
   isLoading?: any;
   error?: any;
+  title?: any;
 }
 
-const BodyList = ({ data, isLoading, error }: Props) => {
+const BodyList = ({ data, isLoading, error, title }: Props) => {
   if (isLoading) {
     return <Loader />;
   }
@@ -21,6 +22,9 @@ const BodyList = ({ data, isLoading, error }: Props) => {
     <div className="h-screen overflow-auto grid grid-cols-[1fr,3fr,1fr]">
       <div className="bg-black">1</div>
       <div>
+        <div className="align-center text-center mt-8 text-2xl font-bold">
+          {title}
+        </div>
         {data?.results?.map?.((x: any) => (
           <div key={x.id} className="mx-1 mt-8">
             <div className="font-bold">{x.title || x.title_post}</div>
