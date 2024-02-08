@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     # application
     'api.apps.ApiConfig',
     'rest_framework_simplejwt',
+    'tinymce',
 ]
 
 MIDDLEWARE = [
