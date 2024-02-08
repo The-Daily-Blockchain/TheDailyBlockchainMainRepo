@@ -5,6 +5,7 @@ import { fetcher } from "../(components)/utils/fetcher";
 import Loader from "../loader";
 import { useRouter } from "next/navigation";
 import { formatDate } from "../(components)/utils/formattingData";
+import parse from "html-react-parser";
 
 const RightPage = () => {
   const { data } = useSWR("/api/post", fetcher);
@@ -32,9 +33,11 @@ const RightPage = () => {
                 {x.title_post}
               </div>
               <div className="text-[#5a5a5a] text-[14px] hover:opacity-50 transition-opacity duration-300 mt-3">
-                {x.content_post.length > 400
-                  ? `${x.content_post.substring(0, 400)}...`
-                  : x.content_post}
+                {parse(
+                  x.content_post.length > 400
+                    ? `${x.content_post.substring(0, 400)}...`
+                    : x.content_post
+                )}
               </div>
             </div>
             <div className="mt-4 font-bold">

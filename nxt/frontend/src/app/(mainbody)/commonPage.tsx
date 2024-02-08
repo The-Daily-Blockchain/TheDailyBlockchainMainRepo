@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import { formatDate } from "../(components)/utils/formattingData";
 import Loader from "../loader";
+import parse from "html-react-parser";
 
 interface Props {
   payload: any;
@@ -30,7 +31,7 @@ export default function CommonPage({ payload, isLoading, error }: Props) {
           <div className="mb-10 text-sm">
             {formatDate(payload?.time_created || payload?.time_created_post)}
           </div>
-          <div>{payload?.content || payload?.content_post}</div>
+          <div> {parse(payload?.content || payload?.content_post)}</div>
         </div>
         <div></div>
       </div>

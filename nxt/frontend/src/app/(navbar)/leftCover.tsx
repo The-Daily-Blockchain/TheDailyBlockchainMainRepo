@@ -6,6 +6,7 @@ import { fetcher } from "../(components)/utils/fetcher";
 import Loader from "../loader";
 import { useRouter } from "next/navigation";
 import { formatDate } from "../(components)/utils/formattingData";
+import parse from "html-react-parser";
 
 interface Props {
   onLoadingStatus: (loadingStatus: boolean) => void;
@@ -55,9 +56,11 @@ const LeftCover = () => {
                   {x.title}
                 </div>
                 <div className="text-[#5a5a5a] text-[12px] mt-6 hover:opacity-50 transition-opacity duration-300">
-                  {x.content.length > 280
-                    ? `${x.content.substring(0, 280)}...`
-                    : x.content}
+                  {parse(
+                    x.content.length > 280
+                      ? `${x.content.substring(0, 280)}...`
+                      : x.content
+                  )}
                 </div>
               </div>
             </div>
