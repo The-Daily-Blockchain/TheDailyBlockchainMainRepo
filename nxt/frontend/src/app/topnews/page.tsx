@@ -3,6 +3,7 @@ import React from "react";
 import useSWR from "swr";
 import { fetcher } from "../(components)/utils/fetcher";
 import Image from "next/image";
+import parse from "html-react-parser";
 
 const page = () => {
   const { data } = useSWR("/api/article", fetcher);
@@ -24,9 +25,11 @@ const page = () => {
                 />
               </div>
               <div className="mx-10">
-                {x.content.length > 200
-                  ? `${x.content.substring(0, 200)}...`
-                  : x.content}
+                {parse(
+                  x.content.length > 200
+                    ? `${x.content.substring(0, 200)}...`
+                    : x.content
+                )}
               </div>
             </div>
             <div>
