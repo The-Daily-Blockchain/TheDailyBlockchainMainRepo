@@ -156,7 +156,6 @@ REST_FRAMEWORK = {
 
 TINYMCE_DEFAULT_CONFIG = {
     "height": "500",
-    "width": "1200",
     'theme': "silver",
     'resize': "false",
     'menubar': "file edit view insert format tools table help",
