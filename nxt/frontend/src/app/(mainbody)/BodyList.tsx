@@ -35,18 +35,16 @@ const BodyList = ({ data, isLoading, error }: Props) => {
               </div>
               <div className="mx-10">
                 {parse(
-                  x.content.length || x.content_post.length > 300
-                    ? `${
-                        x.content.substring(0, 300) ||
-                        x.content_post.substring(0, 300)
-                      }...`
-                    : x.content || x.content_post
+                  (x?.content && x.content.length > 300) ||
+                    (x?.content_post && x.content_post.length > 300)
+                    ? `${(x?.content || x.content_post).substring(0, 300)}...`
+                    : x?.content || x.content_post
                 )}
               </div>
             </div>
             <div>
-              By: {x.author.first_name || x.author_post.first_name}
-              {x.author.last_name || x.author_post.last_name}
+              By: {x?.author?.first_name || x?.author_post?.first_name}
+              {x?.author?.last_name || x?.author_post?.last_name}
             </div>
           </div>
         ))}

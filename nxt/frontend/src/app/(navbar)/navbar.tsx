@@ -43,6 +43,7 @@ const NavBar: React.FC = () => {
         </div>
         <div
           className="no-underline hover:underline hover:opacity-60"
+          onClick={() => router.push("/crypto101")}
           style={{ cursor: "pointer" }}
         >
           {" "}
