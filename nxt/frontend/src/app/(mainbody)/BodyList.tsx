@@ -22,14 +22,14 @@ const BodyList = ({ data, isLoading, error, title }: Props) => {
   if (error) return <Error />;
 
   return (
-    <div className="h-screen overflow-auto grid grid-cols-[1fr,3fr,1fr]">
+    <div className="grid grid-cols-[1fr,3fr,1fr] ">
       <div className="bg-black">1</div>
-      <div className="mx-3">
+      <div className="mx-3 overflow-auto">
         <div className="align-center text-center mt-8 text-2xl font-bold">
           {title}
         </div>
         {data?.results?.map?.((x: any) => (
-          <div key={x.id} className="mx-1 mt-8 border-b-2 mb-2">
+          <div key={x.id} className="mx-1 mt-8 border-b-2 mb-2 ">
             <div className="font-bold mb-3">{x.title || x.title_post}</div>
             <div className="flex">
               <div>
