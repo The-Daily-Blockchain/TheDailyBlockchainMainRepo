@@ -24,7 +24,7 @@ const BodyList = ({ data, isLoading, error, title }: Props) => {
   return (
     <div className="h-screen overflow-auto grid grid-cols-[1fr,3fr,1fr]">
       <div className="bg-black">1</div>
-      <div>
+      <div className="mx-3">
         <div className="align-center text-center mt-8 text-2xl font-bold">
           {title}
         </div>
@@ -65,8 +65,8 @@ const BodyList = ({ data, isLoading, error, title }: Props) => {
                 )}
               </div>
             </div>
-            <div className="my-2">
-              By: {x?.author?.first_name || x?.author_post?.first_name}
+            <div className="my-2 mb-3">
+              By: {x?.author?.first_name || x?.author_post?.first_name} {""}
               {x?.author?.last_name || x?.author_post?.last_name}
             </div>
           </div>
