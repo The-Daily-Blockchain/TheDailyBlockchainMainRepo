@@ -1,39 +1,30 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
+import useSWR from "swr";
+import { fetcher } from "../(components)/utils/fetcher";
 
 interface Props {
   apiEndpoint: any;
+  onDataUpdate: (data: any) => void;
 }
 
-const Pagination = ({ apiEndpoint }: Props) => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [pageCount, setPageCount] = useState(0);
+const Pagination = ({ apiEndpoint, onDataUpdate }: Props) => {
   const [currentPage, setCurrentPage] = useState(0);
+  const { data } = useSWR(
+    `${apiEndpoint}?page=${currentPage + 1}`,
+    fetcher,
+    {}
+  );
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await fetch(`${apiEndpoint}?page=${currentPage + 1}`);
-        const responseData = await result.json();
-        console.log(responseData);
-        setData(responseData.results);
-        setPageCount(Math.ceil(responseData.count / 10));
-        setLoading(false);
-      } catch (error) {
-        console.log(error);
-        setLoading(true);
-      }
-    };
-    fetchData();
-  }, [apiEndpoint, currentPage]);
-
-  const handlePageChange = (data: any) => {
-    const selectedPage = data.selected;
-    if (selectedPage < pageCount) {
-      console.log(pageCount);
-      setCurrentPage(data.selected);
+    if (data) {
+      onDataUpdate(data.results);
     }
+    console.log(data);
+  }, [data, onDataUpdate]);
+
+  const handlePageChange = (selectedItem: { selected: number }) => {
+    setCurrentPage(selectedItem.selected);
   };
 
   return (
@@ -43,7 +34,7 @@ const Pagination = ({ apiEndpoint }: Props) => {
         nextLabel="next >"
         onPageChange={handlePageChange}
         pageRangeDisplayed={5}
-        pageCount={pageCount}
+        pageCount={data?.count ? Math.ceil(data.count / 10) : 0}
         previousLabel="< previous"
         renderOnZeroPageCount={null}
       />

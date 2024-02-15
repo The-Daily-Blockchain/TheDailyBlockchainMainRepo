@@ -20,6 +20,7 @@ const BodyList = ({ data, isLoading, error, title }: Props) => {
     return <Loader />;
   }
   if (error) return <Error />;
+  console.log(data);
 
   return (
     <div className="grid grid-cols-[1fr,3fr,1fr] ">
@@ -28,7 +29,7 @@ const BodyList = ({ data, isLoading, error, title }: Props) => {
         <div className="align-center text-center mt-8 text-2xl font-bold">
           {title}
         </div>
-        {data?.results?.map?.((x: any) => (
+        {data?.map?.((x: any) => (
           <div key={x.id} className="mx-1 mt-8 border-b-2 mb-2 ">
             <div className="font-bold mb-3">{x.title || x.title_post}</div>
             <div className="flex">
