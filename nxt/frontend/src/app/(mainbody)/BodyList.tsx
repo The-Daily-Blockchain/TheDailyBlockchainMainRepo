@@ -44,10 +44,8 @@ const BodyList = ({ data, isLoading, error, title }: Props) => {
               <div
                 className="mx-10 hover:cursor-pointer hover:opacity-60"
                 onClick={() => {
-                  const hasTitle = data?.results?.some(
-                    (x: { title: any }) => x.title
-                  );
-                  const hasTitlePost = data?.results?.some(
+                  const hasTitle = data?.some((x: { title: any }) => x.title);
+                  const hasTitlePost = data?.some(
                     (x: { title_post: any }) => x.title_post
                   );
 
