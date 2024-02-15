@@ -30,16 +30,26 @@ const BodyList = ({ data, isLoading, error, title }: Props) => {
           {title}
         </div>
         {data?.map?.((x: any) => (
-          <div key={x.id} className="mx-1 mt-8 border-b-2 mb-2 ">
-            <div className="font-bold mb-3">{x.title || x.title_post}</div>
-            <div className="flex">
-              <div>
-                <Image
-                  width={500}
-                  height={500}
-                  alt="toparticlepic"
-                  src={x.image || x.image_post}
-                />
+          <div key={x.id} className="mx-1 mt-8 border-double border-b-4 mb-2 ">
+            <div className="font-bold mb-12 mx-24">
+              {x.title || x.title_post}
+            </div>
+            <div className="grid grid-cols-2">
+              <div className="flex items-center justify-center">
+                <div className="flex flex-col items-start">
+                  <Image
+                    width={300}
+                    height={300}
+                    alt="toparticlepic"
+                    src={x.image || x.image_post}
+                  />
+
+                  <div className="my-4">
+                    By: {x?.author?.first_name || x?.author_post?.first_name}{" "}
+                    {""}
+                    {x?.author?.last_name || x?.author_post?.last_name}
+                  </div>
+                </div>
               </div>
               <div
                 className="mx-10 hover:cursor-pointer hover:opacity-60"
@@ -63,10 +73,6 @@ const BodyList = ({ data, isLoading, error, title }: Props) => {
                     : x?.content || x.content_post
                 )}
               </div>
-            </div>
-            <div className="my-2 mb-3">
-              By: {x?.author?.first_name || x?.author_post?.first_name} {""}
-              {x?.author?.last_name || x?.author_post?.last_name}
             </div>
           </div>
         ))}
