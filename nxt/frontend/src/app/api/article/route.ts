@@ -4,10 +4,14 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { NextRequest } from "next/server";
 
 export async function GET(req: NextRequest, res: NextApiResponse) {
+  let url = `${API_URL}/articles`;
   const page = req.nextUrl.searchParams.get("page");
-  console.log(page);
-  const response = await axios.get(`${API_URL}/articles?page=${page}`);
 
+  if (page !== null) {
+    url += `?page=${page}`;
+  }
+
+  const response = await axios.get(url);
   const data = response.data;
   return Response.json(data);
 }

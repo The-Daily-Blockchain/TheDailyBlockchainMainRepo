@@ -14,7 +14,7 @@ interface Props {
 const LeftCover = () => {
   const router = useRouter();
   const { data } = useSWR("/api/article", fetcher);
-
+  console.log(data, "asdas");
   return (
     <div className="grid">
       <div className="text-3xl mt-5 font-bold grid justify-center text-[#303030]">
