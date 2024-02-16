@@ -59,6 +59,7 @@ const NavBar: React.FC = () => {
         <div
           className="no-underline hover:underline hover:opacity-60"
           style={{ cursor: "pointer" }}
+          onClick={() => router.push(`/donate`)}
         >
           {" "}
           Donate Us

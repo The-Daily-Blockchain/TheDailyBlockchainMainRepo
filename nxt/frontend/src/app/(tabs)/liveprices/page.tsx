@@ -100,6 +100,7 @@ const CrytoPage = () => {
                     {typeof cryptos.price_change_percentage_24h === "number"
                       ? cryptos.price_change_percentage_24h.toFixed(2)
                       : "N/A"}
+                    %
                   </p>
                 </div>
               ))}

@@ -19,7 +19,7 @@ const page = () => {
                 />
               </div>
               <div className="mt-28 w-3/5 mx-4">
-                <div className="text-[68px] text-center mb-4 font-bold">
+                <div className="text-[30px] text-center mb-4 font-bold">
                   ABOUT
                 </div>
                 With a small team of like-minded individuals, The founders
@@ -31,7 +31,7 @@ const page = () => {
               </div>
             </div>
             <div className="mx-44 mb-12 mt-6 text-center">
-              <div className="text-[60px] font-bold mb-5">Vission/Mission</div>
+              <div className="text-[30px] font-bold mb-5">Vission/Mission</div>
               <div className="text-start md:w-6/12 mx-auto">
                 <span className="font-bold"> Vision:</span> To become the
                 primary destination for comprehensive news, analysis, and
