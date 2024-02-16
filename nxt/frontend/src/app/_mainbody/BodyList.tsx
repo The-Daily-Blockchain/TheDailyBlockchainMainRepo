@@ -5,6 +5,7 @@ import parse from "html-react-parser";
 import Loader from "../loader";
 import Error from "../error";
 import { useRouter } from "next/navigation";
+import FullScreenAdhoc from "../_adhoc/fullscreenadhoc";
 
 interface Props {
   data: any;
@@ -23,8 +24,7 @@ const BodyList = ({ data, isLoading, error, title }: Props) => {
   console.log(data);
 
   return (
-    <div className="grid grid-cols-[1fr,3fr,1fr] ">
-      <div className="bg-black">1</div>
+    <FullScreenAdhoc>
       <div className="mx-3 overflow-auto">
         <div className="align-center text-center mt-8 text-2xl font-bold">
           {title}
@@ -77,8 +77,7 @@ const BodyList = ({ data, isLoading, error, title }: Props) => {
           </div>
         ))}
       </div>
-      <div className="bg-black">3</div>
-    </div>
+    </FullScreenAdhoc>
   );
 };
 
