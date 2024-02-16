@@ -4,6 +4,7 @@ import { formatDate } from "../_components/utils/formattingData";
 import Loader from "../loader";
 import parse from "html-react-parser";
 import FullScreenAdhoc from "../_adhoc/fullscreenadhoc";
+import Error from "../error";
 
 interface Props {
   payload: any;
@@ -14,6 +15,9 @@ interface Props {
 export default function CommonPage({ payload, isLoading, error }: Props) {
   if (isLoading) {
     return <Loader />;
+  }
+  if (error) {
+    return <Error />;
   }
   return (
     <>
