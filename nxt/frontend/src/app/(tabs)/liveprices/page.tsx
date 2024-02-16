@@ -1,6 +1,6 @@
 "use client";
 import React, { Suspense, useEffect, useState } from "react";
-import { Constants } from "../(components)/constants/common/constants";
+import { Constants } from "../_components/constants/common/constants";
 import Image from "next/image";
 import Loading from "./loading";
 import dayjs from "dayjs";

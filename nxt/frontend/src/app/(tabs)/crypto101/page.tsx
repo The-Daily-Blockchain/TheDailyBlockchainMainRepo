@@ -1,10 +1,9 @@
 "use client";
 import React from "react";
-import BodyList from "../(mainbody)/BodyList";
+import BodyList from "../../_mainbody/BodyList";
 import useSWR from "swr";
-import { fetcher } from "../(components)/utils/fetcher";
-import Pagination from "../(mainbody)/pagination";
-import { useDataHandler } from "../(components)/utils/dataHandler";
+import Pagination from "../../_mainbody/pagination";
+import { useDataHandler } from "../../_components/utils/dataHandler";
 
 const Page = () => {
   const { data, handleDataUpdate } = useDataHandler();

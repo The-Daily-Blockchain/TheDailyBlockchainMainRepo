@@ -1,6 +1,6 @@
 "use client";
 import React, { Component } from "react";
-import { formatDate } from "../(components)/utils/formattingData";
+import { formatDate } from "../_components/utils/formattingData";
 import Loader from "../loader";
 import parse from "html-react-parser";
 

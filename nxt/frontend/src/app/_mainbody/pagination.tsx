@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import useSWR from "swr";
-import { fetcher } from "../(components)/utils/fetcher";
+import { fetcher } from "../_components/utils/fetcher";
 import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
 
 interface Props {

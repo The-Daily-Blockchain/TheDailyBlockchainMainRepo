@@ -3,7 +3,7 @@ import React from "react";
 import Cover from "../(navbar)/cover";
 import MainPage from "./mainpage";
 import useSWR from "swr";
-import { fetcher } from "../(components)/utils/fetcher";
+import { fetcher } from "../_components/utils/fetcher";
 import Loader from "../loader";
 
 const Body = () => {

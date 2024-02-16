@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
-import CommonPage from "../../(mainbody)/commonPage";
+import CommonPage from "../../../_mainbody/commonPage";
 import useSWR from "swr";
-import { fetcher } from "../../(components)/utils/fetcher";
+import { fetcher } from "../../../_components/utils/fetcher";
 
 export default function Page({ params }: { params: { id: string } }) {
   const {

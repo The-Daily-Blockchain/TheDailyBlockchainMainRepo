@@ -2,9 +2,9 @@
 import useSWR from "swr";
 import React, { useEffect } from "react";
 import Image from "next/image";
-import { fetcher } from "../(components)/utils/fetcher";
+import { fetcher } from "../_components/utils/fetcher";
 import { useRouter } from "next/navigation";
-import { formatDate } from "../(components)/utils/formattingData";
+import { formatDate } from "../_components/utils/formattingData";
 import parse from "html-react-parser";
 
 interface Props {

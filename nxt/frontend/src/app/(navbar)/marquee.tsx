@@ -2,7 +2,7 @@
 import React, { ReactNode, useEffect, useState } from "react";
 
 import Marquee from "react-fast-marquee";
-import { Constants } from "../(components)/constants/common/constants";
+import { Constants } from "../_components/constants/common/constants";
 import Skeleton from "react-loading-skeleton";
 
 interface Crypto {

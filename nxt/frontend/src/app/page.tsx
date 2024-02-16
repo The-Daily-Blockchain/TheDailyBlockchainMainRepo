@@ -1,6 +1,6 @@
 "useClient";
 import React from "react";
-import Body from "./(mainbody)/body";
+import Body from "./_mainbody/body";
 
 const index = () => {
   return (

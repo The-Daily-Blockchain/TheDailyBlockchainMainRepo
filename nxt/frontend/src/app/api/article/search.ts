@@ -1,5 +1,5 @@
-import apiHandler from "@/app/(components)/utils/apiHandler";
-import { requestServer } from "@/app/(components)/utils/axios";
+import apiHandler from "@/app/_components/utils/apiHandler";
+import { requestServer } from "@/app/_components/utils/axios";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const onGet = async (req: NextApiRequest, res: NextApiResponse) => {
