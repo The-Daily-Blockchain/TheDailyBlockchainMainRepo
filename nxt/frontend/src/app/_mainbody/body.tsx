@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Cover from "../(navbar)/cover";
+import Cover from "../_navbar/cover";
 import MainPage from "./mainpage";
 import useSWR from "swr";
 import { fetcher } from "../_components/utils/fetcher";

@@ -1,9 +1,10 @@
 "use client";
 import React, { Suspense, useEffect, useState } from "react";
-import { Constants } from "../_components/constants/common/constants";
+
 import Image from "next/image";
 import Loading from "./loading";
 import dayjs from "dayjs";
+import { Constants } from "@/app/_components/constants/common/constants";
 
 interface Crypto {
   symbol: string;
