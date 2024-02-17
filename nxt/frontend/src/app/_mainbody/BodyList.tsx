@@ -23,6 +23,17 @@ const BodyList = ({ data, isLoading, error, title }: Props) => {
   if (error) return <Error />;
   console.log(data);
 
+  const handleClick = (x: any) => {
+    const hasTitle = data?.some((x: { title: any }) => x.title);
+    const hasTitlePost = data?.some((x: { title_post: any }) => x.title_post);
+
+    if (hasTitle) {
+      router.push(`/article/${x.id}`);
+    } else if (hasTitlePost) {
+      router.push(`/post/${x.id}`);
+    }
+  };
+
   return (
     <FullScreenAdhoc>
       <div className="mx-3 overflow-auto">
@@ -30,8 +41,11 @@ const BodyList = ({ data, isLoading, error, title }: Props) => {
           {title}
         </div>
         {data?.map?.((x: any) => (
-          <div key={x.id} className="mx-1 mt-8 border-double border-b-4 mb-2 ">
-            <div className="font-bold mb-12 mx-24">
+          <div key={x.id} className="mx-1 mt-8 border-double border-b-4 mb-2">
+            <div
+              className="font-bold mb-12 mx-44 hover:cursor-pointer hover:opacity-80"
+              onClick={() => handleClick(x)}
+            >
               {x.title || x.title_post}
             </div>
             <div className="grid grid-cols-2">
@@ -53,18 +67,7 @@ const BodyList = ({ data, isLoading, error, title }: Props) => {
               </div>
               <div
                 className="mx-10 hover:cursor-pointer hover:opacity-60"
-                onClick={() => {
-                  const hasTitle = data?.some((x: { title: any }) => x.title);
-                  const hasTitlePost = data?.some(
-                    (x: { title_post: any }) => x.title_post
-                  );
-
-                  if (hasTitle) {
-                    router.push(`/article/${x.id}`);
-                  } else if (hasTitlePost) {
-                    router.push(`/post/${x.id}`);
-                  }
-                }}
+                onClick={() => handleClick(x)}
               >
                 {parse(
                   (x?.content && x.content.length > 300) ||

@@ -5,7 +5,7 @@ import FullScreenAdhoc from "@/app/_adhoc/fullscreenadhoc";
 const Page = () => {
   return (
     <FullScreenAdhoc>
-      <div className="text-center font-bold mt-6 mb-10 text-[40px]">
+      <div className="text-center font-bold mt-10 mb-10 text-[32px]">
         Donate To Us
       </div>
       <div className="grid grid-cols-2 mb-64">
@@ -25,7 +25,7 @@ const Page = () => {
           and progress in the world of blockchain.
         </div>
         <div className="my-12 ml-24 justify-self-start">
-          <div className="flex justify-center items-center text-[38px]">
+          <div className="flex justify-center items-center text-[32px]">
             Gcash QR
           </div>
           <Image
