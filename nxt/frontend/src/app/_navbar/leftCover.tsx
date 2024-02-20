@@ -56,8 +56,8 @@ const LeftCover = () => {
                 </div>
                 <div className="text-[#5a5a5a] text-[12px] mt-6 hover:opacity-50 transition-opacity duration-300">
                   {parse(
-                    x.content.length > 280
-                      ? `${x.content.substring(0, 280)}...`
+                    x.content.length > 150
+                      ? `${x.content.substring(0, 150)}...`
                       : x.content
                   )}
                 </div>

@@ -19,13 +19,13 @@ const LeftPage = () => {
           ?.filter(
             (article: any, index: number) => index > 1 && !article.archived
           )
-          .map((x: any, index: number) => (
+          .map((x: any, index: number, array: any[]) => (
             <div
               key={x.id}
-              className={`mb-8 pb-6 ${
-                index === data.results.length - 1
-                  ? ""
-                  : "border-b-2 border-solid border-[#121212]"
+              className={`mb-8 pb-6 border-[#121212] ${
+                index === array.length - 1
+                  ? "border-b-0"
+                  : "border-b-2 border-solid"
               }`}
             >
               <div

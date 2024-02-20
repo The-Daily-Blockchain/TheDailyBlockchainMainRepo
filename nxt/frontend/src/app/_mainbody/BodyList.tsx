@@ -40,8 +40,13 @@ const BodyList = ({ data, isLoading, error, title }: Props) => {
         <div className="align-center text-center mt-8 text-2xl font-bold">
           {title}
         </div>
-        {data?.map?.((x: any) => (
-          <div key={x.id} className="mx-1 mt-8 border-double border-b-4 mb-2">
+        {data?.map?.((x: any, index: any, array: any[]) => (
+          <div
+            key={x.id}
+            className={`mx-1 mt-8 mb-2 border-double ${
+              index === array.length - 1 ? "border-b-0" : "border-b-4"
+            }`}
+          >
             <div
               className="font-bold mb-12 mx-44 hover:cursor-pointer hover:opacity-80"
               onClick={() => handleClick(x)}

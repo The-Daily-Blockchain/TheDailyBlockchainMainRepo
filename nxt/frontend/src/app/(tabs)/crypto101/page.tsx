@@ -10,6 +10,7 @@ const Page = () => {
   const title = "Crypto 101";
   const apiEndpoint = "/api/post";
   const { isLoading, error } = useSWR(`${apiEndpoint}`);
+
   return (
     <div>
       <BodyList data={data} isLoading={isLoading} error={error} title={title} />

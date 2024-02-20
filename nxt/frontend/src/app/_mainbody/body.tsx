@@ -5,6 +5,7 @@ import MainPage from "./mainpage";
 import useSWR from "swr";
 import { fetcher } from "../_components/utils/fetcher";
 import Loader from "../loader";
+import FullScreenAdhoc from "../_adhoc/fullscreenadhoc";
 
 const Body = () => {
   const { isLoading } = useSWR("/api/article", fetcher);
@@ -14,13 +15,12 @@ const Body = () => {
     return <Loader />;
   }
   return (
-    <div className="flex grid-cols-2">
-      <div className="w-2/12 bg-black">BANNER</div>
-      <div className="w-10/12">
+    <FullScreenAdhoc>
+      <div className="mx-2">
         <Cover />
         <MainPage />
       </div>
-    </div>
+    </FullScreenAdhoc>
   );
 };
 

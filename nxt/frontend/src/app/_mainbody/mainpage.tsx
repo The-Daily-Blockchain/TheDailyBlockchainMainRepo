@@ -4,7 +4,7 @@ import RightPage from "./rightpage";
 
 const MainPage = () => {
   return (
-    <div className="grid grid-cols-2 w-10/12 mx-auto">
+    <div className="grid grid-cols-2">
       <LeftPage />
       <RightPage />
     </div>
