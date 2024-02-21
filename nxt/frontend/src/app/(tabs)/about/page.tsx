@@ -15,6 +15,7 @@ const page = () => {
                 width={500}
                 height={500}
                 alt="thedailyblockchainph"
+                style={{ width: "auto", height: "auto" }}
               />
             </div>
             <div className="mt-28 w-3/5 mx-4">

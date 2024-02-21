@@ -9,7 +9,7 @@ export default function Loader() {
         <div className="animate-spin absolute rounded-full border-8 h-[100px] border-b-[#656565] border-l-[#9a9998] border-t-[#dfdede] border-r-[#d3c7b9] w-[100px]" />
         <Image
           src="/black.png"
-          alt="me"
+          alt="Loader"
           width={100}
           height={100}
           className="absolute bottom-[6px]"

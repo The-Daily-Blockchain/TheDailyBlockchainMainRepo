@@ -6,18 +6,12 @@ const RightCover = () => {
   const slides = [
     {
       url: "/1.png",
-      width: 30,
-      height: 30,
     },
     {
       url: "/2.png",
-      width: 30,
-      height: 30,
     },
     {
       url: "/3.png",
-      width: 30,
-      height: 30,
     },
   ];
   const [currentIndex, setCurrentIndex] = useState<any>(0);
@@ -50,9 +44,11 @@ const RightCover = () => {
             <Image
               src={slides[currentIndex].url}
               alt={`Slide ${currentIndex + 1}`}
-              layout="fill"
               className="w-full rounded-2xl duration-500"
-              objectFit="cover"
+              style={{ objectFit: "cover" }}
+              height={500}
+              width={2000}
+              priority
             />
             <div className="flex top-4 justify-center">
               {slides.map((slide, slideIndex) => (
