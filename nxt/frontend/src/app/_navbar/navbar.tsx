@@ -21,6 +21,7 @@ const NavBar: React.FC = () => {
             alt="Daily Blockchain Ph"
             width={700}
             height={400}
+            priority={true}
           />
         </div>
       </div>
