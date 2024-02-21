@@ -7,21 +7,29 @@ import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
 interface Props {
   apiEndpoint: any;
   onDataUpdate: (data: any) => void;
+  onLoadingUpdate: (isLoading: any) => void;
+  onErrorUpdate: (error: any) => void;
 }
 
-const Pagination = ({ apiEndpoint, onDataUpdate }: Props) => {
+const Pagination = ({
+  apiEndpoint,
+  onDataUpdate,
+  onLoadingUpdate,
+  onErrorUpdate,
+}: Props) => {
   const [currentPage, setCurrentPage] = useState(0);
-  const { data } = useSWR(
-    `${apiEndpoint}?page=${currentPage + 1}`,
-    fetcher,
-    {}
+  const { data, isLoading, error } = useSWR(
+    () => `${apiEndpoint}?page=${currentPage + 1}`,
+    fetcher
   );
 
   useEffect(() => {
     if (data) {
       onDataUpdate(data.results);
+      onLoadingUpdate(isLoading);
+      onErrorUpdate(error);
     }
-  }, [data, onDataUpdate]);
+  }, [data, error, isLoading, onDataUpdate, onErrorUpdate, onLoadingUpdate]);
 
   const handlePageChange = (selectedItem: { selected: number }) => {
     setCurrentPage(selectedItem.selected);

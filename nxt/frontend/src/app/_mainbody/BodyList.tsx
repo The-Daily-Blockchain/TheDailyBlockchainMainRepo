@@ -17,11 +17,9 @@ interface Props {
 const BodyList = ({ data, isLoading, error, title }: Props) => {
   const router = useRouter();
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  if (isLoading) return <Loader />;
+
   if (error) return <Error />;
-  console.log(data);
 
   const handleClick = (x: any) => {
     const hasTitle = data?.some((x: { title: any }) => x.title);
