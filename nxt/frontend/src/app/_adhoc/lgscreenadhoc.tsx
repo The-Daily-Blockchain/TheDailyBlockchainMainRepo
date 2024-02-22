@@ -4,11 +4,11 @@ interface Props {
   children: any;
 }
 
-const FullScreenAdhoc = ({ children }: Props) => {
+const LgScreenAdhoc = ({ children }: Props) => {
   return (
-    <div className="hidden xl:block">
+    <div className="hidden lg:block xl:hidden">
       <div className="grid grid-cols-[1fr,3fr,1fr]">
-        <div className="bg-black"></div>
+        <div className="bg-black"> </div>
         <div>{children}</div>
         <div className="bg-black"></div>
       </div>
@@ -16,4 +16,4 @@ const FullScreenAdhoc = ({ children }: Props) => {
   );
 };
 
-export default FullScreenAdhoc;
+export default LgScreenAdhoc;

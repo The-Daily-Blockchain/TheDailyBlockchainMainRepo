@@ -4,7 +4,9 @@ import Loader from "../loader";
 import Error from "../error";
 import { useRouter } from "next/navigation";
 import FullScreenAdhoc from "../_adhoc/fullscreenadhoc";
-import LgBodyList from "../_lgmainbody/lgBodyList";
+import LgBodyList from "./_lgmainbody/lgBodyList";
+import XlBodyList from "./_xlmainbody/xlBodyList";
+import LgScreenAdhoc from "../_adhoc/lgscreenadhoc";
 
 interface Props {
   data: any;
@@ -37,8 +39,15 @@ const BodyList = ({ data, isLoading, error, title }: Props) => {
 
   return (
     <>
-      <FullScreenAdhoc>
+      <LgScreenAdhoc>
         <LgBodyList
+          title={title}
+          data={data}
+          handleClick={handleClickWrapper}
+        />
+      </LgScreenAdhoc>
+      <FullScreenAdhoc>
+        <XlBodyList
           title={title}
           data={data}
           handleClick={handleClickWrapper}

@@ -22,7 +22,7 @@ const LgBodyList = ({ title, data, handleClick }: Props) => {
           }`}
         >
           <div
-            className="font-bold mb-12 mx-44 hover:cursor-pointer hover:opacity-80"
+            className="font-bold mb-12 mx-8 hover:cursor-pointer hover:opacity-80"
             onClick={() => handleClick(x)}
           >
             {x.title || x.title_post}
@@ -48,9 +48,9 @@ const LgBodyList = ({ title, data, handleClick }: Props) => {
               onClick={() => handleClick(x)}
             >
               {parse(
-                (x?.content && x.content.length > 300) ||
-                  (x?.content_post && x.content_post.length > 300)
-                  ? `${(x?.content || x.content_post).substring(0, 300)}...`
+                (x?.content && x.content.length > 180) ||
+                  (x?.content_post && x.content_post.length > 180)
+                  ? `${(x?.content || x.content_post).substring(0, 180)}...`
                   : x?.content || x.content_post
               )}
             </div>
