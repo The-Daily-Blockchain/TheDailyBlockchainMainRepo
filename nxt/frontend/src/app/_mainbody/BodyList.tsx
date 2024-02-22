@@ -7,6 +7,10 @@ import FullScreenAdhoc from "../_adhoc/fullscreenadhoc";
 import LgBodyList from "./_lgmainbody/lgBodyList";
 import XlBodyList from "./_xlmainbody/xlBodyList";
 import LgScreenAdhoc from "../_adhoc/lgscreenadhoc";
+import MdScreenAdhoc from "../_adhoc/mdscreenadhoc";
+import MobileScreenAdhoc from "../_adhoc/mobilescreenadhoc";
+import MdBodyList from "./_mdmainbody/mdBodyList";
+import MobileMainBody from "./_mobilemainbody/mobileBodyList";
 
 interface Props {
   data: any;
@@ -53,6 +57,12 @@ const BodyList = ({ data, isLoading, error, title }: Props) => {
           handleClick={handleClickWrapper}
         />
       </FullScreenAdhoc>
+      <MdScreenAdhoc>
+        <MdBodyList />
+      </MdScreenAdhoc>
+      <MobileScreenAdhoc>
+        <MobileMainBody />
+      </MobileScreenAdhoc>
     </>
   );
 };
