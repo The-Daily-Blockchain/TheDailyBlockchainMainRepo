@@ -37,28 +37,16 @@ const BodyList = ({ data, isLoading, error, title }: Props) => {
     }
   };
 
-  const handleClickWrapper = (x: any) => {
-    handleClick(x);
-  };
-
   return (
     <>
       <LgScreenAdhoc>
-        <LgBodyList
-          title={title}
-          data={data}
-          handleClick={handleClickWrapper}
-        />
+        <LgBodyList title={title} data={data} handleClick={handleClick} />
       </LgScreenAdhoc>
       <FullScreenAdhoc>
-        <XlBodyList
-          title={title}
-          data={data}
-          handleClick={handleClickWrapper}
-        />
+        <XlBodyList title={title} data={data} handleClick={handleClick} />
       </FullScreenAdhoc>
       <MdScreenAdhoc>
-        <MdBodyList />
+        <MdBodyList title={title} data={data} handleClick={handleClick} />
       </MdScreenAdhoc>
       <MobileScreenAdhoc>
         <MobileMainBody />
