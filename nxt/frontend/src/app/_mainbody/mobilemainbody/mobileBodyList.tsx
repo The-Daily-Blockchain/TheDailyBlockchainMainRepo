@@ -44,7 +44,7 @@ const MobileBodyList = ({ title, data, handleClick }: Props) => {
               </div>
             </div>
             <div
-              className="mx-10 hover:cursor-pointer hover:opacity-60"
+              className="ml-3 hover:cursor-pointer hover:opacity-60"
               onClick={() => handleClick(x)}
             >
               {parse(
