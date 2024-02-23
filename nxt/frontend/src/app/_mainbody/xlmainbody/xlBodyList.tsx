@@ -50,7 +50,10 @@ const XlBodyList = ({ title, data, handleClick }: Props) => {
               {parse(
                 (x?.content && x.content.length > 300) ||
                   (x?.content_post && x.content_post.length > 300)
-                  ? `${(x?.content || x.content_post).substring(0, 300)}...`
+                  ? `${(x?.content || x.content_post).substring(
+                      0,
+                      300
+                    )} <span style="font-weight: bold;"> see more...</span>`
                   : x?.content || x.content_post
               )}
             </div>

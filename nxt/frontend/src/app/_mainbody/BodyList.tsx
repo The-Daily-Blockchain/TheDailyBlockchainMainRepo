@@ -4,13 +4,13 @@ import Loader from "../loader";
 import Error from "../error";
 import { useRouter } from "next/navigation";
 import FullScreenAdhoc from "../_adhoc/fullscreenadhoc";
-import LgBodyList from "./_lgmainbody/lgBodyList";
-import XlBodyList from "./_xlmainbody/xlBodyList";
+import LgBodyList from "./lgmainbody/lgBodyList";
+import XlBodyList from "./xlmainbody/xlBodyList";
 import LgScreenAdhoc from "../_adhoc/lgscreenadhoc";
 import MdScreenAdhoc from "../_adhoc/mdscreenadhoc";
 import MobileScreenAdhoc from "../_adhoc/mobilescreenadhoc";
-import MdBodyList from "./_mdmainbody/mdBodyList";
-import MobileMainBody from "./_mobilemainbody/mobileBodyList";
+import MdBodyList from "./mdmainbody/mdBodyList";
+import MobileMainBody from "./mobilemainbody/mobileBodyList";
 
 interface Props {
   data: any;
@@ -49,7 +49,7 @@ const BodyList = ({ data, isLoading, error, title }: Props) => {
         <MdBodyList title={title} data={data} handleClick={handleClick} />
       </MdScreenAdhoc>
       <MobileScreenAdhoc>
-        <MobileMainBody />
+        <MobileMainBody title={title} data={data} handleClick={handleClick} />
       </MobileScreenAdhoc>
     </>
   );

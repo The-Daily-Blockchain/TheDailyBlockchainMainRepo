@@ -8,7 +8,7 @@ interface Props {
   handleClick: (x: any) => void;
 }
 
-const MdBodyList = ({ title, data, handleClick }: Props) => {
+const MobileBodyList = ({ title, data, handleClick }: Props) => {
   return (
     <div className="mx-3 overflow-auto">
       <div className="align-center text-center mt-8 text-2xl font-bold">
@@ -22,7 +22,7 @@ const MdBodyList = ({ title, data, handleClick }: Props) => {
           }`}
         >
           <div
-            className="font-bold mb-12 mx-8 hover:cursor-pointer hover:opacity-80"
+            className="font-bold mb-12 hover:cursor-pointer hover:opacity-80"
             onClick={() => handleClick(x)}
           >
             {x.title || x.title_post}
@@ -31,8 +31,8 @@ const MdBodyList = ({ title, data, handleClick }: Props) => {
             <div className="flex items-center justify-center">
               <div className="flex flex-col items-start">
                 <Image
-                  width={300}
-                  height={300}
+                  width={250}
+                  height={250}
                   alt="toparticlepic"
                   src={x.image || x.image_post}
                 />
@@ -48,12 +48,12 @@ const MdBodyList = ({ title, data, handleClick }: Props) => {
               onClick={() => handleClick(x)}
             >
               {parse(
-                (x?.content && x.content.length > 120) ||
-                  (x?.content_post && x.content_post.length > 120)
+                (x?.content && x.content.length > 50) ||
+                  (x?.content_post && x.content_post.length > 50)
                   ? `${(x?.content || x.content_post).substring(
                       0,
-                      120
-                    )} see more...`
+                      50
+                    )}<span style="font-weight: bold;"> see more...</span>`
                   : x?.content || x.content_post
               )}
             </div>
@@ -63,5 +63,4 @@ const MdBodyList = ({ title, data, handleClick }: Props) => {
     </div>
   );
 };
-
-export default MdBodyList;
+export default MobileBodyList;

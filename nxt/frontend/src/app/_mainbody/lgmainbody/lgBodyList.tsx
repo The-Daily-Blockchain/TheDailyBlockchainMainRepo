@@ -50,7 +50,10 @@ const LgBodyList = ({ title, data, handleClick }: Props) => {
               {parse(
                 (x?.content && x.content.length > 180) ||
                   (x?.content_post && x.content_post.length > 180)
-                  ? `${(x?.content || x.content_post).substring(0, 180)}...`
+                  ? `${(x?.content || x.content_post).substring(
+                      0,
+                      180
+                    )} <span style="font-weight: bold;"> see more...</span>`
                   : x?.content || x.content_post
               )}
             </div>
