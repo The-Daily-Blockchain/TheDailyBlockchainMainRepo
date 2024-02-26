@@ -1,26 +1,52 @@
 "use client";
 import React from "react";
-import Cover from "../_navbar/cover";
-import MainPage from "./mainpage";
+import Cover from "./xlmainbody/cover";
+import MainPage from "./xlmainbody/mainpage";
 import useSWR from "swr";
 import { fetcher } from "../_components/utils/fetcher";
 import Loader from "../loader";
 import FullScreenAdhoc from "../_adhoc/fullscreenadhoc";
+import MobileScreenAdhoc from "../_adhoc/mobilescreenadhoc";
+import LgMainScreenAdhoc from "../_adhoc/lgmainscreenadhoc";
+import MdMainScreenAdhoc from "../_adhoc/mdmainscreenadhoc";
+import MdCover from "./mdmainbody/MdCover";
+import CoverMobileBody from "./mobilemainbody/coverMobileBody";
+import MobileMainPage from "./mobilemainbody/mobileMainPage";
 
 const Body = () => {
-  const { isLoading } = useSWR("/api/article", fetcher);
+  const { data, isLoading } = useSWR("/api/article", fetcher);
   const { isLoading: isLoadingPost } = useSWR("/api/post", fetcher);
 
   if (isLoading || isLoadingPost) {
     return <Loader />;
   }
   return (
-    <FullScreenAdhoc>
-      <div className="mx-2">
-        <Cover />
-        <MainPage />
-      </div>
-    </FullScreenAdhoc>
+    <>
+      <FullScreenAdhoc>
+        <div className="mx-2">
+          <Cover data={data} />
+          <MainPage />
+        </div>
+      </FullScreenAdhoc>
+      <LgMainScreenAdhoc>
+        <div className="mx-2">
+          <Cover data={data} />
+          <MainPage />
+        </div>
+      </LgMainScreenAdhoc>
+      <MdMainScreenAdhoc>
+        <div className="mx-2">
+          <MdCover data={data} />
+          <MainPage />
+        </div>
+      </MdMainScreenAdhoc>
+      <MobileScreenAdhoc>
+        <div className="mx-2">
+          <CoverMobileBody data={data} />
+          <MobileMainPage />
+        </div>
+      </MobileScreenAdhoc>
+    </>
   );
 };
 

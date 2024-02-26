@@ -1,6 +1,6 @@
 import React from "react";
-import LeftPage from "./leftpage";
-import RightPage from "./rightpage";
+import LeftPage from "../leftpage";
+import RightPage from "../rightpage";
 
 const MainPage = () => {
   return (

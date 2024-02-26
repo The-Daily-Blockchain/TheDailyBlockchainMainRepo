@@ -1,15 +1,16 @@
 "use client";
 import React, { useEffect } from "react";
 import Image from "next/image";
-import { formatDate } from "../_components/utils/formattingData";
+
 import parse from "html-react-parser";
 import { useRouter } from "next/navigation";
+import { formatDate } from "@/app/_components/utils/formattingData";
 
 interface Props {
   data: any;
 }
 
-const LeftCover = ({ data }: Props) => {
+const MdLeftCover = ({ data }: Props) => {
   const router = useRouter();
   return (
     <div className="grid">
@@ -22,11 +23,7 @@ const LeftCover = ({ data }: Props) => {
         )
         .map((x: any, index: number) => (
           <div key={x.id} className="justify-items-end">
-            <div
-              className={`grid grid-cols-2 pb-6 ${
-                index === 1 ? "" : "border-b-2 border-solid border-[#727272]"
-              }`}
-            >
+            <div className={"grid grid-cols-2 pb-6"}>
               <div>
                 <div className="flex justify-end items-center mr-8">
                   <Image
@@ -50,14 +47,14 @@ const LeftCover = ({ data }: Props) => {
                 <div className="text-[16px] font-medium text-[#121212] hover:opacity-50 transition-opacity duration-300">
                   {x.title}
                 </div>
-                <div className="text-[#5a5a5a] text-[12px] mt-6 hover:opacity-50 transition-opacity duration-300">
-                  {parse(
-                    x.content.length > 150
-                      ? `${x.content.substring(0, 150)}...`
-                      : x.content
-                  )}
-                </div>
               </div>
+            </div>
+            <div className="text-[#5a5a5a] text-[12px]  hover:opacity-50 transition-opacity duration-300">
+              {parse(
+                x.content.length > 150
+                  ? `${x.content.substring(0, 150)}...`
+                  : x.content
+              )}
             </div>
           </div>
         ))}
@@ -65,4 +62,4 @@ const LeftCover = ({ data }: Props) => {
   );
 };
 
-export default LeftCover;
+export default MdLeftCover;

@@ -1,12 +1,16 @@
 "use client";
 import React, { Suspense, useState } from "react";
-import RightCover from "./rightCover";
-import LeftCover from "./leftCover";
+import RightCover from "../../_navbar/rightCover";
+import LeftCover from "../../_navbar/leftCover";
 
-const Cover = () => {
+interface Props {
+  data: any;
+}
+
+const Cover = ({ data }: Props) => {
   return (
     <div className="grid grid-cols-2 pt-6 border-b-2 mb-12 border-solid border-[#727272]">
-      <LeftCover />
+      <LeftCover data={data} />
       <RightCover />
     </div>
   );
