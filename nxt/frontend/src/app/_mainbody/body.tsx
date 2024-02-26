@@ -43,6 +43,7 @@ const Body = () => {
       <MobileScreenAdhoc>
         <div className="mx-2">
           <CoverMobileBody data={data} />
+          <div className="h-10 bg-black"></div>
           <MobileMainPage />
         </div>
       </MobileScreenAdhoc>

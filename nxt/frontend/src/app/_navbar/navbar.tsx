@@ -45,6 +45,9 @@ const NavBar: React.FC = () => {
             height={400}
             priority
           />
+          <div className="hidden lg:block font-bold text-center">
+            {formattedDate}
+          </div>
         </div>
       </div>
       {/* sm and above */}
