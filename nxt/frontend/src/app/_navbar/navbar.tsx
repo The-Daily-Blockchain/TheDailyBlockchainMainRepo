@@ -7,7 +7,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose, AiOutlineCopyrightCircle } from "react-icons/ai";
 import classNames from "classnames";
 
-const NavBar: React.FC = () => {
+const NavBar = () => {
   const [nav, setNav] = useState(false);
   // mobile device toggler
   const handleNav = () => {

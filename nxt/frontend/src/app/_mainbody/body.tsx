@@ -12,6 +12,7 @@ import MdMainScreenAdhoc from "../_adhoc/mdmainscreenadhoc";
 import MdCover from "./mdmainbody/MdCover";
 import CoverMobileBody from "./mobilemainbody/coverMobileBody";
 import MobileMainPage from "./mobilemainbody/mobileMainPage";
+import SearchComponent from "../_navbar/searchingcomponent/searchcomponent";
 
 const Body = () => {
   const { data, isLoading } = useSWR("/api/article", fetcher);
@@ -22,6 +23,7 @@ const Body = () => {
   }
   return (
     <>
+      <SearchComponent />
       <FullScreenAdhoc>
         <div className="mx-2">
           <Cover data={data} />

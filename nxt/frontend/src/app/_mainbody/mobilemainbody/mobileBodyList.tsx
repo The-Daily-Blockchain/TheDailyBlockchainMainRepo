@@ -3,7 +3,7 @@ import Image from "next/image";
 import parse from "html-react-parser";
 
 interface Props {
-  title: any;
+  title?: any;
   data: any;
   handleClick: (x: any) => void;
 }
