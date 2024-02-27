@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import User, Profile, Article, Post
 from django.http import HttpRequest
-#rest
+# rest
 from rest_framework import permissions
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -18,21 +18,23 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from django.contrib.sessions.models import Session
 
-from .serializers import UserSerializer, LoginSerializer, ProfileSerializer, ArticleSerializer, PostSerializer, LogoutSerializer
+from .serializers import CombinedSerializer, UserSerializer, LoginSerializer, ProfileSerializer, ArticleSerializer, PostSerializer, LogoutSerializer
 from django.middleware.csrf import get_token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authentication import TokenAuthentication
 
 from rest_framework.pagination import PageNumberPagination
 
+
 def index(request):
     return render(request, 'frontend/build/index.html')
+
 
 class LoginAPIView(ObtainAuthToken):
     def post(self, request):
         if request.user.is_authenticated:
             return Response({'error': 'User is already authenticated.'}, status=status.HTTP_400_BAD_REQUEST)
-        
+
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             user = serializer.validated_data['user']
@@ -41,6 +43,7 @@ class LoginAPIView(ObtainAuthToken):
         else:
             return Response({'error': 'Invalid login credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
+
 class LogoutView(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
@@ -48,6 +51,7 @@ class LogoutView(APIView):
     def post(self, request, format=None):
         request.user.auth_token.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 @api_view(["POST"])
 @permission_classes([AllowAny])
@@ -60,11 +64,12 @@ def register(request):
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class article_list(generics.ListCreateAPIView):
     queryset = Article.objects.all().order_by('-time_created')
     serializer_class = ArticleSerializer
-    authentication_classes =  [TokenAuthentication] 
-    
+    authentication_classes = [TokenAuthentication]
+
     def get_permissions(self):
         permission_classes = []
         if self.request.method == 'GET':
@@ -73,12 +78,13 @@ class article_list(generics.ListCreateAPIView):
             permission_classes = [IsAuthenticated]
 
         return [permission() for permission in permission_classes]
+
 
 class article_detail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
     lookup_field = 'id'
-    authentication_classes =  [TokenAuthentication] 
+    authentication_classes = [TokenAuthentication]
 
     def get_permissions(self):
         permission_classes = []
@@ -88,11 +94,12 @@ class article_detail(generics.RetrieveUpdateDestroyAPIView):
             permission_classes = [IsAuthenticated]
 
         return [permission() for permission in permission_classes]
-    
+
+
 class post_list(generics.ListCreateAPIView):
     queryset = Post.objects.all().order_by('-time_created_post')
     serializer_class = PostSerializer
-    authentication_classes =  [TokenAuthentication] 
+    authentication_classes = [TokenAuthentication]
 
     def get_permissions(self):
         permission_classes = []
@@ -102,12 +109,14 @@ class post_list(generics.ListCreateAPIView):
             permission_classes = [IsAuthenticated]
 
         return [permission() for permission in permission_classes]
+
 
 class post_detail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     lookup_field = 'id'
-    authentication_classes =  [TokenAuthentication] 
+    authentication_classes = [TokenAuthentication]
+
     def get_permissions(self):
         permission_classes = []
         if self.request.method == 'GET':
@@ -116,7 +125,24 @@ class post_detail(generics.RetrieveUpdateDestroyAPIView):
             permission_classes = [IsAuthenticated]
 
         return [permission() for permission in permission_classes]
-    
+
+
+class SearchView(generics.ListAPIView):
+    serializer_class = CombinedSerializer
+    authentication_classes = [TokenAuthentication]
+
+    def get_permissions(self):
+        return [AllowAny()]
+
+    def get_queryset(self):
+        title_query = self.request.query_params.get('title', None)
+        combined_queryset = []
+        if title_query:
+            articles = Article.objects.filter(title__icontains=title_query)
+            posts = Post.objects.filter(title_post__icontains=title_query)
+            combined_queryset = list(articles) + list(posts)
+        return combined_queryset
+
 
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
@@ -127,7 +153,7 @@ def profile(request):
     except Profile.DoesNotExist:
         return Response({'error': 'Profile does not exist'}, status=status.HTTP_404_NOT_FOUND)
 
-    
+
 class UserView(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]

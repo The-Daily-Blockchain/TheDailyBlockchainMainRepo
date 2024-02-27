@@ -16,4 +16,5 @@ urlpatterns = [
     path('posts/', views.post_list.as_view(), name='post-list'),
     path('posts/<uuid:id>/', views.post_detail.as_view(), name='post-detail'),
     path('user/', views.UserView.as_view()),
+    path('search', views.SearchView.as_view(), name='search'),
 ]
