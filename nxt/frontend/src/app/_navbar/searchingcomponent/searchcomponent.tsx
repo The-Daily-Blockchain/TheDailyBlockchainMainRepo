@@ -20,12 +20,12 @@ function SearchComponent() {
 
   return (
     <>
-      <div className="right-10">
+      <div className="fixed right-10">
         <div className="flex">
           {searching && (
             <form onSubmit={handleSubmit}>
               <input
-                className="border-black border-2 rounded mr-2"
+                className="border-black border-2 rounded mr-2 p-1"
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
