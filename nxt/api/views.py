@@ -138,8 +138,10 @@ class SearchView(generics.ListAPIView):
         title_query = self.request.query_params.get('title', None)
         combined_queryset = []
         if title_query:
-            articles = Article.objects.filter(title__icontains=title_query)
-            posts = Post.objects.filter(title_post__icontains=title_query)
+            articles = Article.objects.filter(
+                title__icontains=title_query).order_by('-time_created')
+            posts = Post.objects.filter(
+                title_post__icontains=title_query).order_by('-time_created_post')
             combined_queryset = list(articles) + list(posts)
         return combined_queryset
 
