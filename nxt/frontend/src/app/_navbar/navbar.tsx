@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose, AiOutlineCopyrightCircle } from "react-icons/ai";
 import classNames from "classnames";
+import SearchComponent from "./searchingcomponent/searchcomponent";
 
 const NavBar = () => {
   const [nav, setNav] = useState(false);
@@ -91,7 +92,8 @@ const NavBar = () => {
           >
             {" "}
             Donate Us
-          </div>
+          </div>{" "}
+          <SearchComponent />
         </div>
       </div>
       {/* mobile */}
