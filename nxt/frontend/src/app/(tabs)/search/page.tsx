@@ -3,30 +3,44 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useSearch } from "@/app/_components/hooks/useSearch";
 import MainSearchBody from "@/app/_mainbody/searchbody/mainsearchbody";
+import Pagination from "@/app/_mainbody/pagination";
+import { useDataHandler } from "@/app/_components/utils/dataHandler";
 
 const Page = () => {
   const searchParams = useSearchParams();
   const title = searchParams.get("title");
   const [searchQuery, setSearchQuery] = useState("");
-  const { data, isLoading, error } = useSearch(title);
-
+  // const { data, isLoading, error } = useSearch(title);
+  const apiEndpoint = `/api/search?title=${title}&`;
   useEffect(() => {
     if (title) {
       setSearchQuery(title);
     }
   }, [title, setSearchQuery]);
 
+  const {
+    data,
+    isLoading,
+    error,
+    handleDataUpdate,
+    handleLoading,
+    handleError,
+  } = useDataHandler();
+
   return (
     <>
       <div>
         <h1>Search Results for: {searchQuery}</h1>
-        {/* {data?.results.map((x: any) => (
-          <div key={x.id}>{x.title}</div>
-        ))} */}
       </div>
       <div>
         <MainSearchBody data={data} isLoading={isLoading} error={error} />
       </div>
+      <Pagination
+        apiEndpoint={apiEndpoint}
+        onDataUpdate={handleDataUpdate}
+        onLoadingUpdate={handleLoading}
+        onErrorUpdate={handleError}
+      />
     </>
   );
 };

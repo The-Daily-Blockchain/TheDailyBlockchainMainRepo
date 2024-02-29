@@ -25,10 +25,7 @@ const MainSearchBody = ({ data, isLoading, error }: Props) => {
     const hasTitle = data?.some((item: { title: any }) => item.title);
 
     if (hasTitle) {
-      router.push(`/article/${x.id}`);
-    } else {
-      // Handle the case when title doesn't exist
-      console.log("No title exists for this item.");
+      router.push(`/search/details/${x.id}/`);
     }
   };
 
@@ -37,7 +34,7 @@ const MainSearchBody = ({ data, isLoading, error }: Props) => {
   if (error) return <Error />;
   return (
     <>
-      {/* <FullScreenAdhoc>
+      <FullScreenAdhoc>
         <XlBodyList data={data} handleClick={handleClick} />
       </FullScreenAdhoc>
       <LgScreenAdhoc>
@@ -48,7 +45,7 @@ const MainSearchBody = ({ data, isLoading, error }: Props) => {
       </MdScreenAdhoc>
       <MobileScreenAdhoc>
         <MobileBodyList data={data} handleClick={handleClick} />
-      </MobileScreenAdhoc> */}
+      </MobileScreenAdhoc>
     </>
   );
 };
