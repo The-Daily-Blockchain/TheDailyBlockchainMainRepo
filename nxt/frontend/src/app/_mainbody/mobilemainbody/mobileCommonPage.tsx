@@ -15,8 +15,8 @@ const MobileCommonPage = ({ payload, isLoading, error  }: Props) => {
   if(isLoading) return <Loader />
   if(error) return <Error />
   return (
-    <div className="mx-2 mt-10 mb-10">
-      <div>
+    <div className="min-h-screen mx-2 mt-10 mb-10">
+      <div className="flex-grow overflow-auto">
         <div className="pb-10 mb- 20 font-bold text-lg">
           {payload?.title || payload?.title_post}
         </div>

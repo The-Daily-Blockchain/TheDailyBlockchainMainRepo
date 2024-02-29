@@ -13,8 +13,8 @@ const MdCommonPage = ({ payload, isLoading, error }: Props) => {
   if(error) return <Error />
   if(isLoading) return <Loader />
   return (
-    <div className="h-screen mx-6 mt-10 mb-10 overflow-y-hidden">
-      <div>
+    <div className="min-h-screen mx-6 mt-10 mb-10 overflow-y-hidden">
+      <div  className="flex-grow overflow-auto">
         <div className="mb-10 font-bold text-lg">
           {payload?.title || payload?.title_post}
         </div>

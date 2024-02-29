@@ -46,15 +46,16 @@ const MdLeftCover = ({ data }: Props) => {
               >
                 <div className="text-[16px] font-medium text-[#121212] hover:opacity-50 transition-opacity duration-300">
                   {x.title}
-                </div>
+          
+              <div className="text-[#5a5a5a] text-[12px]  hover:opacity-50 transition-opacity duration-300">
+                {parse(
+                  x.content.length > 150
+                    ? `${x.content.substring(0, 150)}...`
+                    : x.content
+                )}
+              </div>
               </div>
             </div>
-            <div className="text-[#5a5a5a] text-[12px]  hover:opacity-50 transition-opacity duration-300">
-              {parse(
-                x.content.length > 150
-                  ? `${x.content.substring(0, 150)}...`
-                  : x.content
-              )}
             </div>
           </div>
         ))}

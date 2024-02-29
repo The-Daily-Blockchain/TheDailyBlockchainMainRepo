@@ -16,8 +16,8 @@ if(isLoading) return <Loader />
 if(error) return <Error />
 
   return (
-    <div className="h-screen mx-10 mt-20 mb-10 overflow-y-hidden">
-      <div>
+    <div className="min-h-screen mx-10 mt-20 mb-10 overflow-y-hidden">
+      <div className="flex-grow overflow-auto">
         <div className="mb-10 font-bold text-xl mx-10">
           {payload?.title || payload?.title_post}
         </div>
