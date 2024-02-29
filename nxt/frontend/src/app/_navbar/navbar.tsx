@@ -53,7 +53,7 @@ const NavBar = () => {
       </div>
       {/* sm and above */}
       <div className="hidden sm:block">
-        <div className="flex justify-center border-double border-b-4 border-[#000] bg-[#FFFFFF] py-3 text-[12px] space-x-16">
+        <div className="flex justify-center border-double border-b-4 border-[#000] bg-[#FFFFFF] py-3 text-[12px] space-x-16 relative">
           <div
             className="no-underline hover:underline hover:opacity-60"
             onClick={() => router.push("/about")}
@@ -92,8 +92,10 @@ const NavBar = () => {
           >
             {" "}
             Donate Us
-          </div>{" "}
-          <SearchComponent />
+          </div>
+          <div className="absolute top-1 right-10">
+            <SearchComponent />
+          </div>
         </div>
       </div>
       {/* mobile */}

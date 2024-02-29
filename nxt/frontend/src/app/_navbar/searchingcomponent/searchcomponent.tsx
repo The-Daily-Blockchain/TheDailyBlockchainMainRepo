@@ -10,7 +10,10 @@ function SearchComponent() {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    router.replace(`/searched?title=${title}`);
+    if (title.trim() !== "") {
+      router.replace(`/searched?title=${title}`);
+      setSearching((e) => !e);
+    }
   };
 
   const handleClick = () => {
@@ -20,30 +23,47 @@ function SearchComponent() {
 
   return (
     <>
-      <div className="fixed right-10">
+      <div>
         <div className="flex">
           {searching && (
-            <form onSubmit={handleSubmit}>
-              <input
-                className="border-black border-2 rounded mr-2 p-1"
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
-              <button
-                className="border-2 border-solid rounded bg-[#e3e3e3] mr-3"
-                type="submit"
-              >
-                GO
-              </button>
-            </form>
+            <div className="flex mt-[6px]">
+              <div>
+                <form onSubmit={handleSubmit}>
+                  <input
+                    className="border-2 rounded p-[2px] mr-1"
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder=" Search here"
+                    style={{ borderColor: "#D4D4D4 !important" }}
+                  />
+                  <button
+                    className="text-[8px] rounded pt-2 px-2 bg-[#e3e3e3] mr-2 text-black p-[5px]"
+                    type="submit"
+                  >
+                    GO
+                  </button>
+                </form>
+              </div>
+              <div className="flex items-center justify-center">
+                <IoSearch
+                  onClick={handleClick}
+                  size={18}
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
+            </div>
           )}
-          <IoSearch
-            onClick={handleClick}
-            size={18}
-            style={{ cursor: "pointer" }}
-          />
         </div>
+        {!searching && (
+          <div className="mt-[10px]">
+            <IoSearch
+              onClick={handleClick}
+              size={18}
+              style={{ cursor: "pointer" }}
+            />
+          </div>
+        )}
       </div>
     </>
   );
