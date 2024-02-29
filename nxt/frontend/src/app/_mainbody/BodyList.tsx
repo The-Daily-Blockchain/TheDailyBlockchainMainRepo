@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import Loader from "../loader";
 import Error from "../error";
 import { useRouter } from "next/navigation";
 import FullScreenAdhoc from "../_adhoc/fullscreenadhoc";
@@ -22,8 +21,6 @@ interface Props {
 const BodyList = ({ data, isLoading, error, title }: Props) => {
   const router = useRouter();
 
-  if (isLoading) return <Loader />;
-
   if (error) return <Error />;
 
   const handleClick = (x: any) => {
@@ -40,16 +37,36 @@ const BodyList = ({ data, isLoading, error, title }: Props) => {
   return (
     <>
       <LgScreenAdhoc>
-        <LgBodyList title={title} data={data} handleClick={handleClick} />
+        <LgBodyList
+          title={title}
+          data={data}
+          isLoading={isLoading}
+          handleClick={handleClick}
+        />
       </LgScreenAdhoc>
       <FullScreenAdhoc>
-        <XlBodyList title={title} data={data} handleClick={handleClick} />
+        <XlBodyList
+          title={title}
+          data={data}
+          isLoading={isLoading}
+          handleClick={handleClick}
+        />
       </FullScreenAdhoc>
       <MdScreenAdhoc>
-        <MdBodyList title={title} data={data} handleClick={handleClick} />
+        <MdBodyList
+          title={title}
+          data={data}
+          isLoading={isLoading}
+          handleClick={handleClick}
+        />
       </MdScreenAdhoc>
       <MobileScreenAdhoc>
-        <MobileMainBody title={title} data={data} handleClick={handleClick} />
+        <MobileMainBody
+          title={title}
+          data={data}
+          isLoading={isLoading}
+          handleClick={handleClick}
+        />
       </MobileScreenAdhoc>
     </>
   );

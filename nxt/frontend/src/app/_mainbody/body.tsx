@@ -12,40 +12,49 @@ import MdMainScreenAdhoc from "../_adhoc/mdmainscreenadhoc";
 import MdCover from "./mdmainbody/MdCover";
 import CoverMobileBody from "./mobilemainbody/coverMobileBody";
 import MobileMainPage from "./mobilemainbody/mobileMainPage";
+import AdHocLoader from "../_adhoc/adhocLoader";
 
 const Body = () => {
   const { data, isLoading } = useSWR("/api/article", fetcher);
   const { isLoading: isLoadingPost } = useSWR("/api/post", fetcher);
 
-  if (isLoading || isLoadingPost) {
-    return <Loader />;
-  }
+  // if (isLoading || isLoadingPost) {
+  //   return <Loader />;
+  // }
   return (
     <>
       <FullScreenAdhoc>
-        <div className="mx-2">
-          <Cover data={data} />
-          <MainPage />
-        </div>
+        <AdHocLoader isLoading={isLoading || isLoadingPost}>
+          <div className="mx-2">
+            <Cover data={data} />
+            <MainPage />
+          </div>
+        </AdHocLoader>
       </FullScreenAdhoc>
       <LgMainScreenAdhoc>
-        <div className="mx-2">
-          <Cover data={data} />
-          <MainPage />
-        </div>
+        <AdHocLoader isLoading={isLoading || isLoadingPost}>
+          <div className="mx-2">
+            <Cover data={data} />
+            <MainPage />
+          </div>
+        </AdHocLoader>
       </LgMainScreenAdhoc>
       <MdMainScreenAdhoc>
-        <div className="mx-2">
-          <MdCover data={data} />
-          <MainPage />
-        </div>
+        <AdHocLoader isLoading={isLoading || isLoadingPost}>
+          <div className="mx-2">
+            <MdCover data={data} />
+            <MainPage />
+          </div>
+        </AdHocLoader>
       </MdMainScreenAdhoc>
       <MobileScreenAdhoc>
-        <div className="mx-2">
-          <CoverMobileBody data={data} />
-          <div className="h-10 bg-black"></div>
-          <MobileMainPage />
-        </div>
+        <AdHocLoader isLoading={isLoading || isLoadingPost}>
+          <div className="mx-2">
+            <CoverMobileBody data={data} />
+            <div className="h-10 bg-black"></div>
+            <MobileMainPage />
+          </div>
+        </AdHocLoader>
       </MobileScreenAdhoc>
     </>
   );
