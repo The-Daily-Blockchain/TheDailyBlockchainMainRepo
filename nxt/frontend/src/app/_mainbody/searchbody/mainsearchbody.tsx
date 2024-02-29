@@ -30,6 +30,9 @@ const MainSearchBody = ({ data, isLoading, error, title }: Props) => {
     }
   };
 
+  if (Array.isArray(data) && data.length === 0) {
+    return <Error />;
+  }
   if (error) return <Error />;
   return (
     <>
