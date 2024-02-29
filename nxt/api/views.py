@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render
-from .models import CombinedModel, User, Profile, Article, Post
+from .models import User, Profile, Article, Post
 from django.http import HttpRequest
 # rest
 from rest_framework import permissions
