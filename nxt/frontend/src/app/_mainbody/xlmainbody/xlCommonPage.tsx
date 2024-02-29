@@ -1,11 +1,18 @@
 import React from "react";
 import parse from "html-react-parser";
 import { formatDate } from "@/app/_components/utils/formattingData";
+import Loader from "@/app/loader";
+import Error from "@/app/error";
 
 interface Props {
   payload: any;
+  isLoading?: boolean;
+  error?: boolean;
 }
-const XlCommonPage = ({ payload }: Props) => {
+const XlCommonPage = ({ payload, isLoading, error }: Props) => {
+  if (isLoading) return <Loader />
+  if(error) return <Error />
+
   return (
     <div className="h-screen mx-10 mt-20 mb-10 overflow-y-hidden">
       <div>

@@ -18,9 +18,6 @@ const Body = () => {
   const { data, isLoading } = useSWR("/api/article", fetcher);
   const { isLoading: isLoadingPost } = useSWR("/api/post", fetcher);
 
-  // if (isLoading || isLoadingPost) {
-  //   return <Loader />;
-  // }
   return (
     <>
       <FullScreenAdhoc>

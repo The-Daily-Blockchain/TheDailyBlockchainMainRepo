@@ -1,12 +1,19 @@
 import React from "react";
 import parse from "html-react-parser";
 import { formatDate } from "@/app/_components/utils/formattingData";
+import Loader from "@/app/loader";
+import Error from "@/app/error";
+
 
 interface Props {
   payload: any;
+  isLoading?: boolean;
+  error?: boolean;
 }
 
-const MobileCommonPage = ({ payload }: Props) => {
+const MobileCommonPage = ({ payload, isLoading, error  }: Props) => {
+  if(isLoading) return <Loader />
+  if(error) return <Error />
   return (
     <div className="mx-2 mt-10 mb-10">
       <div>

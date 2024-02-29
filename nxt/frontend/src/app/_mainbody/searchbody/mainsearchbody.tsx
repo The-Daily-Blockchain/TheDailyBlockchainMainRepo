@@ -11,6 +11,7 @@ import MobileBodyList from "../mobilemainbody/mobileBodyList";
 import Loader from "@/app/loader";
 import Error from "@/app/error";
 import { useRouter } from "next/navigation";
+import ErrorSearch from "./errorsearch";
 
 interface Props {
   data: any;
@@ -31,7 +32,7 @@ const MainSearchBody = ({ data, isLoading, error, title }: Props) => {
   };
 
   if (Array.isArray(data) && data.length === 0) {
-    return <Error />;
+    return <ErrorSearch title={title} />;
   }
   if (error) return <Error />;
   return (

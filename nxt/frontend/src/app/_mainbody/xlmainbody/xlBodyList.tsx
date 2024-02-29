@@ -6,7 +6,7 @@ interface Props {
   title?: any;
   data: any;
   handleClick: (x: any) => void;
-  isLoading?: any;
+  isLoading?: boolean;
 }
 
 const XlBodyList = ({ title, data, handleClick, isLoading }: Props) => {

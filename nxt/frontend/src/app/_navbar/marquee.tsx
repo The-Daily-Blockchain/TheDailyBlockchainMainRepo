@@ -44,7 +44,7 @@ const MarQuee = () => {
 
   return (
     <div>
-      {isLoading && (
+      {!isLoading && (
         <Marquee>
           <div className="hidden sm:block">
             <div className="flex border-b-4 border-[#000]">

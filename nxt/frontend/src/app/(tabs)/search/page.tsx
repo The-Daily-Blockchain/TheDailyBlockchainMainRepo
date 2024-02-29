@@ -10,7 +10,6 @@ const Page = () => {
   const searchParams = useSearchParams();
   const title = searchParams.get("title");
   const [searchQuery, setSearchQuery] = useState("");
-  // const { data, isLoading, error } = useSearch(title);
   const apiEndpoint = `/api/search?title=${title}&`;
   useEffect(() => {
     if (title) {

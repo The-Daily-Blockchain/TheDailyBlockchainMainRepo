@@ -20,25 +20,23 @@ interface Props {
 }
 
 export default function CommonPage({ payload, isLoading, error }: Props) {
-  if (isLoading) {
-    return <Loader />;
-  }
+
   if (error) {
     return <Error />;
   }
   return (
     <>
       <FullScreenAdhoc>
-        <XlCommonPage payload={payload} />
+        <XlCommonPage payload={payload} error={error} isLoading={isLoading} />
       </FullScreenAdhoc>
       <LgScreenAdhoc>
-        <LgCommonPage payload={payload} />
+        <LgCommonPage payload={payload} error={error} isLoading={isLoading} />
       </LgScreenAdhoc>
       <MdScreenAdhoc>
-        <MdCommonPage payload={payload} />
+        <MdCommonPage payload={payload} error={error} isLoading={isLoading} />
       </MdScreenAdhoc>
       <MobileScreenAdhoc>
-        <MobileCommonPage payload={payload} />
+        <MobileCommonPage payload={payload} error={error} isLoading={isLoading} />
       </MobileScreenAdhoc>
     </>
   );
