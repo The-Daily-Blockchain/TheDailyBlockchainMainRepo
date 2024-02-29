@@ -51,3 +51,11 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title_post
+
+
+class CombinedModel:
+    @classmethod
+    def get_combined_queryset(cls):
+        articles = Article.objects.all()
+        posts = Post.objects.all()
+        return list(articles) + list(posts)

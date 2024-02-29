@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from .models import User, Profile, Article, Post
+from django.shortcuts import get_object_or_404, render
+from .models import CombinedModel, User, Profile, Article, Post
 from django.http import HttpRequest
 # rest
 from rest_framework import permissions
@@ -144,6 +144,38 @@ class SearchView(generics.ListAPIView):
                 title_post__icontains=title_query).order_by('-time_created_post')
             combined_queryset = list(articles) + list(posts)
         return combined_queryset
+
+
+class SearchDetailView(generics.RetrieveAPIView):
+    serializer_class = CombinedSerializer
+    lookup_field = 'id'
+
+    def get_permissions(self):
+        return [AllowAny()]
+
+    def get_queryset(self):
+        title_query = self.request.query_params.get('title', None)
+        combined_queryset = []
+        if title_query:
+            combined_queryset = []
+        return combined_queryset
+
+    def get_object(self):
+        obj_id = self.kwargs.get('id')
+        # Try to retrieve the object from the Article model
+        obj = Article.objects.filter(id=obj_id).first()
+        if not obj:
+            # If not found in Article model, try retrieving from the Post model
+            obj = Post.objects.filter(id=obj_id).first()
+        return obj
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if instance:
+            serializer = self.get_serializer(instance)
+            return Response(serializer.data)
+        else:
+            return Response({'detail': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)
 
 
 @api_view(["GET"])
