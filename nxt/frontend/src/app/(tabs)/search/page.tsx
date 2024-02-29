@@ -18,6 +18,8 @@ const Page = () => {
     }
   }, [title, setSearchQuery]);
 
+  const results = `Search Results for: ${searchQuery}`;
+
   const {
     data,
     isLoading,
@@ -30,10 +32,12 @@ const Page = () => {
   return (
     <>
       <div>
-        <h1>Search Results for: {searchQuery}</h1>
-      </div>
-      <div>
-        <MainSearchBody data={data} isLoading={isLoading} error={error} />
+        <MainSearchBody
+          data={data}
+          isLoading={isLoading}
+          error={error}
+          title={results}
+        />
       </div>
       <Pagination
         apiEndpoint={apiEndpoint}

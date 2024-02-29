@@ -1,14 +1,16 @@
 import React from "react";
 import Image from "next/image";
 import parse from "html-react-parser";
-
+import Loader from "@/app/loader";
 interface Props {
   title?: any;
   data: any;
   handleClick: (x: any) => void;
+  isLoading?: any;
 }
 
-const MobileBodyList = ({ title, data, handleClick }: Props) => {
+const MobileBodyList = ({ title, data, handleClick, isLoading }: Props) => {
+  if (isLoading) return <Loader />;
   return (
     <div className="mx-3 overflow-auto">
       <div className="align-center text-center mt-8 text-2xl font-bold">

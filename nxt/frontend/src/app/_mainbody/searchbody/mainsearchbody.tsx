@@ -16,9 +16,10 @@ interface Props {
   data: any;
   isLoading: any;
   error: any;
+  title?: any;
 }
 
-const MainSearchBody = ({ data, isLoading, error }: Props) => {
+const MainSearchBody = ({ data, isLoading, error, title }: Props) => {
   const router = useRouter();
 
   const handleClick = (x: any) => {
@@ -29,22 +30,40 @@ const MainSearchBody = ({ data, isLoading, error }: Props) => {
     }
   };
 
-  if (isLoading) return <Loader />;
-
   if (error) return <Error />;
   return (
     <>
       <FullScreenAdhoc>
-        <XlBodyList data={data} handleClick={handleClick} />
+        <XlBodyList
+          data={data}
+          handleClick={handleClick}
+          isLoading={isLoading}
+          title={title}
+        />
       </FullScreenAdhoc>
       <LgScreenAdhoc>
-        <LgBodyList data={data} handleClick={handleClick} />
+        <LgBodyList
+          data={data}
+          handleClick={handleClick}
+          title={title}
+          isLoading={isLoading}
+        />
       </LgScreenAdhoc>
       <MdScreenAdhoc>
-        <MdBodyList data={data} handleClick={handleClick} />
+        <MdBodyList
+          data={data}
+          handleClick={handleClick}
+          title={title}
+          isLoading={isLoading}
+        />
       </MdScreenAdhoc>
       <MobileScreenAdhoc>
-        <MobileBodyList data={data} handleClick={handleClick} />
+        <MobileBodyList
+          data={data}
+          handleClick={handleClick}
+          title={title}
+          isLoading={isLoading}
+        />
       </MobileScreenAdhoc>
     </>
   );
