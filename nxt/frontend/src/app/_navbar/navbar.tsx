@@ -93,16 +93,19 @@ const NavBar = () => {
             {" "}
             Donate Us
           </div>
-          <div className="absolute top-1 right-10">
+          <div className="absolute top-[2px] right-2 md:right-10">
             <SearchComponent />
           </div>
         </div>
       </div>
       {/* mobile */}
       <div className="sm:hidden">
-        <div className="flex justify-center border-double border-b-4 border-[#000] bg-[#FFFFFF] py-3 text-[12px] space-x-16">
+        <div className="relative flex justify-center border-double border-b-4 border-[#000] bg-[#FFFFFF] py-3 text-[12px] space-x-16">
           <p style={{ fontWeight: "bold" }}>{formattedDate}</p>
-        </div>
+          <div className="absolute top-[2px] right-4">
+            <SearchComponent />
+          </div>    
+        </div> 
         <div className={classNames("sm:hidden", { block: nav, hidden: !nav })}>
           <div
             className={
