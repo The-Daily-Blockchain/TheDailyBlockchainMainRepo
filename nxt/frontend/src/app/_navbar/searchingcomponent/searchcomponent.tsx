@@ -26,11 +26,11 @@ function SearchComponent() {
       <div>
         <div className="flex">
           {searching && (
-            <div className="flex mt-[6px]">
+            <div className="flex mt-[5px]">
               <div>
                 <form onSubmit={handleSubmit}>
                   <input
-                    className="border-2 rounded p-[2px] mr-1"
+                    className="border-2 rounded pb-1 p-[2px] mr-1"
                     type="text"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
@@ -38,7 +38,7 @@ function SearchComponent() {
                     style={{ borderColor: "#D4D4D4 !important" }}
                   />
                   <button
-                    className="text-[8px] rounded pt-2 px-2 bg-[#e3e3e3] mr-2 text-black p-[5px]"
+                    className="text-[8px] rounded bg-[#e3e3e3] mr-2 text-black p-[7px]"
                     type="submit"
                   >
                     GO

@@ -11,9 +11,8 @@ interface Props {
 }
 
 const LgCommonPage = ({ payload, isLoading, error }: Props) => {
-
-if(isLoading) return <Loader />
-if(error) return <Error />
+  if (isLoading) return <Loader />;
+  if (error) return <Error />;
 
   return (
     <div className="min-h-screen mx-10 mt-20 mb-10 overflow-y-hidden">
