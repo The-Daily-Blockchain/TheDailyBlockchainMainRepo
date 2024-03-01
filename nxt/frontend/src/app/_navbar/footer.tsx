@@ -3,14 +3,22 @@ import { AiOutlineCopyrightCircle } from "react-icons/ai";
 
 const Footer: React.FC = () => {
   return (
-    <div>
-      <div className="p-6 justify-center flex border-double border-t-4 font-bold bg-[#fff]">
+    <div className="border-double border-t-4">
+      <div className="bg-white z-10" style={{ visibility: "hidden" }}>
+        <div className="text-center">
+          .. -. / -- . -- --- .-. -.-- / --- ..-. / --. .-. .- -.-. . / .-.. .
+          -. - .
+        </div>
+      </div>
+      <div className="justify-center flex font-bold bg-[#fff]">
         Copyright <AiOutlineCopyrightCircle className="mr-2" />
         The Daily Blockchain PH 2023
       </div>
-      <div className="text-center">
-        .. -. / -- . -- --- .-. -.-- / --- ..-. / --. .-. .- -.-. . / .-.. . -.
-        - .
+      <div className="bg-white z-10" style={{ visibility: "hidden" }}>
+        <div className="text-center">
+          .. -. / -- . -- --- .-. -.-- / --- ..-. / --. .-. .- -.-. . / .-.. .
+          -. - .
+        </div>
       </div>
     </div>
   );
