@@ -104,8 +104,8 @@ const NavBar = () => {
           <p style={{ fontWeight: "bold" }}>{formattedDate}</p>
           <div className="absolute top-[2px] right-4">
             <SearchComponent />
-          </div>    
-        </div> 
+          </div>
+        </div>
         <div className={classNames("sm:hidden", { block: nav, hidden: !nav })}>
           <div
             className={
@@ -114,7 +114,10 @@ const NavBar = () => {
                 : "ease-in-out duration-300 top-0 h-full w-full fixed right-[-100%] bg-gray-500  z-10"
             }
           >
-            <div onClick={handleNav} className="mt-4 ml-4 hover:opacity-30">
+            <div
+              onClick={handleNav}
+              className="mt-4 ml-4 hover:opacity-30 hover:cursor-pointer"
+            >
               <AiOutlineClose size={20} />
             </div>
             <div className="flex flex-col">
@@ -123,7 +126,7 @@ const NavBar = () => {
                   router.push(`/about`);
                   handleNav();
                 }}
-                className="hover:bg-gray-200 mt-14 pt-3 pl-8 font-bold pb-3 border-b-2 border-solid"
+                className="hover:bg-gray-200 mt-14 pt-3 pl-8 font-bold pb-3 border-b-2 border-solid hover:cursor-pointer"
               >
                 ABOUT
               </div>
@@ -132,7 +135,7 @@ const NavBar = () => {
                   router.push(`/topnews`);
                   handleNav();
                 }}
-                className="hover:bg-gray-200 pl-8 pt-3 font-bold pb-3 border-b-2 border-solid"
+                className="hover:bg-gray-200 pl-8 pt-3 font-bold pb-3 border-b-2 border-solid hover:cursor-pointer"
               >
                 TOP NEWS
               </div>
@@ -141,7 +144,7 @@ const NavBar = () => {
                   router.push(`/crypto101`);
                   handleNav();
                 }}
-                className="hover:bg-gray-200 pl-8 pt-3 font-bold pb-3 border-b-2 border-solid"
+                className="hover:bg-gray-200 pl-8 pt-3 font-bold pb-3 border-b-2 border-solid hover:cursor-pointer"
               >
                 CRYPTO101
               </div>
@@ -150,7 +153,7 @@ const NavBar = () => {
                   router.push(`/liveprices`);
                   handleNav();
                 }}
-                className="hover:bg-gray-200 pl-8 pt-3 font-bold pb-3 border-b-2 border-solid"
+                className="hover:bg-gray-200 pl-8 pt-3 font-bold pb-3 border-b-2 border-solid hover:cursor-pointer"
               >
                 LIVE PRICES
               </div>
@@ -159,7 +162,7 @@ const NavBar = () => {
                   router.push(`/donate`);
                   handleNav();
                 }}
-                className="hover:bg-gray-200 pl-8 pt-3 font-bold pb-3 border-b-2 border-solid"
+                className="hover:bg-gray-200 pl-8 pt-3 font-bold pb-3 border-b-2 border-solid hover:cursor-pointer"
               >
                 DONATE US
               </div>
