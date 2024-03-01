@@ -12,6 +12,7 @@ import Loader from "@/app/loader";
 import Error from "@/app/error";
 import { useRouter } from "next/navigation";
 import ErrorSearch from "./errorsearch";
+import ArrowButton from "../arrowbutton";
 
 interface Props {
   data: any;
@@ -68,6 +69,7 @@ const MainSearchBody = ({ data, isLoading, error, title }: Props) => {
           title={title}
           isLoading={isLoading}
         />
+        <ArrowButton />
       </MobileScreenAdhoc>
     </>
   );
