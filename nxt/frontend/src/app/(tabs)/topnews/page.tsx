@@ -13,7 +13,7 @@ const Page = () => {
     handleError,
   } = useDataHandler();
   const title = "Top News";
-  const apiEndpoint = "/api/article";
+  const apiEndpoint = "/api/article?";
 
   return (
     <>

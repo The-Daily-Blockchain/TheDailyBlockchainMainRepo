@@ -14,7 +14,7 @@ const Page = () => {
     handleError,
   } = useDataHandler();
   const title = "Crypto 101";
-  const apiEndpoint = "/api/post";
+  const apiEndpoint = "/api/post?";
 
   return (
     <div>

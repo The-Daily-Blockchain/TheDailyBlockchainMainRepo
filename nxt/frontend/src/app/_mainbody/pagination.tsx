@@ -19,7 +19,7 @@ const Pagination = ({
 }: Props) => {
   const [currentPage, setCurrentPage] = useState(0);
   const { data, isLoading, error } = useSWR(
-    () => `${apiEndpoint}?page=${currentPage + 1}`,
+    () => `${apiEndpoint}page=${currentPage + 1}`,
     fetcher
   );
 
