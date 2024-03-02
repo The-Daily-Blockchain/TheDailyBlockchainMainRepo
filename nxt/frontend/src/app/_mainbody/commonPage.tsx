@@ -12,6 +12,7 @@ import MdCommonPage from "./mdmainbody/mdCommonPage";
 import MobileCommonPage from "./mobilemainbody/mobileCommonPage";
 import MdScreenAdhoc from "../_adhoc/mdscreenadhoc";
 import MobileScreenAdhoc from "../_adhoc/mobilescreenadhoc";
+import ArrowButton from "./arrowbutton";
 
 interface Props {
   payload: any;
@@ -20,7 +21,6 @@ interface Props {
 }
 
 export default function CommonPage({ payload, isLoading, error }: Props) {
-
   if (error) {
     return <Error />;
   }
@@ -36,7 +36,12 @@ export default function CommonPage({ payload, isLoading, error }: Props) {
         <MdCommonPage payload={payload} error={error} isLoading={isLoading} />
       </MdScreenAdhoc>
       <MobileScreenAdhoc>
-        <MobileCommonPage payload={payload} error={error} isLoading={isLoading} />
+        <MobileCommonPage
+          payload={payload}
+          error={error}
+          isLoading={isLoading}
+        />
+        <ArrowButton />
       </MobileScreenAdhoc>
     </>
   );

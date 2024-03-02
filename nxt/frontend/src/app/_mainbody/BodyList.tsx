@@ -10,6 +10,7 @@ import MdScreenAdhoc from "../_adhoc/mdscreenadhoc";
 import MobileScreenAdhoc from "../_adhoc/mobilescreenadhoc";
 import MdBodyList from "./mdmainbody/mdBodyList";
 import MobileMainBody from "./mobilemainbody/mobileBodyList";
+import ArrowButton from "./arrowbutton";
 
 interface Props {
   data: any;
@@ -67,6 +68,7 @@ const BodyList = ({ data, isLoading, error, title }: Props) => {
           isLoading={isLoading}
           handleClick={handleClick}
         />
+        <ArrowButton />
       </MobileScreenAdhoc>
     </>
   );

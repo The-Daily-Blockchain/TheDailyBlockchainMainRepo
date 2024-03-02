@@ -13,6 +13,7 @@ import MdCover from "./mdmainbody/MdCover";
 import CoverMobileBody from "./mobilemainbody/coverMobileBody";
 import MobileMainPage from "./mobilemainbody/mobileMainPage";
 import AdHocLoader from "../_adhoc/adhocLoader";
+import ArrowButton from "./arrowbutton";
 
 const Body = () => {
   const { data, isLoading } = useSWR("/api/article", fetcher);
@@ -51,6 +52,7 @@ const Body = () => {
             <div className="h-10 bg-black"></div>
             <MobileMainPage />
           </div>
+          <ArrowButton />
         </AdHocLoader>
       </MobileScreenAdhoc>
     </>
