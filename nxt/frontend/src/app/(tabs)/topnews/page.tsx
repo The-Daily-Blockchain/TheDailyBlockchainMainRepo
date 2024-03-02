@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { useDataHandler } from "@/app/_components/utils/dataHandler";
 import BodyList from "@/app/_mainbody/BodyList";
-import Pagination from "@/app/_mainbody/pagination";
 
 const Page = () => {
   const {
@@ -18,12 +17,15 @@ const Page = () => {
 
   return (
     <>
-      <BodyList data={data} isLoading={isLoading} error={error} title={title} />
-      <Pagination
+      <BodyList
+        data={data}
+        isLoading={isLoading}
+        error={error}
+        title={title}
         apiEndpoint={apiEndpoint}
-        onDataUpdate={handleDataUpdate}
-        onLoadingUpdate={handleLoading}
-        onErrorUpdate={handleError}
+        handleDataUpdate={handleDataUpdate}
+        handleLoading={handleLoading}
+        handleError={handleError}
       />
     </>
   );

@@ -11,15 +11,29 @@ import MobileScreenAdhoc from "../_adhoc/mobilescreenadhoc";
 import MdBodyList from "./mdmainbody/mdBodyList";
 import MobileMainBody from "./mobilemainbody/mobileBodyList";
 import ArrowButton from "./arrowbutton";
+import Pagination from "./pagination";
 
 interface Props {
   data: any;
   isLoading?: any;
   error?: any;
   title?: any;
+  apiEndpoint: any;
+  handleDataUpdate: any;
+  handleLoading: any;
+  handleError: any;
 }
 
-const BodyList = ({ data, isLoading, error, title }: Props) => {
+const BodyList = ({
+  data,
+  isLoading,
+  error,
+  title,
+  apiEndpoint,
+  handleDataUpdate,
+  handleLoading,
+  handleError,
+}: Props) => {
   const router = useRouter();
 
   if (error) return <Error />;
@@ -44,6 +58,12 @@ const BodyList = ({ data, isLoading, error, title }: Props) => {
           isLoading={isLoading}
           handleClick={handleClick}
         />
+        <Pagination
+          apiEndpoint={apiEndpoint}
+          onDataUpdate={handleDataUpdate}
+          onLoadingUpdate={handleLoading}
+          onErrorUpdate={handleError}
+        />
       </LgScreenAdhoc>
       <FullScreenAdhoc>
         <XlBodyList
@@ -51,6 +71,12 @@ const BodyList = ({ data, isLoading, error, title }: Props) => {
           data={data}
           isLoading={isLoading}
           handleClick={handleClick}
+        />
+        <Pagination
+          apiEndpoint={apiEndpoint}
+          onDataUpdate={handleDataUpdate}
+          onLoadingUpdate={handleLoading}
+          onErrorUpdate={handleError}
         />
       </FullScreenAdhoc>
       <MdScreenAdhoc>
@@ -60,6 +86,12 @@ const BodyList = ({ data, isLoading, error, title }: Props) => {
           isLoading={isLoading}
           handleClick={handleClick}
         />
+        <Pagination
+          apiEndpoint={apiEndpoint}
+          onDataUpdate={handleDataUpdate}
+          onLoadingUpdate={handleLoading}
+          onErrorUpdate={handleError}
+        />
       </MdScreenAdhoc>
       <MobileScreenAdhoc>
         <MobileMainBody
@@ -67,6 +99,12 @@ const BodyList = ({ data, isLoading, error, title }: Props) => {
           data={data}
           isLoading={isLoading}
           handleClick={handleClick}
+        />
+        <Pagination
+          apiEndpoint={apiEndpoint}
+          onDataUpdate={handleDataUpdate}
+          onLoadingUpdate={handleLoading}
+          onErrorUpdate={handleError}
         />
         <ArrowButton />
       </MobileScreenAdhoc>

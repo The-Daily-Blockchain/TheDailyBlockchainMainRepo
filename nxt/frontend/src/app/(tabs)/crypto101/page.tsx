@@ -18,12 +18,15 @@ const Page = () => {
 
   return (
     <div>
-      <BodyList data={data} isLoading={isLoading} error={error} title={title} />
-      <Pagination
+      <BodyList
+        data={data}
+        isLoading={isLoading}
+        error={error}
+        title={title}
         apiEndpoint={apiEndpoint}
-        onDataUpdate={handleDataUpdate}
-        onLoadingUpdate={handleLoading}
-        onErrorUpdate={handleError}
+        handleDataUpdate={handleDataUpdate}
+        handleLoading={handleLoading}
+        handleError={handleError}
       />
     </div>
   );

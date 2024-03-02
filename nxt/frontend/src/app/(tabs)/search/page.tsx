@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { useSearch } from "@/app/_components/hooks/useSearch";
 import MainSearchBody from "@/app/_mainbody/searchbody/mainsearchbody";
 import Pagination from "@/app/_mainbody/pagination";
 import { useDataHandler } from "@/app/_components/utils/dataHandler";
