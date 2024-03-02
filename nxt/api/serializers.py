@@ -31,8 +31,16 @@ class CombinedSerializer(serializers.Serializer):
     title = serializers.CharField()
     content = serializers.CharField()
     author = UserSerializer()
-    image = serializers.CharField()
+    image = serializers.SerializerMethodField()
     time_created = serializers.DateTimeField()
+
+    def get_image_url(self, instance):
+        if hasattr(instance, 'image') and instance.image:
+            return instance.image.url
+        elif hasattr(instance, 'image_post') and instance.image_post:
+            return instance.image_post.url
+        else:
+            return None
 
     def to_representation(self, instance):
         if isinstance(instance, Article):
@@ -41,7 +49,7 @@ class CombinedSerializer(serializers.Serializer):
                 'title': instance.title,
                 'content': instance.content,
                 'author': UserSerializer(instance.author).data,
-                'image': instance.image,
+                'image': self.get_image_url(instance),
                 'time_created': instance.time_created,
             }
         elif isinstance(instance, Post):
@@ -50,7 +58,7 @@ class CombinedSerializer(serializers.Serializer):
                 'title': instance.title_post,
                 'content': instance.content_post,
                 'author': UserSerializer(instance.author_post).data,
-                'image': instance.image_post,
+                'image': self.get_image_url(instance),
                 'time_created': instance.time_created_post,
             }
         else:
@@ -95,6 +103,10 @@ class ProfileSerializer(ModelSerializer):
 
 class ArticleSerializer(ModelSerializer):
     author = UserSerializer(read_only=True)
+    image = serializers.SerializerMethodField()
+
+    def get_image(self, obj):
+        return obj.image.url
 
     class Meta:
         model = Article
@@ -104,9 +116,18 @@ class ArticleSerializer(ModelSerializer):
         validated_data['author'] = self.context['request'].user
         return super().create(validated_data)
 
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data['image'] = self.get_image(instance)
+        return data
+
 
 class PostSerializer(ModelSerializer):
     author_post = UserSerializer(read_only=True)
+    image_post = serializers.SerializerMethodField()
+
+    def get_image_post(self, obj):
+        return obj.image_post.url
 
     class Meta:
         model = Post
@@ -115,3 +136,8 @@ class PostSerializer(ModelSerializer):
     def create(self, validated_data):
         validated_data['author_post'] = self.context['request'].user
         return super().create(validated_data)
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data['image'] = self.get_image_post(instance)
+        return data

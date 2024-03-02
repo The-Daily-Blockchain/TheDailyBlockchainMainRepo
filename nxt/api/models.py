@@ -4,6 +4,7 @@ from django.utils import timezone
 import uuid
 from django.conf import settings
 from tinymce.models import HTMLField
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
@@ -28,7 +29,7 @@ class Article(models.Model):
                           default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=200)
     content = HTMLField()
-    image = models.CharField(max_length=5000)
+    image = CloudinaryField('images')
     time_created = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="user_article")
@@ -43,7 +44,7 @@ class Post(models.Model):
                           default=uuid.uuid4, editable=False)
     title_post = models.CharField(max_length=200)
     content_post = HTMLField()
-    image_post = models.CharField(max_length=5000)
+    image_post = CloudinaryField('images')
     time_created_post = models.DateTimeField(auto_now_add=True)
     author_post = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="user_post")

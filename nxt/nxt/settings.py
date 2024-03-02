@@ -9,15 +9,19 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+# cloudinary file
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 from pathlib import Path
 from datetime import datetime, timedelta
 import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+load_dotenv()
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -50,7 +54,8 @@ INSTALLED_APPS = [
     # application
     'api.apps.ApiConfig',
     'rest_framework_simplejwt',
-    'tinymce'
+    'tinymce',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -165,3 +170,10 @@ TINYMCE_DEFAULT_CONFIG = {
     "advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code fullscreen insertdatetime media table powerpaste advcode help wordcount spellchecker typography",
     'selector': "textarea",
 }
+
+
+cloudinary.config(
+    cloud_name=os.getenv("cloud_name"),
+    api_key=os.getenv("api_key"),
+    api_secret=os.getenv("api_secret")
+)
