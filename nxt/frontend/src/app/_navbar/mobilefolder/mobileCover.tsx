@@ -17,13 +17,18 @@ const MobileCover = ({ data }: Props) => {
       <div className="text-3xl mt-5 mb-10 font-bold grid justify-center text-[#303030]">
         Top Stories
       </div>
+
       {data?.results
         ?.filter(
           (article: any, index: number) => index <= 1 && !article.archived
         )
         .map((x: any, index: number) => (
           <div key={x.id} className="justify-items-end">
-            <div className={"grid grid-cols-2 pb-6"}>
+            <div
+              className={`grid grid-cols-2 pb-6 ${
+                index === 1 ? "" : "border-b-2 border-solid border-[#727272]"
+              }`}
+            >
               <div className="mx-2">
                 <div>
                   <Image
@@ -46,13 +51,13 @@ const MobileCover = ({ data }: Props) => {
                   {x.title}
                 </div>
               </div>
-            </div>
-            <div className="text-[#5a5a5a] text-[12px]  hover:opacity-50 transition-opacity duration-300 mb-6">
-              {parse(
-                x.content.length > 150
-                  ? `${x.content.substring(0, 150)}...`
-                  : x.content
-              )}
+              <div className="text-[#5a5a5a] text-[12px] hover:cursor-pointer hover:opacity-50 transition-opacity duration-300 mb-6">
+                {parse(
+                  x.content.length > 150
+                    ? `${x.content.substring(0, 150)}...`
+                    : x.content
+                )}
+              </div>
             </div>
           </div>
         ))}
