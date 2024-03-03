@@ -36,7 +36,6 @@ const MainSearchBody = ({
   handleError,
 }: Props) => {
   const router = useRouter();
-  console.log(data);
 
   const handleClick = (x: any) => {
     const hasTitle = data?.results?.some((item: { title: any }) => item.title);

@@ -27,9 +27,6 @@ const Page = () => {
     handleError,
   } = useDataHandler();
 
-  console.log(data);
-
-  console.log(handleDataUpdate);
   return (
     <>
       <div>

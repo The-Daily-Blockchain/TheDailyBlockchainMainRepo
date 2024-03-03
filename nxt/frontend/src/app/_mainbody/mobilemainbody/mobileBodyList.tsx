@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import parse from "html-react-parser";
 import Loader from "@/app/loader";
+import { formatDate } from "@/app/_components/utils/formattingData";
 interface Props {
   title?: any;
   data: any;
@@ -39,14 +40,15 @@ const MobileBodyList = ({ title, data, handleClick, isLoading }: Props) => {
                   src={x.image || x.image_post}
                 />
 
-                <div className="my-4">
+                <div className="mt-4 font-bold">
                   By: {x?.author?.first_name || x?.author_post?.first_name} {""}
                   {x?.author?.last_name || x?.author_post?.last_name}
                 </div>
+                <div className="mb-4 text-sm">{formatDate(x.time_created)}</div>
               </div>
             </div>
             <div
-              className="ml-3 hover:cursor-pointer hover:opacity-60"
+              className="ml-3 hover:cursor-pointer hover:opacity-60 overflow-x-hidden"
               onClick={() => handleClick(x)}
             >
               {parse(
@@ -55,7 +57,7 @@ const MobileBodyList = ({ title, data, handleClick, isLoading }: Props) => {
                   ? `${(x?.content || x.content_post).substring(
                       0,
                       50
-                    )}<span style="font-weight: bold;"> see more...</span>`
+                    )}<span className="hover:underline hover:opacity-80" style="font-weight: bold;"> see more...</span>`
                   : x?.content || x.content_post
               )}
             </div>
