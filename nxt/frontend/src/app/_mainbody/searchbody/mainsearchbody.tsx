@@ -25,7 +25,7 @@ const MainSearchBody = ({ data, isLoading, error, title }: Props) => {
   const router = useRouter();
 
   const handleClick = (x: any) => {
-    const hasTitle = data?.some((item: { title: any }) => item.title);
+    const hasTitle = data?.results?.some((item: { title: any }) => item.title);
 
     if (hasTitle) {
       router.push(`/search/details/${x.id}/`);

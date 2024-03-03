@@ -25,7 +25,7 @@ const Pagination = ({
 
   useEffect(() => {
     if (data) {
-      onDataUpdate(data.results);
+      onDataUpdate(data);
       onLoadingUpdate(isLoading);
       onErrorUpdate(error);
     }

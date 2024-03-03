@@ -16,7 +16,7 @@ const MdBodyList = ({ title, data, handleClick, isLoading }: Props) => {
       <div className="align-center text-center mt-8 text-2xl font-bold">
         {title}
       </div>
-      {data?.map?.((x: any, index: any, array: any[]) => (
+      {data?.results?.map?.((x: any, index: any, array: any[]) => (
         <div
           key={x.id}
           className={`mx-1 mt-8 mb-2 border-double ${

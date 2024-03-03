@@ -39,8 +39,10 @@ const BodyList = ({
   if (error) return <Error />;
 
   const handleClick = (x: any) => {
-    const hasTitle = data?.some((x: { title: any }) => x.title);
-    const hasTitlePost = data?.some((x: { title_post: any }) => x.title_post);
+    const hasTitle = data?.results?.some((x: { title: any }) => x.title);
+    const hasTitlePost = data?.results?.some(
+      (x: { title_post: any }) => x.title_post
+    );
 
     if (hasTitle) {
       router.push(`/article/${x.id}`);
