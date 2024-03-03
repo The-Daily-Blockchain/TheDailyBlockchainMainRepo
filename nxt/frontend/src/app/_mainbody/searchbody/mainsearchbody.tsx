@@ -8,21 +8,35 @@ import MobileScreenAdhoc from "@/app/_adhoc/mobilescreenadhoc";
 import LgBodyList from "../lgmainbody/lgBodyList";
 import LgScreenAdhoc from "@/app/_adhoc/lgscreenadhoc";
 import MobileBodyList from "../mobilemainbody/mobileBodyList";
-import Loader from "@/app/loader";
 import Error from "@/app/error";
 import { useRouter } from "next/navigation";
 import ErrorSearch from "./errorsearch";
 import ArrowButton from "../arrowbutton";
+import Pagination from "@/app/_mainbody/pagination";
 
 interface Props {
   data: any;
   isLoading: any;
   error: any;
   title?: any;
+  apiEndpoint?: any;
+  handleDataUpdate?: any;
+  handleLoading?: any;
+  handleError?: any;
 }
 
-const MainSearchBody = ({ data, isLoading, error, title }: Props) => {
+const MainSearchBody = ({
+  data,
+  isLoading,
+  error,
+  title,
+  apiEndpoint,
+  handleDataUpdate,
+  handleLoading,
+  handleError,
+}: Props) => {
   const router = useRouter();
+  console.log(data);
 
   const handleClick = (x: any) => {
     const hasTitle = data?.results?.some((item: { title: any }) => item.title);
@@ -45,6 +59,12 @@ const MainSearchBody = ({ data, isLoading, error, title }: Props) => {
           isLoading={isLoading}
           title={title}
         />
+        <Pagination
+          apiEndpoint={apiEndpoint}
+          onDataUpdate={handleDataUpdate}
+          onLoadingUpdate={handleLoading}
+          onErrorUpdate={handleError}
+        />
       </FullScreenAdhoc>
       <LgScreenAdhoc>
         <LgBodyList
@@ -52,6 +72,12 @@ const MainSearchBody = ({ data, isLoading, error, title }: Props) => {
           handleClick={handleClick}
           title={title}
           isLoading={isLoading}
+        />
+        <Pagination
+          apiEndpoint={apiEndpoint}
+          onDataUpdate={handleDataUpdate}
+          onLoadingUpdate={handleLoading}
+          onErrorUpdate={handleError}
         />
       </LgScreenAdhoc>
       <MdScreenAdhoc>
@@ -61,6 +87,12 @@ const MainSearchBody = ({ data, isLoading, error, title }: Props) => {
           title={title}
           isLoading={isLoading}
         />
+        <Pagination
+          apiEndpoint={apiEndpoint}
+          onDataUpdate={handleDataUpdate}
+          onLoadingUpdate={handleLoading}
+          onErrorUpdate={handleError}
+        />
       </MdScreenAdhoc>
       <MobileScreenAdhoc>
         <MobileBodyList
@@ -68,6 +100,12 @@ const MainSearchBody = ({ data, isLoading, error, title }: Props) => {
           handleClick={handleClick}
           title={title}
           isLoading={isLoading}
+        />
+        <Pagination
+          apiEndpoint={apiEndpoint}
+          onDataUpdate={handleDataUpdate}
+          onLoadingUpdate={handleLoading}
+          onErrorUpdate={handleError}
         />
         <ArrowButton />
       </MobileScreenAdhoc>

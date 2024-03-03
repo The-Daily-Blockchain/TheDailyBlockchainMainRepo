@@ -27,6 +27,8 @@ const Page = () => {
     handleError,
   } = useDataHandler();
 
+  console.log(data);
+
   console.log(handleDataUpdate);
   return (
     <>
@@ -36,14 +38,20 @@ const Page = () => {
           isLoading={isLoading}
           error={error}
           title={results}
+          apiEndpoint={apiEndpoint}
+          handleDataUpdate={handleDataUpdate}
+          handleLoading={handleLoading}
+          handleError={handleError}
         />
       </div>
-      <Pagination
-        apiEndpoint={apiEndpoint}
-        onDataUpdate={handleDataUpdate}
-        onLoadingUpdate={handleLoading}
-        onErrorUpdate={handleError}
-      />
+      <div className="hidden">
+        <Pagination
+          apiEndpoint={apiEndpoint}
+          onDataUpdate={handleDataUpdate}
+          onLoadingUpdate={handleLoading}
+          onErrorUpdate={handleError}
+        />
+      </div>
     </>
   );
 };
