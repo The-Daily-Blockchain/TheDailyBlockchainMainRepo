@@ -113,3 +113,5 @@ const CrytoPage = () => {
 };
 
 export default CrytoPage;
+
+// gonna use binance api and shadcn
