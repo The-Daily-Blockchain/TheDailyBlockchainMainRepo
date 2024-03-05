@@ -2,6 +2,20 @@
 import React, { useEffect, useState } from "react";
 
 type TickerData = {
+  p: any;
+  P: any;
+  w: any;
+  x: any;
+  Q: any;
+  b: any;
+  B: any;
+  a: any;
+  A: any;
+  O: any;
+  C: any;
+  F: any;
+  L: any;
+  n: any;
   e: string;
   E: number;
   s: string;
@@ -21,7 +35,7 @@ const Page = () => {
     let socket: WebSocket | null = null;
 
     const query =
-      "btcusdt@miniTicker/ethusdt@miniTicker/bnbusdt@miniTicker/solusdt@miniTicker/xrpusdt@miniTicker/adausdt@miniTicker/dogeusdt@miniTicker/shibusdt@miniTicker/avaxusdt@miniTicker/dotusdt@miniTicker/trxusdt@miniTicker/linkusdt@miniTicker/maticusdt@miniTicker/uniusdt@miniTicker/ltcusdt@miniTicker";
+      "btcusdt@ticker/ethusdt@ticker/bnbusdt@ticker/solusdt@ticker/xrpusdt@ticker/adausdt@ticker/dogeusdt@ticker/shibusdt@ticker/avaxusdt@ticker/dotusdt@ticker/trxusdt@ticker/linkusdt@ticker/maticusdt@ticker/uniusdt@ticker/ltcusdt@ticker";
     const connectWebSocket = () => {
       socket = new WebSocket(
         `wss://stream.binance.com:9443/stream?streams=${query}`
@@ -30,11 +44,13 @@ const Page = () => {
       socket.onmessage = (event) => {
         const newData = JSON.parse(event.data);
         const pair = newData.stream.split("@")[0];
-        console.log(pair);
-        setTickerData((prevData) => ({
-          ...prevData,
-          [pair]: newData.data,
-        }));
+
+        setTickerData((prevData) => {
+          const newDataCopy = { ...prevData };
+          newDataCopy[pair] = newData.data;
+
+          return newDataCopy;
+        });
 
         setIsLoading(false);
       };
@@ -61,33 +77,78 @@ const Page = () => {
         <thead>
           <tr>
             <th>Symbol</th>
-            <th>Close Price</th>
+            <th>Price change</th>
+            <th>Price change percent</th>
+            <th>Price</th>
             <th>Open Price</th>
-            <th>Highest Price</th>
-            <th>Lowest Price</th>
-            <th>Volume (Base Asset)</th>
-            <th>Volume (Quote Asset)</th>
+            <th>Close Price</th>
+            <th>High 24hr</th>
+            <th>Low 24hr</th>
+            <th>volume traded in usd</th>
           </tr>
         </thead>
         <tbody>
-          {Object.keys(tickerData).map((pair: any) => (
-            <tr key={pair}>
-              {/* {Object.entries(tickerData[pair]).map(
-                ([key, value]: [string, any]) => (
-                  <td key={key}>{value}</td>
-                )
-              )} */}
-              <td>{tickerData[pair].e}</td>
-              <td>{tickerData[pair].E}</td>
-              <td>{tickerData[pair].s}</td>
-              <td>{tickerData[pair].c}</td>
-              <td>{tickerData[pair].o}</td>
-              <td>{tickerData[pair].h}</td>
-              <td>{tickerData[pair].l}</td>
-              <td>{tickerData[pair].v}</td>
-              <td>{tickerData[pair].q}</td>
-            </tr>
-          ))}
+          {Object.keys(tickerData)
+            .sort((pairA: any, pairB: any) => {
+              const bidPriceA = parseFloat(tickerData[pairA].w);
+              const bidPriceB = parseFloat(tickerData[pairB].w);
+              return bidPriceB - bidPriceA;
+            })
+            .map((pair: any) => (
+              <tr key={pair}>
+                <td>{tickerData[pair].s}</td>
+                <td
+                  style={{
+                    color: parseFloat(tickerData[pair].p) < 0 ? "red" : "green",
+                  }}
+                >
+                  {parseFloat(tickerData[pair].p).toLocaleString()}
+                </td>
+                <td
+                  style={{
+                    color: parseFloat(tickerData[pair].P) < 0 ? "red" : "green",
+                  }}
+                >
+                  {parseFloat(tickerData[pair].P).toFixed(2)}%
+                </td>
+                <td>
+                  {parseFloat(tickerData[pair].w).toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                </td>
+                <td>
+                  {parseFloat(tickerData[pair].o).toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                </td>
+                <td>
+                  {parseFloat(tickerData[pair].c).toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                </td>
+                <td>
+                  {parseFloat(tickerData[pair].h).toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                </td>
+                <td>
+                  {parseFloat(tickerData[pair].l).toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                </td>
+                <td>
+                  {parseFloat(tickerData[pair].q).toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>
