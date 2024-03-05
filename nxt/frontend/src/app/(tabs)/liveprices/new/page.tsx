@@ -1,5 +1,25 @@
 "use client";
+import { convertSymbolToName } from "@/app/_components/utils/convertsymboltoname";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import {
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+} from "recharts";
 
 type TickerData = {
   p: any;
@@ -35,7 +55,7 @@ const Page = () => {
     let socket: WebSocket | null = null;
 
     const query =
-      "btcusdt@ticker/ethusdt@ticker/bnbusdt@ticker/solusdt@ticker/xrpusdt@ticker/adausdt@ticker/dogeusdt@ticker/shibusdt@ticker/avaxusdt@ticker/dotusdt@ticker/trxusdt@ticker/linkusdt@ticker/maticusdt@ticker/uniusdt@ticker/ltcusdt@ticker";
+      "btcusdt@ticker/ethusdt@ticker/bnbusdt@ticker/solusdt@ticker/xrpusdt@ticker/adausdt@ticker/dogeusdt@ticker/avaxusdt@ticker/dotusdt@ticker/trxusdt@ticker/linkusdt@ticker/maticusdt@ticker/uniusdt@ticker/ltcusdt@ticker";
     const connectWebSocket = () => {
       socket = new WebSocket(
         `wss://stream.binance.com:9443/stream?streams=${query}`
@@ -69,88 +89,125 @@ const Page = () => {
       }
     };
   }, []);
+  console.log(tickerData);
+
+  //   const data = Object.values(tickerData).map((item: any) => ({
+  //     price: item.p, // Assuming `c` represents the y-axis value (price)
+  //   }));
 
   return (
-    <div>
-      <h1>Binance Mini Ticker Stream</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Symbol</th>
-            <th>Price change</th>
-            <th>Price change percent</th>
-            <th>Price</th>
-            <th>Open Price</th>
-            <th>Close Price</th>
-            <th>High 24hr</th>
-            <th>Low 24hr</th>
-            <th>volume traded in usd</th>
-          </tr>
-        </thead>
-        <tbody>
+    <div className="min-h-screen">
+      <Table>
+        <TableCaption>Powered by Binance.</TableCaption>
+        <TableHeader>
+          <TableRow className="font-xl">
+            <TableHead>Cryptocurrency</TableHead>
+            <TableHead className="text-right">24hr Price change</TableHead>
+            <TableHead className="text-right">24hr Price change %</TableHead>
+            <TableHead className="text-right">Price</TableHead>
+            <TableHead className="text-right">Open Price</TableHead>
+            <TableHead className="text-right">Close Price</TableHead>
+            <TableHead className="text-right">High 24hr</TableHead>
+            <TableHead className="text-right">Low 24hr</TableHead>
+            <TableHead className="text-right">Volume USD</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {Object.keys(tickerData)
             .sort((pairA: any, pairB: any) => {
-              const bidPriceA = parseFloat(tickerData[pairA].w);
-              const bidPriceB = parseFloat(tickerData[pairB].w);
+              const bidPriceA = parseFloat(tickerData[pairA].q);
+              const bidPriceB = parseFloat(tickerData[pairB].q);
               return bidPriceB - bidPriceA;
             })
             .map((pair: any) => (
-              <tr key={pair}>
-                <td>{tickerData[pair].s}</td>
-                <td
+              <TableRow key={pair}>
+                <TableCell className="flex">
+                  <Image
+                    className="rounded-full mr-2"
+                    src={
+                      convertSymbolToName(
+                        tickerData[pair].s.replace("USDT", "")
+                      ).imageUrl
+                    }
+                    alt={"Symbol"}
+                    width={20}
+                    height={20}
+                  />
+                  {
+                    convertSymbolToName(tickerData[pair].s.replace("USDT", ""))
+                      .name
+                  }
+                </TableCell>
+                <TableCell
                   style={{
                     color: parseFloat(tickerData[pair].p) < 0 ? "red" : "green",
                   }}
+                  className="text-right"
                 >
                   {parseFloat(tickerData[pair].p).toLocaleString()}
-                </td>
-                <td
+                </TableCell>
+                <TableCell
                   style={{
                     color: parseFloat(tickerData[pair].P) < 0 ? "red" : "green",
                   }}
+                  className="text-right"
                 >
                   {parseFloat(tickerData[pair].P).toFixed(2)}%
-                </td>
-                <td>
+                </TableCell>
+                <TableCell className="text-right">
                   {parseFloat(tickerData[pair].w).toLocaleString("en-US", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
-                </td>
-                <td>
+                </TableCell>
+                <TableCell className="text-right">
                   {parseFloat(tickerData[pair].o).toLocaleString("en-US", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
-                </td>
-                <td>
+                </TableCell>
+                <TableCell className="text-right">
                   {parseFloat(tickerData[pair].c).toLocaleString("en-US", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
-                </td>
-                <td>
+                </TableCell>
+                <TableCell className="text-right">
                   {parseFloat(tickerData[pair].h).toLocaleString("en-US", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
-                </td>
-                <td>
+                </TableCell>
+                <TableCell className="text-right">
                   {parseFloat(tickerData[pair].l).toLocaleString("en-US", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
-                </td>
-                <td>
+                </TableCell>
+                <TableCell className="text-right">
                   {parseFloat(tickerData[pair].q).toLocaleString("en-US", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
-                </td>
-              </tr>
+                </TableCell>
+                {/* <TableCell>
+                  <LineChart
+                    width={300}
+                    height={100}
+                    data={data}
+                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                  </LineChart>
+                </TableCell> */}
+              </TableRow>
             ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </div>
   );
 };
