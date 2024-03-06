@@ -19,6 +19,6 @@ const symbolToNameMap: Record<string, string> = {
 
 export const convertSymbolToName = (symbol: string) => {
   const name = symbolToNameMap[symbol];
-  const imageUrl = `https://res.cloudinary.com/dkijmsxo5/image/upload/v1709632206/images/${symbol}.png`;
+  const imageUrl = `https://res.cloudinary.com/dkijmsxo5/image/upload/v1709742430/images/${symbol}.webp`;
   return { name, imageUrl };
 };
