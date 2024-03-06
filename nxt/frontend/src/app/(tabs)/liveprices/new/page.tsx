@@ -20,6 +20,7 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import { formatDate } from "@/app/_components/utils/formattingData";
 
 type TickerData = {
   p: any;
@@ -90,36 +91,36 @@ const Page = () => {
     };
   }, []);
 
-  // const data = Object.values(tickerData).map((item: any) => ({
-  //   symbol: item.s,
-  //   time: item.E,
-  //   price: item.p,
-  // }));
-  // console.log(tickerData);
-  const data: { [key: string]: { time: number; price: string } } = {};
+  const data: { [key: string]: { time: any; price: string } } = {};
   Object.values(tickerData).forEach((item: TickerData) => {
-    const symbol = item.s;
+    const symbol = item.s.toLowerCase();
+    const formattedPrice = parseFloat(item.w).toFixed(2);
+    const formattedDate = formatDate(item.E);
     data[symbol] = {
-      time: item.E,
-      price: item.p,
+      time: formattedDate,
+      price: formattedPrice,
     };
   });
 
   return (
-    <div className="min-h-screen">
+    <div className="flex min-h-screen m-auto">
       <Table>
         <TableCaption>Powered by Binance.</TableCaption>
         <TableHeader>
           <TableRow className="font-xl">
-            <TableHead>Cryptocurrency</TableHead>
-            <TableHead className="text-right">24hr Price change</TableHead>
-            <TableHead className="text-right">24hr Price change %</TableHead>
-            <TableHead className="text-right">Price</TableHead>
-            <TableHead className="text-right">Open Price</TableHead>
-            <TableHead className="text-right">Close Price</TableHead>
-            <TableHead className="text-right">High 24hr</TableHead>
-            <TableHead className="text-right">Low 24hr</TableHead>
-            <TableHead className="text-right">Volume USD</TableHead>
+            <TableHead className="w-[140px]">Cryptocurrency</TableHead>
+            <TableHead className="text-right w-[100px]">
+              24hr Price change
+            </TableHead>
+            <TableHead className="text-right w-[100px]">
+              24hr Price change %
+            </TableHead>
+            <TableHead className="text-right w-[100px]">Price</TableHead>
+            <TableHead className="text-right w-[100px]">Open Price</TableHead>
+            <TableHead className="text-right w-[100px]">Close Price</TableHead>
+            <TableHead className="text-right w-[100px]">High 24hr</TableHead>
+            <TableHead className="text-right w-[100px]">Low 24hr</TableHead>
+            <TableHead className="text-right w-[100px]">Volume USD</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -154,7 +155,7 @@ const Page = () => {
                   }}
                   className="text-right"
                 >
-                  {parseFloat(tickerData[pair].p).toLocaleString()}
+                  $ {parseFloat(tickerData[pair].p).toLocaleString()}
                 </TableCell>
                 <TableCell
                   style={{
@@ -211,9 +212,14 @@ const Page = () => {
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="time" />
                     <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Line type="monotone" dataKey="price" stroke="#8884d8" />
+                    <Tooltip label="" />
+                    {/* <Legend /> */}
+                    <Line
+                      type="monotone"
+                      dataKey="price"
+                      name=""
+                      stroke="#8884d8"
+                    />
                   </LineChart>
                 </TableCell>
               </TableRow>
