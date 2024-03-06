@@ -89,11 +89,21 @@ const Page = () => {
       }
     };
   }, []);
-  console.log(tickerData);
 
-  //   const data = Object.values(tickerData).map((item: any) => ({
-  //     price: item.p, // Assuming `c` represents the y-axis value (price)
-  //   }));
+  // const data = Object.values(tickerData).map((item: any) => ({
+  //   symbol: item.s,
+  //   time: item.E,
+  //   price: item.p,
+  // }));
+  // console.log(tickerData);
+  const data: { [key: string]: { time: number; price: string } } = {};
+  Object.values(tickerData).forEach((item: TickerData) => {
+    const symbol = item.s;
+    data[symbol] = {
+      time: item.E,
+      price: item.p,
+    };
+  });
 
   return (
     <div className="min-h-screen">
@@ -190,20 +200,22 @@ const Page = () => {
                     maximumFractionDigits: 2,
                   })}
                 </TableCell>
-                {/* <TableCell>
+
+                <TableCell>
                   <LineChart
                     width={300}
                     height={100}
-                    data={data}
+                    data={[data[pair]]}
                     margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                   >
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
+                    <XAxis dataKey="time" />
                     <YAxis />
                     <Tooltip />
                     <Legend />
+                    <Line type="monotone" dataKey="price" stroke="#8884d8" />
                   </LineChart>
-                </TableCell> */}
+                </TableCell>
               </TableRow>
             ))}
         </TableBody>
