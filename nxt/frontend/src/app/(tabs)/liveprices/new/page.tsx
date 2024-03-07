@@ -21,6 +21,7 @@ import {
   Legend,
 } from "recharts";
 import { formatDate } from "@/app/_components/utils/formattingData";
+import { useGetGraph } from "@/app/_components/utils/sevenday";
 
 type TickerData = {
   p: any;
@@ -102,6 +103,17 @@ const Page = () => {
     };
   });
 
+  const symbols: string[] = Object.values(tickerData).map(
+    (item: TickerData) => {
+      return item.s.toLocaleUpperCase();
+    }
+  );
+  // symbols array
+
+  console.log(symbols);
+  // const graphs = useGetGraphs(symbols);
+  // const { data: graphData, error } = useGetGraph(symbols);
+  // console.log(graphs);
   return (
     <div className="flex min-h-screen m-auto">
       <Table>
@@ -201,7 +213,6 @@ const Page = () => {
                     maximumFractionDigits: 2,
                   })}
                 </TableCell>
-
                 <TableCell>
                   <LineChart
                     width={300}
