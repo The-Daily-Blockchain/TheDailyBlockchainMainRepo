@@ -108,12 +108,13 @@ const Page = () => {
       return item.s.toLocaleUpperCase();
     }
   );
-  // symbols array
 
   console.log(symbols);
-  // const graphs = useGetGraphs(symbols);
-  // const { data: graphData, error } = useGetGraph(symbols);
-  // console.log(graphs);
+  // symbols.forEach((symbol) => {
+  const { data: dataGraph } = useGetGraph(symbols);
+  console.log(dataGraph);
+  // });
+
   return (
     <div className="flex min-h-screen m-auto">
       <Table>
