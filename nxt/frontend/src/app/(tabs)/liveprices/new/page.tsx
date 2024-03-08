@@ -78,7 +78,6 @@ const Page = () => {
       };
 
       socket.onclose = () => {
-        // Automatically reconnect after 24 hours
         setTimeout(connectWebSocket, 24 * 60 * 60 * 1000);
       };
     };
@@ -110,10 +109,10 @@ const Page = () => {
   );
 
   console.log(symbols);
-  // symbols.forEach((symbol) => {
-  const { data: dataGraph } = useGetGraph(symbols);
-  console.log(dataGraph);
-  // });
+
+  // const { data: dataGraph } = useGetGraph(symbols);
+  // console.log(dataGraph);
+  // returned data has key
 
   return (
     <div className="flex min-h-screen m-auto">

@@ -13,5 +13,16 @@ export function useGetGraph(symbols: any) {
 
   const { data, error } = useSWR(urls, fetcher);
 
-  return { data, error };
+  // Transform the data into an array of objects with symbols as keys
+  const transformedData = data
+    ? symbols.reduce((acc: any, symbol: any, index: number) => {
+        // Check if data[index] exists and is an array before assigning it
+        if (data[index] && Array.isArray(data[index])) {
+          acc[symbol] = data[index];
+        }
+        return acc;
+      }, {})
+    : null;
+
+  return { data: transformedData, error };
 }
