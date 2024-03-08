@@ -1,5 +1,3 @@
-import React from "react";
-
 const symbolToNameMap: Record<string, string> = {
   BTC: "Bitcoin",
   ETH: "Ethereum",

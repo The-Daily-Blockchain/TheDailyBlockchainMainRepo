@@ -66,6 +66,7 @@ const Page = () => {
       socket.onmessage = (event) => {
         const newData = JSON.parse(event.data);
         const pair = newData.stream.split("@")[0];
+        console.log(pair); // pair is a symbolwithusdt at lowercase
 
         setTickerData((prevData) => {
           const newDataCopy = { ...prevData };
@@ -102,16 +103,19 @@ const Page = () => {
     };
   });
 
+  console.log(data);
+
   const symbols: string[] = Object.values(tickerData).map(
     (item: TickerData) => {
-      return item.s.toLocaleUpperCase();
+      return item.s;
     }
   );
 
   console.log(symbols);
 
-  // const { data: dataGraph } = useGetGraph(symbols);
-  // console.log(dataGraph);
+  const { data: dataGraph } = useGetGraph(symbols);
+
+  console.log(dataGraph);
   // returned data has key
 
   return (

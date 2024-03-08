@@ -16,9 +16,11 @@ export function useGetGraph(symbols: any) {
   // Transform the data into an array of objects with symbols as keys
   const transformedData = data
     ? symbols.reduce((acc: any, symbol: any, index: number) => {
+        const lowercaseSymbol =
+          typeof symbol === "string" ? symbol.toLowerCase() : symbol;
         // Check if data[index] exists and is an array before assigning it
         if (data[index] && Array.isArray(data[index])) {
-          acc[symbol] = data[index];
+          acc[lowercaseSymbol] = data[index];
         }
         return acc;
       }, {})
