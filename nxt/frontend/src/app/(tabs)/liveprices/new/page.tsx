@@ -19,6 +19,10 @@ import {
   YAxis,
   Tooltip,
   Legend,
+  ResponsiveContainer,
+  Area,
+  AreaChart,
+  ReferenceLine,
 } from "recharts";
 import { formatDate } from "@/app/_components/utils/formattingData";
 import { useGetGraph } from "@/app/_components/utils/sevenday";
@@ -260,7 +264,7 @@ const Page = () => {
                 <TableCell>
                   <LineChart
                     width={300}
-                    height={100}
+                    height={120}
                     data={formattedData[pair] || []}
                     margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                   >
@@ -268,8 +272,9 @@ const Page = () => {
                     <XAxis dataKey="time" />
                     <YAxis />
                     <Tooltip />
-                    <Legend />
+                    <Legend verticalAlign="top" height={36} />
                     <Line
+                      type="monotone"
                       dataKey="price"
                       stroke={getPriceChangeColor(formattedData[pair] || [])}
                     />
