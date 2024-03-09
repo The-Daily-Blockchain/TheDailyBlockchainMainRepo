@@ -66,7 +66,7 @@ const Page = () => {
       socket.onmessage = (event) => {
         const newData = JSON.parse(event.data);
         const pair = newData.stream.split("@")[0];
-        console.log(pair); // pair is a symbolwithusdt at lowercase
+        // console.log(pair); // pair is a symbolwithusdt at lowercase
 
         setTickerData((prevData) => {
           const newDataCopy = { ...prevData };
@@ -105,18 +105,58 @@ const Page = () => {
 
   console.log(data);
 
-  const symbols: string[] = Object.values(tickerData).map(
-    (item: TickerData) => {
-      return item.s;
-    }
-  );
+  // const symbols: string[] = Object.values(tickerData).map(
+  //   (item: TickerData) => {
+  //     return item.s.toUpperCase();
+  //   }
+  // );
+  // console.log(symbols);
 
-  console.log(symbols);
-
-  const { data: dataGraph } = useGetGraph(symbols);
-
+  const symbols = [
+    "BTCUSDT",
+    "ETHUSDT",
+    "BNBUSDT",
+    "SOLUSDT",
+    "XRPUSDT",
+    "ADAUSDT",
+    "DOGEUSDT",
+    "SHIBUSDT",
+    "AVAXUSDT",
+    "DOTUSDT",
+    "TRXUSDT",
+    "LINKUSDT",
+    "MATICUSDT",
+    "UNIUSDT",
+    "LTCUSDT",
+  ];
+  const dataGraph = useGetGraph(symbols);
   console.log(dataGraph);
-  // returned data has key
+  const formattedData = Object.entries(dataGraph.data).reduce<{
+    [symbol: string]: { time: string; price: any }[];
+  }>((result, [symbol, dataArray]) => {
+    if (Array.isArray(dataArray)) {
+      const formattedSymbolData = dataArray.map((dataPoint: any[]) => ({
+        time: new Date(dataPoint[6]).toLocaleDateString("en-US", {
+          month: "numeric",
+          day: "numeric",
+          year: "numeric",
+        }),
+        price: dataPoint[4],
+      }));
+      result[symbol] = formattedSymbolData;
+    }
+    return result;
+  }, {});
+  console.log(formattedData);
+
+  const getPriceChangeColor = (data: any[]): string => {
+    if (data.length < 2) {
+      return "#8884d8"; // Default color
+    }
+    const currentPrice = parseFloat(data[data.length - 1].price);
+    const previousPrice = parseFloat(data[data.length - 2].price);
+    return currentPrice > previousPrice ? "green" : "red";
+  };
 
   return (
     <div className="flex min-h-screen m-auto">
@@ -221,19 +261,17 @@ const Page = () => {
                   <LineChart
                     width={300}
                     height={100}
-                    data={[data[pair]]}
+                    data={formattedData[pair] || []}
                     margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                   >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="time" />
                     <YAxis />
-                    <Tooltip label="" />
-                    {/* <Legend /> */}
+                    <Tooltip />
+                    <Legend />
                     <Line
-                      type="monotone"
                       dataKey="price"
-                      name=""
-                      stroke="#8884d8"
+                      stroke={getPriceChangeColor(formattedData[pair] || [])}
                     />
                   </LineChart>
                 </TableCell>

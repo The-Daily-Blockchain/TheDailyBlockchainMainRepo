@@ -1,30 +1,27 @@
 import useSWR from "swr";
-import { fetcher } from "./fetcher";
+import { fetcher, multiFetcher } from "./fetcher";
+import { useEffect, useState } from "react";
 
 export function useGetGraph(symbols: any) {
+  const [newData, setData] = useState({});
   const currentDate = new Date();
-  const startDate = new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000);
-  const interval = "1d";
-
+  const startTime = currentDate.getTime() - 7 * 24 * 60 * 60 * 1000;
   const urls = symbols.map(
     (symbol: any) =>
-      `/api/graph?symbol=${symbol}&interval=${interval}&startDate=${startDate}`
+      `/api/graph?symbol=${symbol}&startTime=${startTime}&interval=1d`
   );
 
-  const { data, error } = useSWR(urls, fetcher);
+  const swrData = useSWR(urls, multiFetcher);
 
-  // Transform the data into an array of objects with symbols as keys
-  const transformedData = data
-    ? symbols.reduce((acc: any, symbol: any, index: number) => {
-        const lowercaseSymbol =
-          typeof symbol === "string" ? symbol.toLowerCase() : symbol;
-        // Check if data[index] exists and is an array before assigning it
-        if (data[index] && Array.isArray(data[index])) {
-          acc[lowercaseSymbol] = data[index];
-        }
-        return acc;
-      }, {})
-    : null;
+  useEffect(() => {
+    const fetchData = async () => {
+      const fetchedData = await multiFetcher(urls);
+      setData(fetchedData);
+    };
 
-  return { data: transformedData, error };
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return { data: newData };
 }
