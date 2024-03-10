@@ -5,6 +5,7 @@ import Image from "next/image";
 import Loading from "./loading";
 import dayjs from "dayjs";
 import { Constants } from "@/app/_components/constants/common/constants";
+import { useGetGraph } from "@/app/_components/utils/sevenday";
 
 interface Crypto {
   symbol: string;
@@ -18,6 +19,9 @@ interface Crypto {
 const CrytoPage = () => {
   const [crypto, setCrypto] = useState<Crypto[]>([]);
   const [isLoading, setLoading] = useState<Boolean>(true);
+
+  const dataGraph = useGetGraph();
+  console.log(dataGraph);
 
   const crypto_api = Constants.crypto_api;
   useEffect(() => {

@@ -9,7 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import {
   LineChart,
@@ -26,6 +26,8 @@ import {
 } from "recharts";
 import { formatDate } from "@/app/_components/utils/formattingData";
 import { useGetGraph } from "@/app/_components/utils/sevenday";
+import { useDebouncedValue } from "@/app/_components/utils/usedebouncevalue";
+import { useWebSocket } from "./usewebsocket";
 
 type TickerData = {
   p: any;
@@ -54,102 +56,27 @@ type TickerData = {
 };
 
 const Page = () => {
-  const [tickerData, setTickerData] = useState<TickerData[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { tickerData, isLoading } = useWebSocket();
 
-  useEffect(() => {
-    let socket: WebSocket | null = null;
+  // const dataGraph = useGetGraph();
+  // console.log(dataGraph);
 
-    const query =
-      "btcusdt@ticker/ethusdt@ticker/bnbusdt@ticker/solusdt@ticker/xrpusdt@ticker/adausdt@ticker/dogeusdt@ticker/avaxusdt@ticker/dotusdt@ticker/trxusdt@ticker/linkusdt@ticker/maticusdt@ticker/uniusdt@ticker/ltcusdt@ticker";
-    const connectWebSocket = () => {
-      socket = new WebSocket(
-        `wss://stream.binance.com:9443/stream?streams=${query}`
-      );
-
-      socket.onmessage = (event) => {
-        const newData = JSON.parse(event.data);
-        const pair = newData.stream.split("@")[0];
-        // console.log(pair); // pair is a symbolwithusdt at lowercase
-
-        setTickerData((prevData) => {
-          const newDataCopy = { ...prevData };
-          newDataCopy[pair] = newData.data;
-
-          return newDataCopy;
-        });
-
-        setIsLoading(false);
-      };
-
-      socket.onclose = () => {
-        setTimeout(connectWebSocket, 24 * 60 * 60 * 1000);
-      };
-    };
-
-    connectWebSocket();
-
-    return () => {
-      if (socket) {
-        socket.close();
-      }
-    };
-  }, []);
-
-  // const data: { [key: string]: { time: any; price: string } } = {};
-  // Object.values(tickerData).forEach((item: TickerData) => {
-  //   const symbol = item.s.toLowerCase();
-  //   const formattedPrice = parseFloat(item.w).toFixed(2);
-  //   const formattedDate = formatDate(item.E);
-  //   data[symbol] = {
-  //     time: formattedDate,
-  //     price: formattedPrice,
-  //   };
-  // });
-
-  // console.log(data);
-
-  // const symbols: string[] = Object.values(tickerData).map(
-  //   (item: TickerData) => {
-  //     return item.s.toUpperCase();
+  // const formattedData = Object.entries(dataGraph.data).reduce<{
+  //   [symbol: string]: { time: string; price: any }[];
+  // }>((result, [symbol, dataArray]) => {
+  //   if (Array.isArray(dataArray)) {
+  //     const formattedSymbolData = dataArray.map((dataPoint: any[]) => ({
+  //       time: new Date(dataPoint[6]).toLocaleDateString("en-US", {
+  //         month: "numeric",
+  //         day: "numeric",
+  //         year: "numeric",
+  //       }),
+  //       price: dataPoint[4],
+  //     }));
+  //     result[symbol] = formattedSymbolData;
   //   }
-  // );
-  // console.log(symbols);
-
-  const symbols = [
-    "BTCUSDT",
-    "ETHUSDT",
-    "BNBUSDT",
-    "SOLUSDT",
-    "XRPUSDT",
-    "ADAUSDT",
-    "DOGEUSDT",
-    "SHIBUSDT",
-    "AVAXUSDT",
-    "DOTUSDT",
-    "TRXUSDT",
-    "LINKUSDT",
-    "MATICUSDT",
-    "UNIUSDT",
-    "LTCUSDT",
-  ];
-  const dataGraph = useGetGraph(symbols);
-  const formattedData = Object.entries(dataGraph.data).reduce<{
-    [symbol: string]: { time: string; price: any }[];
-  }>((result, [symbol, dataArray]) => {
-    if (Array.isArray(dataArray)) {
-      const formattedSymbolData = dataArray.map((dataPoint: any[]) => ({
-        time: new Date(dataPoint[6]).toLocaleDateString("en-US", {
-          month: "numeric",
-          day: "numeric",
-          year: "numeric",
-        }),
-        price: dataPoint[4],
-      }));
-      result[symbol] = formattedSymbolData;
-    }
-    return result;
-  }, {});
+  //   return result;
+  // }, {});
 
   const getPriceChangeColor = (data: any[]): string => {
     if (data.length < 2) {
@@ -263,7 +190,7 @@ const Page = () => {
                   <LineChart
                     width={300}
                     height={120}
-                    data={formattedData[pair] || []}
+                    // data={formattedData[pair] || []}
                     margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                   >
                     <CartesianGrid strokeDasharray="3 3" />
@@ -274,7 +201,7 @@ const Page = () => {
                     <Line
                       type="monotone"
                       dataKey="price"
-                      stroke={getPriceChangeColor(formattedData[pair] || [])}
+                      // stroke={getPriceChangeColor(formattedData[pair] || [])}s
                     />
                   </LineChart>
                 </TableCell>
