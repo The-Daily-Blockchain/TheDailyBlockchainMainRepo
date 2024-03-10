@@ -96,18 +96,18 @@ const Page = () => {
     };
   }, []);
 
-  const data: { [key: string]: { time: any; price: string } } = {};
-  Object.values(tickerData).forEach((item: TickerData) => {
-    const symbol = item.s.toLowerCase();
-    const formattedPrice = parseFloat(item.w).toFixed(2);
-    const formattedDate = formatDate(item.E);
-    data[symbol] = {
-      time: formattedDate,
-      price: formattedPrice,
-    };
-  });
+  // const data: { [key: string]: { time: any; price: string } } = {};
+  // Object.values(tickerData).forEach((item: TickerData) => {
+  //   const symbol = item.s.toLowerCase();
+  //   const formattedPrice = parseFloat(item.w).toFixed(2);
+  //   const formattedDate = formatDate(item.E);
+  //   data[symbol] = {
+  //     time: formattedDate,
+  //     price: formattedPrice,
+  //   };
+  // });
 
-  console.log(data);
+  // console.log(data);
 
   // const symbols: string[] = Object.values(tickerData).map(
   //   (item: TickerData) => {
@@ -134,7 +134,6 @@ const Page = () => {
     "LTCUSDT",
   ];
   const dataGraph = useGetGraph(symbols);
-  console.log(dataGraph);
   const formattedData = Object.entries(dataGraph.data).reduce<{
     [symbol: string]: { time: string; price: any }[];
   }>((result, [symbol, dataArray]) => {
@@ -151,7 +150,6 @@ const Page = () => {
     }
     return result;
   }, {});
-  console.log(formattedData);
 
   const getPriceChangeColor = (data: any[]): string => {
     if (data.length < 2) {

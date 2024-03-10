@@ -4,14 +4,19 @@ import { useEffect, useState } from "react";
 
 export function useGetGraph(symbols: any) {
   const [newData, setData] = useState({});
+
   const currentDate = new Date();
   const startTime = currentDate.getTime() - 7 * 24 * 60 * 60 * 1000;
+
   const urls = symbols.map(
     (symbol: any) =>
       `/api/graph?symbol=${symbol}&startTime=${startTime}&interval=1d`
   );
 
-  const swrData = useSWR(urls, multiFetcher);
+  const swrData = useSWR(urls, multiFetcher, {
+    revalidateOnMount: true,
+    refreshInterval: 0,
+  });
 
   useEffect(() => {
     const fetchData = async () => {

@@ -2,7 +2,6 @@ import axios from "axios";
 
 export const fetcher = async (url: string) => {
   const response = await axios.get(url);
-  console.log(response.data);
   return response.data;
 };
 
@@ -22,6 +21,5 @@ export const multiFetcher = async (urls: string[]) => {
     }
     return acc;
   }, {});
-  console.log(mergedData);
   return mergedData;
 };
