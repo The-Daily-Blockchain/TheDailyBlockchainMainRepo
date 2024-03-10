@@ -20,9 +20,6 @@ const CrytoPage = () => {
   const [crypto, setCrypto] = useState<Crypto[]>([]);
   const [isLoading, setLoading] = useState<Boolean>(true);
 
-  const dataGraph = useGetGraph();
-  console.log(dataGraph);
-
   const crypto_api = Constants.crypto_api;
   useEffect(() => {
     const fetchCrypto = async () => {

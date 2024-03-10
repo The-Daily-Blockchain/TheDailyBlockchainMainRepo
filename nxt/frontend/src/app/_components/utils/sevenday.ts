@@ -1,6 +1,7 @@
 import useSWR from "swr";
 import { fetcher, multiFetcher } from "./fetcher";
 import { useEffect, useState } from "react";
+import { useDebouncedValue } from "./usedebouncevalue";
 
 const symbols = [
   "BTCUSDT",
@@ -19,7 +20,6 @@ const symbols = [
   "UNIUSDT",
   "LTCUSDT",
 ];
-console.log(symbols);
 const currentDate = new Date();
 const startTime = currentDate.getTime() - 7 * 24 * 60 * 60 * 1000;
 const interval = "1d";
@@ -29,25 +29,22 @@ const urls = symbols.map(
     `/api/graph?symbol=${symbol}&startTime=${startTime}&interval=${interval}`
 );
 
-console.log(urls);
-
-export function useGetGraph() {
+export const useGetGraph = () => {
   const [newData, setData] = useState({});
 
-  // const swrData = useSWR(urls, multiFetcher, {
-  //   revalidateOnMount: true,
-  //   refreshInterval: 1000,
-  // });
+  const debounceUrls = useDebouncedValue(urls, 86400000);
 
   useEffect(() => {
     const fetchData = async () => {
-      const fetchedData = await multiFetcher(urls);
+      const fetchedData = await multiFetcher(debounceUrls);
       setData(fetchedData);
     };
 
     fetchData();
-  }, []);
+  }, [debounceUrls]);
 
-  console.log(newData);
-  return { data: newData };
-}
+  const debounceData = useDebouncedValue(newData, 1000000);
+  console.log("deboundData:", debounceData);
+
+  return { data: debounceData };
+};

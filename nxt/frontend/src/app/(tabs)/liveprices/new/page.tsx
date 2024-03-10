@@ -58,25 +58,25 @@ type TickerData = {
 const Page = () => {
   const { tickerData, isLoading } = useWebSocket();
 
-  // const dataGraph = useGetGraph();
-  // console.log(dataGraph);
+  const dataGraph = useGetGraph();
+  console.log(dataGraph);
 
-  // const formattedData = Object.entries(dataGraph.data).reduce<{
-  //   [symbol: string]: { time: string; price: any }[];
-  // }>((result, [symbol, dataArray]) => {
-  //   if (Array.isArray(dataArray)) {
-  //     const formattedSymbolData = dataArray.map((dataPoint: any[]) => ({
-  //       time: new Date(dataPoint[6]).toLocaleDateString("en-US", {
-  //         month: "numeric",
-  //         day: "numeric",
-  //         year: "numeric",
-  //       }),
-  //       price: dataPoint[4],
-  //     }));
-  //     result[symbol] = formattedSymbolData;
-  //   }
-  //   return result;
-  // }, {});
+  const formattedData = Object.entries(dataGraph.data).reduce<{
+    [symbol: string]: { time: string; price: any }[];
+  }>((result, [symbol, dataArray]) => {
+    if (Array.isArray(dataArray)) {
+      const formattedSymbolData = dataArray.map((dataPoint: any[]) => ({
+        time: new Date(dataPoint[6]).toLocaleDateString("en-US", {
+          month: "numeric",
+          day: "numeric",
+          year: "numeric",
+        }),
+        price: dataPoint[4],
+      }));
+      result[symbol] = formattedSymbolData;
+    }
+    return result;
+  }, {});
 
   const getPriceChangeColor = (data: any[]): string => {
     if (data.length < 2) {
@@ -190,18 +190,19 @@ const Page = () => {
                   <LineChart
                     width={300}
                     height={120}
-                    // data={formattedData[pair] || []}
+                    data={formattedData[pair] || []}
                     margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                   >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="time" />
-                    <YAxis />
+                    <YAxis width={80} height={200} />
                     <Tooltip />
                     <Legend verticalAlign="top" height={36} />
                     <Line
+                      name="7 day price change"
                       type="monotone"
                       dataKey="price"
-                      // stroke={getPriceChangeColor(formattedData[pair] || [])}s
+                      stroke={getPriceChangeColor(formattedData[pair] || [])}
                     />
                   </LineChart>
                 </TableCell>
