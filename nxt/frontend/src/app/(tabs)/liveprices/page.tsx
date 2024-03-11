@@ -1,118 +1,236 @@
 "use client";
-import React, { Suspense, useEffect, useState } from "react";
-
+import { convertSymbolToName } from "@/app/_components/utils/convertsymboltoname";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import Loading from "./loading";
-import dayjs from "dayjs";
-import { Constants } from "@/app/_components/constants/common/constants";
+import {
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  Area,
+  AreaChart,
+  ReferenceLine,
+} from "recharts";
+import { formatDate } from "@/app/_components/utils/formattingData";
 import { useGetGraph } from "@/app/_components/utils/sevenday";
+import { useDebouncedValue } from "@/app/_components/utils/usedebouncevalue";
+import { useWebSocket } from "./usewebsocket";
+import Loader from "@/app/loader";
 
-interface Crypto {
-  symbol: string;
-  current_price: Number | string;
-  id: string;
-  name: string;
-  image: string;
-  price_change_percentage_24h?: Number;
-}
+type TickerData = {
+  p: any;
+  P: any;
+  w: any;
+  x: any;
+  Q: any;
+  b: any;
+  B: any;
+  a: any;
+  A: any;
+  O: any;
+  C: any;
+  F: any;
+  L: any;
+  n: any;
+  e: string;
+  E: number;
+  s: string;
+  c: string;
+  o: string;
+  h: string;
+  l: string;
+  v: string;
+  q: string;
+};
 
-const CrytoPage = () => {
-  const [crypto, setCrypto] = useState<Crypto[]>([]);
-  const [isLoading, setLoading] = useState<Boolean>(true);
+const Page = () => {
+  const { tickerData, isLoading } = useWebSocket();
 
-  const crypto_api = Constants.crypto_api;
-  useEffect(() => {
-    const fetchCrypto = async () => {
-      try {
-        const res = await fetch(crypto_api);
-        const data = await res.json();
-        setCrypto(data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching crypto data:", error);
-      }
-    };
-    fetchCrypto();
+  const dataGraph = useGetGraph();
 
-    const interval = setInterval(() => {
-      fetchCrypto();
-    }, 10000);
-    return () => clearInterval(interval);
-  });
+  const formattedData = Object.entries(dataGraph.data).reduce<{
+    [symbol: string]: { time: string; price: any }[];
+  }>((result, [symbol, dataArray]) => {
+    if (Array.isArray(dataArray)) {
+      const formattedSymbolData = dataArray.map((dataPoint: any[]) => ({
+        time: new Date(dataPoint[6]).toLocaleDateString("en-US", {
+          month: "numeric",
+          day: "numeric",
+          year: "numeric",
+        }),
+        price: parseFloat(dataPoint[4]).toFixed(2),
+      }));
+      result[symbol] = formattedSymbolData;
+    }
+    return result;
+  }, {});
 
-  if (isLoading) return <Loading />;
-  if (!crypto) return <Loading />;
+  const getPriceChangeColor = (data: any[]): string => {
+    if (data.length < 2) {
+      return "#8884d8";
+    }
+    const earliestPrice = parseFloat(data[0].price);
+    const latestPrice = parseFloat(data[data.length - 1].price);
+    return latestPrice > earliestPrice ? "green" : "red";
+  };
 
-  const currentDate = dayjs();
-  const formattedDate = currentDate.format("MMM DD, YYYY");
-  const formattedHour = currentDate.format("hh:mm A");
+  if (isLoading || !dataGraph.data) return <Loader />;
+
   return (
-    <>
-      <div>
-        <div className="relative">
-          <div className="grid items-center justify-center my-5">
-            <div className="border-solid border-4 border-gray-700 px-6">
-              <div className="flex text-center text-[36px] font-bold pt-2">
-                <Image
-                  src="/LOGO.png"
-                  width={53}
-                  height={40}
-                  alt="Picture of the Crypto"
-                />
-                AILY PRICE UPDATE
-              </div>
-              <p className="text-center text-[14px] ">via coingecko</p>
-              <div className="relative grid grid-cols-1">
-                <div className="text-[9px]">{formattedDate}</div>
-                <div className="text-[9px]">{formattedHour}</div>
-              </div>
-              <div className="text-right bg-black font-bold"></div>
-              <div className="max-w-sm grid grid-cols-4 items-center text-center  border-solid mb-4">
-                <p className="justify-self-center px-1"></p>
-                <p className="justify-self-center px-1">Crypto Currency</p>
-                <p className="justify-self-center px-1">Price</p>
-                <p className="justify-self-center px-1">24hr Change</p>
-              </div>
-              {crypto.map((cryptos, index) => (
-                <div
-                  key={cryptos.id}
-                  className={`max-w-md grid grid-cols-4 border-solid border-b-2 border-gray-400 items-center py-2 ${
-                    index >= crypto.length - 1 ? "border-b-0" : ""
-                  }`}
-                >
-                  {/* eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element */}
-                  <img
-                    src={cryptos.image}
-                    className="h-[35px] w-[35px] justify-self-center"
+    <div className="flex justify min-h-screen mx-auto">
+      <Table className="mt-2">
+        <TableCaption>Powered by Binance</TableCaption>
+        <TableHeader>
+          <TableRow className="font-xl">
+            <TableHead className="w-[140px]">Cryptocurrency</TableHead>
+            <TableHead className="text-right w-[100px]">
+              24hr Price change
+            </TableHead>
+            <TableHead className="text-right w-[100px]">
+              24hr Price change%
+            </TableHead>
+            <TableHead className="text-right w-[100px]">Price</TableHead>
+            <TableHead className="text-right w-[100px]">Open Price</TableHead>
+            <TableHead className="text-right w-[100px]">Close Price</TableHead>
+            <TableHead className="text-right w-[100px]">High 24hr</TableHead>
+            <TableHead className="text-right w-[100px]">Low 24hr</TableHead>
+            <TableHead className="text-right w-[100px]">Volume USD</TableHead>
+            <TableHead className="text-center w-[60px]"></TableHead>
+            <TableHead className="text-left w-[100px]">7 Day graph</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {Object.keys(tickerData)
+            .sort((pairA: any, pairB: any) => {
+              const bidPriceA = parseFloat(tickerData[pairA].q);
+              const bidPriceB = parseFloat(tickerData[pairB].q);
+              return bidPriceB - bidPriceA;
+            })
+            .map((pair: any) => (
+              <TableRow key={pair}>
+                <TableCell className="flex mt-7 w-[140px]">
+                  <Image
+                    className="rounded-full mr-2"
+                    src={
+                      convertSymbolToName(
+                        tickerData[pair].s.replace("USDT", "")
+                      ).imageUrl
+                    }
+                    alt={"Symbol"}
+                    width={20}
+                    height={20}
                   />
-                  <p className="justify-self-center px-1">{cryptos.name}</p>
-                  <p className="justify-self-center px-1">
-                    ₱{cryptos.current_price.toLocaleString("en-US")}
-                  </p>
-                  <p
-                    className={`justify-self-center px-1 ${
-                      typeof cryptos.price_change_percentage_24h === "number"
-                        ? cryptos.price_change_percentage_24h < 0
-                          ? "text-red-500"
-                          : "text-green-500"
-                        : "N/A"
-                    }`}
+                  {
+                    convertSymbolToName(tickerData[pair].s.replace("USDT", ""))
+                      .name
+                  }
+                </TableCell>
+                <TableCell
+                  style={{
+                    color: parseFloat(tickerData[pair].p) < 0 ? "red" : "green",
+                  }}
+                  className="text-right w-[100px]"
+                >
+                  $ {parseFloat(tickerData[pair].p).toLocaleString()}
+                </TableCell>
+                <TableCell
+                  style={{
+                    color: parseFloat(tickerData[pair].P) < 0 ? "red" : "green",
+                  }}
+                  className="text-right w-[100px]"
+                >
+                  {parseFloat(tickerData[pair].P).toFixed(2)}%
+                </TableCell>
+                <TableCell className="text-right w-[100px]">
+                  {parseFloat(tickerData[pair].w).toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                </TableCell>
+                <TableCell className="text-right w-[100px]">
+                  {parseFloat(tickerData[pair].o).toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                </TableCell>
+                <TableCell className="text-right w-[100px]">
+                  {parseFloat(tickerData[pair].c).toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                </TableCell>
+                <TableCell className="text-right w-[100px]">
+                  {parseFloat(tickerData[pair].h).toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                </TableCell>
+                <TableCell className="text-right w-[100px]">
+                  {parseFloat(tickerData[pair].l).toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                </TableCell>
+                <TableCell className="text-right w-[140px]">
+                  {parseFloat(tickerData[pair].q).toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                </TableCell>
+                <TableCell></TableCell>
+                <TableCell>
+                  <AreaChart
+                    width={210}
+                    height={80}
+                    data={formattedData[pair] || []}
+                    margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
                   >
-                    {typeof cryptos.price_change_percentage_24h === "number"
-                      ? cryptos.price_change_percentage_24h.toFixed(2)
-                      : "N/A"}
-                    %
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
+                    <defs>
+                      <linearGradient id="colorUv" x1="0" y1="0" x2="1" y2="1">
+                        <stop
+                          offset="10%"
+                          stopColor="#8884d8"
+                          stopOpacity={0.8}
+                        />
+                        <stop
+                          offset="90%"
+                          stopColor="#8884d8"
+                          stopOpacity={0}
+                        />
+                      </linearGradient>
+                    </defs>
+                    <XAxis dataKey="time" hide />
+                    <YAxis hide />
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <Tooltip />
+                    <Area
+                      type="monotone"
+                      dataKey="price"
+                      stroke={getPriceChangeColor(formattedData[pair] || [])}
+                      fillOpacity={1}
+                      fill="url(#colorUv)"
+                    />
+                  </AreaChart>
+                </TableCell>
+              </TableRow>
+            ))}
+        </TableBody>
+      </Table>
+    </div>
   );
 };
 
-export default CrytoPage;
-
-// gonna use binance api and shadcn
+export default Page;
