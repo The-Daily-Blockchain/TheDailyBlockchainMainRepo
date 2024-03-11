@@ -18,7 +18,6 @@ const New = () => {
       "XRPUSDT",
       "ADAUSDT",
       "DOGEUSDT",
-      "SHIBUSDT",
       "AVAXUSDT",
       "DOTUSDT",
       "TRXUSDT",

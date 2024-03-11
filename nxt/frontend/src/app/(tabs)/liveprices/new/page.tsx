@@ -71,7 +71,7 @@ const Page = () => {
           day: "numeric",
           year: "numeric",
         }),
-        price: dataPoint[4],
+        price: parseFloat(dataPoint[4]).toFixed(2),
       }));
       result[symbol] = formattedSymbolData;
     }
@@ -87,10 +87,10 @@ const Page = () => {
     return currentPrice > previousPrice ? "green" : "red";
   };
 
-  if (isLoading && !dataGraph.data) return <Loader />;
+  if (isLoading || !dataGraph.data) return <Loader />;
 
   return (
-    <div className="flex min-h-screen m-auto">
+    <div className="text-center align-center justify-center content-center min-h-screen mx-auto">
       <Table>
         <TableCaption>Powered by Binance.</TableCaption>
         <TableHeader>
@@ -100,7 +100,7 @@ const Page = () => {
               24hr Price change
             </TableHead>
             <TableHead className="text-right w-[100px]">
-              24hr Price change %
+              24hr Price change%
             </TableHead>
             <TableHead className="text-right w-[100px]">Price</TableHead>
             <TableHead className="text-right w-[100px]">Open Price</TableHead>
@@ -108,6 +108,8 @@ const Page = () => {
             <TableHead className="text-right w-[100px]">High 24hr</TableHead>
             <TableHead className="text-right w-[100px]">Low 24hr</TableHead>
             <TableHead className="text-right w-[100px]">Volume USD</TableHead>
+            <TableHead className="text-center w-[60px]"></TableHead>
+            <TableHead className="text-left w-[100px]">7 Day graph</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -119,7 +121,7 @@ const Page = () => {
             })
             .map((pair: any) => (
               <TableRow key={pair}>
-                <TableCell className="flex">
+                <TableCell className="flex mt-7 w-[140px]">
                   <Image
                     className="rounded-full mr-2"
                     src={
@@ -140,7 +142,7 @@ const Page = () => {
                   style={{
                     color: parseFloat(tickerData[pair].p) < 0 ? "red" : "green",
                   }}
-                  className="text-right"
+                  className="text-right w-[100px]"
                 >
                   $ {parseFloat(tickerData[pair].p).toLocaleString()}
                 </TableCell>
@@ -148,68 +150,51 @@ const Page = () => {
                   style={{
                     color: parseFloat(tickerData[pair].P) < 0 ? "red" : "green",
                   }}
-                  className="text-right"
+                  className="text-right w-[100px]"
                 >
                   {parseFloat(tickerData[pair].P).toFixed(2)}%
                 </TableCell>
-                <TableCell className="text-right">
+                <TableCell className="text-right w-[100px]">
                   {parseFloat(tickerData[pair].w).toLocaleString("en-US", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
                 </TableCell>
-                <TableCell className="text-right">
+                <TableCell className="text-right w-[100px]">
                   {parseFloat(tickerData[pair].o).toLocaleString("en-US", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
                 </TableCell>
-                <TableCell className="text-right">
+                <TableCell className="text-right w-[100px]">
                   {parseFloat(tickerData[pair].c).toLocaleString("en-US", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
                 </TableCell>
-                <TableCell className="text-right">
+                <TableCell className="text-right w-[100px]">
                   {parseFloat(tickerData[pair].h).toLocaleString("en-US", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
                 </TableCell>
-                <TableCell className="text-right">
+                <TableCell className="text-right w-[100px]">
                   {parseFloat(tickerData[pair].l).toLocaleString("en-US", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
                 </TableCell>
-                <TableCell className="text-right">
+                <TableCell className="text-right w-[140px]">
                   {parseFloat(tickerData[pair].q).toLocaleString("en-US", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
                 </TableCell>
+                <TableCell></TableCell>
                 <TableCell>
-                  {/* <LineChart
-                    width={300}
-                    height={120}
-                    data={formattedData[pair] || []}
-                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                  >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="time" />
-                    <YAxis width={80} height={200} />
-                    <Tooltip />
-                    <Legend verticalAlign="top" height={36} />
-                    <Line
-                      name="7 day price change"
-                      type="monotone"
-                      dataKey="price"
-                      stroke={getPriceChangeColor(formattedData[pair] || [])}
-                    />
-                  </LineChart> */}
                   <AreaChart
-                    width={260}
-                    height={120}
+                    width={210}
+                    height={80}
                     data={formattedData[pair] || []}
                     margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
                   >
