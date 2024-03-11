@@ -80,7 +80,7 @@ const Page = () => {
 
   const getPriceChangeColor = (data: any[]): string => {
     if (data.length < 2) {
-      return "#8884d8"; // Default color
+      return "#8884d8";
     }
     const currentPrice = parseFloat(data[data.length - 1].price);
     const previousPrice = parseFloat(data[data.length - 2].price);
@@ -189,7 +189,7 @@ const Page = () => {
                   })}
                 </TableCell>
                 <TableCell>
-                  <LineChart
+                  {/* <LineChart
                     width={300}
                     height={120}
                     data={formattedData[pair] || []}
@@ -206,7 +206,39 @@ const Page = () => {
                       dataKey="price"
                       stroke={getPriceChangeColor(formattedData[pair] || [])}
                     />
-                  </LineChart>
+                  </LineChart> */}
+                  <AreaChart
+                    width={260}
+                    height={120}
+                    data={formattedData[pair] || []}
+                    margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+                  >
+                    <defs>
+                      <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                        <stop
+                          offset="10%"
+                          stopColor="#8884d8"
+                          stopOpacity={0.8}
+                        />
+                        <stop
+                          offset="90%"
+                          stopColor="#8884d8"
+                          stopOpacity={0}
+                        />
+                      </linearGradient>
+                    </defs>
+                    <XAxis dataKey="time" hide />
+                    <YAxis hide />
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <Tooltip />
+                    <Area
+                      type="monotone"
+                      dataKey="price"
+                      stroke={getPriceChangeColor(formattedData[pair] || [])}
+                      fillOpacity={1}
+                      fill="url(#colorUv)"
+                    />
+                  </AreaChart>
                 </TableCell>
               </TableRow>
             ))}
