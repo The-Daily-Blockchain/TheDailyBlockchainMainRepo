@@ -29,6 +29,7 @@ import { useGetGraph } from "@/app/_components/utils/sevenday";
 import { useDebouncedValue } from "@/app/_components/utils/usedebouncevalue";
 import { useWebSocket } from "./usewebsocket";
 import Loader from "@/app/loader";
+import useDailyCurrencyFetch from "@/app/_components/utils/usedailycurrencyfetch";
 
 type TickerData = {
   p: any;
@@ -60,6 +61,7 @@ const Page = () => {
   const { tickerData, isLoading } = useWebSocket();
 
   const dataGraph = useGetGraph();
+  const { data: exchangeRate } = useDailyCurrencyFetch();
 
   const formattedData = Object.entries(dataGraph.data).reduce<{
     [symbol: string]: { time: string; price: any }[];
@@ -90,21 +92,21 @@ const Page = () => {
   if (isLoading || !dataGraph.data) return <Loader />;
 
   return (
-    <div className="flex justify min-h-screen mx-auto">
+    <div className="flex min-h-screen mx-10">
       <Table className="mt-2">
         <TableCaption>Powered by Binance</TableCaption>
         <TableHeader>
           <TableRow className="font-xl">
-            <TableHead className="w-[140px]">Cryptocurrency</TableHead>
+            <TableHead className="w-[10px]"></TableHead>
+            <TableHead className="w-[70px]">Cryptocurrency</TableHead>
             <TableHead className="text-right w-[100px]">
               24hr Price change
             </TableHead>
             <TableHead className="text-right w-[100px]">
               24hr Price change%
             </TableHead>
-            <TableHead className="text-right w-[100px]">Price</TableHead>
-            <TableHead className="text-right w-[100px]">Open Price</TableHead>
-            <TableHead className="text-right w-[100px]">Close Price</TableHead>
+            <TableHead className="text-right w-[100px]">Price PHP</TableHead>
+            <TableHead className="text-right w-[100px]">Price USD</TableHead>
             <TableHead className="text-right w-[100px]">High 24hr</TableHead>
             <TableHead className="text-right w-[100px]">Low 24hr</TableHead>
             <TableHead className="text-right w-[100px]">Volume USD</TableHead>
@@ -121,23 +123,28 @@ const Page = () => {
             })
             .map((pair: any) => (
               <TableRow key={pair}>
-                <TableCell className="flex mt-7 w-[140px]">
-                  <Image
-                    className="rounded-full mr-2"
-                    src={
-                      convertSymbolToName(
-                        tickerData[pair].s.replace("USDT", "")
-                      ).imageUrl
-                    }
-                    alt={"Symbol"}
-                    width={20}
-                    height={20}
-                  />
+                <TableCell className="w-[10px]">
+                  <div style={{ width: "30px", height: "30px" }}>
+                    <Image
+                      className="rounded-full"
+                      src={
+                        convertSymbolToName(
+                          tickerData[pair].s.replace("USDT", "")
+                        ).imageUrl
+                      }
+                      alt={"Symbol"}
+                      width={30}
+                      height={30}
+                    />
+                  </div>
+                </TableCell>
+                <TableCell className="w-[70px]">
                   {
                     convertSymbolToName(tickerData[pair].s.replace("USDT", ""))
                       .name
                   }
                 </TableCell>
+
                 <TableCell
                   style={{
                     color: parseFloat(tickerData[pair].p) < 0 ? "red" : "green",
@@ -154,20 +161,20 @@ const Page = () => {
                 >
                   {parseFloat(tickerData[pair].P).toFixed(2)}%
                 </TableCell>
+                <TableCell className="text-right">
+                  ₱
+                  {exchangeRate &&
+                    tickerData[pair].w &&
+                    (
+                      exchangeRate * parseFloat(tickerData[pair].w)
+                    ).toLocaleString("en-US", {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
+                </TableCell>
                 <TableCell className="text-right w-[100px]">
+                  $
                   {parseFloat(tickerData[pair].w).toLocaleString("en-US", {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
-                </TableCell>
-                <TableCell className="text-right w-[100px]">
-                  {parseFloat(tickerData[pair].o).toLocaleString("en-US", {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
-                </TableCell>
-                <TableCell className="text-right w-[100px]">
-                  {parseFloat(tickerData[pair].c).toLocaleString("en-US", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
@@ -191,40 +198,34 @@ const Page = () => {
                   })}
                 </TableCell>
                 <TableCell></TableCell>
-                <TableCell>
-                  <AreaChart
-                    width={210}
-                    height={80}
-                    data={formattedData[pair] || []}
-                    margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
-                  >
-                    <defs>
-                      <linearGradient id="colorUv" x1="0" y1="0" x2="1" y2="1">
-                        <stop
-                          offset="10%"
-                          stopColor="#8884d8"
-                          stopOpacity={0.8}
-                        />
-                        <stop
-                          offset="90%"
-                          stopColor="#8884d8"
-                          stopOpacity={0}
-                        />
-                      </linearGradient>
-                    </defs>
-                    <XAxis dataKey="time" hide />
-                    <YAxis hide />
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <Tooltip />
-                    <Area
-                      type="monotone"
-                      dataKey="price"
-                      stroke={getPriceChangeColor(formattedData[pair] || [])}
-                      fillOpacity={1}
-                      fill="url(#colorUv)"
-                    />
-                  </AreaChart>
-                </TableCell>
+                <AreaChart
+                  width={210}
+                  height={80}
+                  data={formattedData[pair] || []}
+                  margin={{ top: 10, right: 0, left: 0, bottom: 0 }}
+                >
+                  <defs>
+                    <linearGradient id="colorUv" x1="0" y1="0" x2="1" y2="1">
+                      <stop
+                        offset="10%"
+                        stopColor="#8884d8"
+                        stopOpacity={0.8}
+                      />
+                      <stop offset="90%" stopColor="#8884d8" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <XAxis dataKey="time" hide />
+                  <YAxis hide />
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <Tooltip formatter={(value) => `$${value}`} />
+                  <Area
+                    type="monotone"
+                    dataKey="price"
+                    stroke={getPriceChangeColor(formattedData[pair] || [])}
+                    fillOpacity={1}
+                    fill="url(#colorUv)"
+                  />
+                </AreaChart>
               </TableRow>
             ))}
         </TableBody>

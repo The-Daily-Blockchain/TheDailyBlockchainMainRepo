@@ -39,9 +39,11 @@ const MarketCap = () => {
   return (
     <>
       {!loading && (
-        <div className="border-solid border-b-2 border-black flex">
+        <div className="border-solid border-b-2 border-black flex justify-center">
           <p className="mr-4">Total Market Cap: ${formatAmount(marketCap)}🔥</p>
-          <p>Total Active Cryptocurrencies: {activeCrypto}🔥</p>
+          <p>
+            Total Active Cryptocurrencies: {activeCrypto?.toLocaleString()}🔥
+          </p>
         </div>
       )}
     </>
