@@ -7,6 +7,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose, AiOutlineCopyrightCircle } from "react-icons/ai";
 import classNames from "classnames";
 import SearchComponent from "./searchingcomponent/searchcomponent";
+import MarketCap from "./marketcap";
 
 const NavBar = () => {
   const [nav, setNav] = useState(false);
@@ -176,6 +177,7 @@ const NavBar = () => {
           </div>
         </div>
       </div>
+      <MarketCap />
       <MarQuee />
     </div>
   );

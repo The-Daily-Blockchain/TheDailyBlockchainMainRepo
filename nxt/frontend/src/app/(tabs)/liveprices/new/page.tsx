@@ -91,8 +91,8 @@ const Page = () => {
 
   return (
     <div className="text-center align-center justify-center content-center min-h-screen mx-auto">
-      <Table>
-        <TableCaption>Powered by Binance.</TableCaption>
+      <Table className="mt-2">
+        <TableCaption>Powered by Binance</TableCaption>
         <TableHeader>
           <TableRow className="font-xl">
             <TableHead className="w-[140px]">Cryptocurrency</TableHead>
