@@ -29,7 +29,7 @@ import { useGetGraph } from "@/app/_components/utils/sevenday";
 import { useDebouncedValue } from "@/app/_components/utils/usedebouncevalue";
 import { useWebSocket } from "./usewebsocket";
 import Loader from "@/app/loader";
-import useDailyCurrencyFetch from "@/app/_components/utils/usedailycurrencyfetch";
+import { useDailyCurrencyFetch } from "@/app/_components/utils/usedailycurrencyfetch";
 
 type TickerData = {
   p: any;

@@ -1,31 +1,21 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import axios from "axios";
 import { api_key_currency } from "@/app/config";
+import { useDebouncedValue } from "./usedebouncevalue";
 
-const useDailyCurrencyFetch = () => {
-  // const [data, setData] = useState(null);
+export const useDailyCurrencyFetch = () => {
   const intervalRef = useRef(null);
 
+  const currency = `https://api.currencyfreaks.com/v2.0/rates/latest?apikey=${api_key_currency}&symbols=PHP`;
+
+  const debounceCurrency = useDebouncedValue(currency, 86400000);
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `https://api.currencyfreaks.com/v2.0/rates/latest?apikey=${api_key_currency}&symbols=PHP`
-        );
-        // setData(response.data.rates.PHP);
-        intervalRef.current = response.data.rates.PHP;
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+      const response = await axios.get(debounceCurrency);
+      intervalRef.current = response.data.rates.PHP;
     };
     fetchData();
-
-    const intervalId = setInterval(fetchData, 86400000);
-
-    return () => clearInterval(intervalId);
-  }, []);
+  }, [debounceCurrency]);
 
   return { data: intervalRef.current };
 };
-
-export default useDailyCurrencyFetch;
