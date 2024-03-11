@@ -9,7 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import {
   LineChart,
@@ -28,6 +28,7 @@ import { formatDate } from "@/app/_components/utils/formattingData";
 import { useGetGraph } from "@/app/_components/utils/sevenday";
 import { useDebouncedValue } from "@/app/_components/utils/usedebouncevalue";
 import { useWebSocket } from "./usewebsocket";
+import Loader from "@/app/loader";
 
 type TickerData = {
   p: any;
@@ -59,7 +60,6 @@ const Page = () => {
   const { tickerData, isLoading } = useWebSocket();
 
   const dataGraph = useGetGraph();
-  console.log(dataGraph);
 
   const formattedData = Object.entries(dataGraph.data).reduce<{
     [symbol: string]: { time: string; price: any }[];
@@ -86,6 +86,8 @@ const Page = () => {
     const previousPrice = parseFloat(data[data.length - 2].price);
     return currentPrice > previousPrice ? "green" : "red";
   };
+
+  if (isLoading && !dataGraph.data) return <Loader />;
 
   return (
     <div className="flex min-h-screen m-auto">

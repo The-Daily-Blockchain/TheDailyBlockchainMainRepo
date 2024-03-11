@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { multiFetcher } from "@/app/_components/utils/fetcher";
 import { useDebouncedValue } from "@/app/_components/utils/usedebouncevalue";
 
@@ -33,25 +33,25 @@ function Page() {
   );
   console.log("looping", urls);
 
-  const [newData, setData] = useState({});
   const debounceUrls = useDebouncedValue(urls, 1000000);
 
+  const newData = useRef({});
   useEffect(() => {
     const fetchData = async () => {
       const fetchedData = await multiFetcher(debounceUrls);
-      setData(fetchedData);
+      newData.current = fetchedData;
     };
 
     fetchData();
-  }, [debounceUrls, symbols]);
-
+    console.log("fetchData");
+  }, [debounceUrls]);
+  console.log(newData.current);
   console.log(newData);
 
   return (
     <div>
-      {/* Render your graph or any other content related to the fetched data */}
       <h1>Graph Data</h1>
-      <pre>{JSON.stringify(newData, null, 2)}</pre>
+      <pre>{JSON.stringify(newData.current, null, 2)}</pre>
     </div>
   );
 }

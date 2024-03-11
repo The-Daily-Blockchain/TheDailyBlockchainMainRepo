@@ -1,5 +1,4 @@
-// utils/useWebSocket.ts
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const useWebSocket = () => {
   const [tickerData, setTickerData] = useState<any[]>([]);
@@ -42,6 +41,5 @@ export const useWebSocket = () => {
       }
     };
   }, []);
-
   return { tickerData, isLoading };
 };
