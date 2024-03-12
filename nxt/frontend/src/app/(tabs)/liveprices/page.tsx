@@ -24,14 +24,13 @@ import {
   AreaChart,
   ReferenceLine,
 } from "recharts";
-import { formatDate } from "@/app/_components/utils/formattingData";
 import { useGetGraph } from "@/app/_components/utils/sevenday";
-import { useDebouncedValue } from "@/app/_components/utils/usedebouncevalue";
 import { useWebSocket } from "./usewebsocket";
 import Loader from "@/app/loader";
 import { useDailyCurrencyFetch } from "@/app/_components/utils/usedailycurrencyfetch";
 import { useRouter } from "next/navigation";
 import { symbolToName } from "../../_components/utils/cryptomappings";
+import { newFormatAmount } from "@/app/_components/utils/formatamount";
 
 type TickerData = {
   p: any;
@@ -162,7 +161,6 @@ const Page = () => {
                       .name
                   }
                 </TableCell>
-
                 <TableCell
                   style={{
                     color: parseFloat(tickerData[pair].p) < 0 ? "red" : "green",
@@ -183,37 +181,21 @@ const Page = () => {
                   ₱
                   {exchangeRate &&
                     tickerData[pair].w &&
-                    (
+                    newFormatAmount(
                       exchangeRate * parseFloat(tickerData[pair].w)
-                    ).toLocaleString("en-US", {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    })}
+                    )}
                 </TableCell>
                 <TableCell className="text-right w-[100px]">
-                  $
-                  {parseFloat(tickerData[pair].w).toLocaleString("en-US", {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
+                  ${newFormatAmount(parseFloat(tickerData[pair].w))}
                 </TableCell>
                 <TableCell className="text-right w-[100px]">
-                  {parseFloat(tickerData[pair].h).toLocaleString("en-US", {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
+                  {newFormatAmount(parseFloat(tickerData[pair].h))}
                 </TableCell>
                 <TableCell className="text-right w-[100px]">
-                  {parseFloat(tickerData[pair].l).toLocaleString("en-US", {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
+                  {newFormatAmount(parseFloat(tickerData[pair].l))}
                 </TableCell>
                 <TableCell className="text-right w-[140px]">
-                  {parseFloat(tickerData[pair].q).toLocaleString("en-US", {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
+                  {newFormatAmount(parseFloat(tickerData[pair].q))}
                 </TableCell>
                 <TableCell></TableCell>
                 <AreaChart

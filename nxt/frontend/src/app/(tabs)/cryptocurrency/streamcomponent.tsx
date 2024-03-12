@@ -13,25 +13,36 @@ import {
 } from "@/components/ui/table";
 import { capitalizeFirstLetter } from "@/app/_components/utils/capitalizefirstletter";
 import { useFetchMarketCap } from "@/app/_components/utils/usefetchmarketcap";
-import { formatAmount } from "@/app/_components/utils/formatamount";
+import {
+  formatAmount,
+  newFormatAmount,
+} from "@/app/_components/utils/formatamount";
+import useValueArrow from "@/app/_components/utils/usevaluearrow";
 
 const StreamComponent = ({ params, name }: any) => {
   const { data: marketCap } = useFetchMarketCap(name);
-  console.log(marketCap);
-  console.log(name);
-  //   console.log(data.name.usd_market_cap);
-  //   const { data } = useCryptoStream(params);
+
+  const { data: dataStream } = useCryptoStream(params) as { data: any };
+
+  const { arrowIcon, valueClassName } = useValueArrow(dataStream.w);
+
+  //   const { imageUrl } = convertSymbolToName(data);
   return (
     <>
-      <Table>
+      <Table className="mt-3 ">
         <TableHeader>
-          <TableRow>
-            <TableHead className="text-center">
+          <TableRow className="text-center grid grid-cols-1 mt-5">
+            <TableHead className="text-xl text-black">
               {capitalizeFirstLetter(name)}
             </TableHead>
-          </TableRow>
-          <TableRow>
-            <TableHead className="text-center">$21321321</TableHead>
+            <TableHead>
+              <span className="text-3xl font-bold text-black">
+                ${newFormatAmount(parseFloat(dataStream.w))}
+              </span>
+              <span className={valueClassName}>
+                {arrowIcon} {parseFloat(dataStream.p)}%
+              </span>
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -40,16 +51,18 @@ const StreamComponent = ({ params, name }: any) => {
             <TableCell>{formatAmount(marketCap)}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="font-medium">INV001</TableCell>
-            <TableCell>Paid</TableCell>
+            <TableCell className="font-medium">
+              24 Hour Trading Volume
+            </TableCell>
+            <TableCell>{newFormatAmount(parseFloat(dataStream.q))}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="font-medium">INV001</TableCell>
-            <TableCell>Paid</TableCell>
+            <TableCell className="font-medium">24 Hour High</TableCell>
+            <TableCell>{newFormatAmount(parseFloat(dataStream.h))}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="font-medium">INV001</TableCell>
-            <TableCell>Paid</TableCell>
+            <TableCell className="font-medium">24 Hour Low</TableCell>
+            <TableCell>{newFormatAmount(parseFloat(dataStream.l))}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell className="font-medium">INV001</TableCell>
