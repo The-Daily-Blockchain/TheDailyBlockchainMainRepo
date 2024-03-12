@@ -28,19 +28,22 @@ const StreamComponent = ({ params, name }: any) => {
 
   return (
     <>
-      <Table className="mt-3 ">
+      <Table className="mt-3">
         <TableHeader>
-          <TableRow className="text-center grid grid-cols-1 mt-5">
+          <TableRow className="relative text-center grid grid-cols-2 mt-5">
             <TableHead className="flex text-xl text-black">
-              <span className="mr-1 mt-1">
+              <span className="mt-1 mr-1">
                 <Image src={imageUrl} alt="" width={20} height={20} />
               </span>
               <span> {capitalizeFirstLetter(name)}</span>
             </TableHead>
+            <TableHead> </TableHead>
             <TableHead>
               <span className="text-3xl font-bold text-black">
                 ${newFormatAmount(parseFloat(dataStream.w))}
               </span>
+            </TableHead>
+            <TableHead className="absolute -bottom-3 left-32">
               <span className={valueClassName}>
                 {arrowIcon} {parseFloat(dataStream.P)}%
               </span>
@@ -49,25 +52,29 @@ const StreamComponent = ({ params, name }: any) => {
         </TableHeader>
         <TableBody>
           <TableRow>
-            <TableCell className="font-medium">Market Capitalization</TableCell>
+            <TableCell className="font-medium w-[230px]">
+              Market Capitalization
+            </TableCell>
             <TableCell>{formatAmount(marketCap)}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="font-medium">
+            <TableCell className="font-medium w-[230px]">
               24 Hour Trading Volume
             </TableCell>
             <TableCell>{newFormatAmount(parseFloat(dataStream.q))}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="font-medium">24 Hour High</TableCell>
+            <TableCell className="font-medium w-[230px]">
+              24 Hour High
+            </TableCell>
             <TableCell>{newFormatAmount(parseFloat(dataStream.h))}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="font-medium">24 Hour Low</TableCell>
+            <TableCell className="font-medium w-[230px]">24 Hour Low</TableCell>
             <TableCell>{newFormatAmount(parseFloat(dataStream.l))}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="font-medium">INV001</TableCell>
+            <TableCell className="font-medium w-[230px]">INV001</TableCell>
             <TableCell>Paid</TableCell>
           </TableRow>
         </TableBody>
