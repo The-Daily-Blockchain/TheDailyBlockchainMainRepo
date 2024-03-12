@@ -200,9 +200,8 @@ const Page = () => {
                 <TableCell></TableCell>
                 <AreaChart
                   width={210}
-                  height={80}
+                  height={60}
                   data={formattedData[pair] || []}
-                  margin={{ top: 10, right: 0, left: 0, bottom: 0 }}
                 >
                   <defs>
                     <linearGradient id="colorUv" x1="0" y1="0" x2="1" y2="1">
