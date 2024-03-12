@@ -1,7 +1,6 @@
 import { useCryptoStream } from "@/app/_components/hooks/useCryptoStream";
-import { fetcher } from "@/app/_components/utils/fetcher";
+import Image from "next/image";
 import React from "react";
-import useSWR from "swr";
 import {
   Table,
   TableBody,
@@ -18,29 +17,32 @@ import {
   newFormatAmount,
 } from "@/app/_components/utils/formatamount";
 import useValueArrow from "@/app/_components/utils/usevaluearrow";
+import { convertSymbolToName } from "@/app/_components/utils/convertsymboltoname";
 
 const StreamComponent = ({ params, name }: any) => {
   const { data: marketCap } = useFetchMarketCap(name);
-
   const { data: dataStream } = useCryptoStream(params) as { data: any };
-
   const { arrowIcon, valueClassName } = useValueArrow(dataStream.w);
+  const symbol = dataStream.s?.split("USDT")[0];
+  const { imageUrl } = convertSymbolToName(symbol);
 
-  //   const { imageUrl } = convertSymbolToName(data);
   return (
     <>
       <Table className="mt-3 ">
         <TableHeader>
           <TableRow className="text-center grid grid-cols-1 mt-5">
-            <TableHead className="text-xl text-black">
-              {capitalizeFirstLetter(name)}
+            <TableHead className="flex text-xl text-black">
+              <span className="mr-1 mt-1">
+                <Image src={imageUrl} alt="" width={20} height={20} />
+              </span>
+              <span> {capitalizeFirstLetter(name)}</span>
             </TableHead>
             <TableHead>
               <span className="text-3xl font-bold text-black">
                 ${newFormatAmount(parseFloat(dataStream.w))}
               </span>
               <span className={valueClassName}>
-                {arrowIcon} {parseFloat(dataStream.p)}%
+                {arrowIcon} {parseFloat(dataStream.P)}%
               </span>
             </TableHead>
           </TableRow>
