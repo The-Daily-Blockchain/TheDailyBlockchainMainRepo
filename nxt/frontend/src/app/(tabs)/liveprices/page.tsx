@@ -30,6 +30,8 @@ import { useDebouncedValue } from "@/app/_components/utils/usedebouncevalue";
 import { useWebSocket } from "./usewebsocket";
 import Loader from "@/app/loader";
 import { useDailyCurrencyFetch } from "@/app/_components/utils/usedailycurrencyfetch";
+import { useRouter } from "next/navigation";
+import { symbolToName } from "./new/cryptomappings";
 
 type TickerData = {
   p: any;
@@ -59,7 +61,7 @@ type TickerData = {
 
 const Page = () => {
   const { tickerData, isLoading } = useWebSocket();
-
+  const router = useRouter();
   const dataGraph = useGetGraph();
   const { data: exchangeRate } = useDailyCurrencyFetch();
 
@@ -90,6 +92,19 @@ const Page = () => {
   };
 
   if (isLoading || !dataGraph.data) return <Loader />;
+
+  const handleClick = (pair: string) => {
+    const pairWithoutUSDT = pair.replace("usdt", "");
+    const symbol = pairWithoutUSDT.split("/")[0];
+    if (symbolToName[symbol]) {
+      // Replace the symbol with its corresponding name
+      const pairWithName = pairWithoutUSDT.replace(
+        symbol,
+        symbolToName[symbol]
+      );
+      router.push(`/cryptocurrency/${pairWithName}`);
+    }
+  };
 
   return (
     <div className="flex min-h-screen mx-10">
@@ -122,7 +137,11 @@ const Page = () => {
               return bidPriceB - bidPriceA;
             })
             .map((pair: any) => (
-              <TableRow key={pair}>
+              <TableRow
+                key={pair}
+                onClick={() => handleClick(pair)}
+                style={{ cursor: "pointer" }}
+              >
                 <TableCell className="w-[10px]">
                   <div style={{ width: "30px", height: "30px" }}>
                     <Image
