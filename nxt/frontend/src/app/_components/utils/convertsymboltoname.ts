@@ -12,7 +12,7 @@ const symbolToNameMap: Record<string, string> = {
   LTC: "Litecoin",
   LINK: "Chainlink",
   UNI: "Uniswap",
-  TRX: "TRON",
+  TRX: "Tron",
 };
 
 export const convertSymbolToName = (symbol: string) => {

@@ -31,7 +31,7 @@ import { useWebSocket } from "./usewebsocket";
 import Loader from "@/app/loader";
 import { useDailyCurrencyFetch } from "@/app/_components/utils/usedailycurrencyfetch";
 import { useRouter } from "next/navigation";
-import { symbolToName } from "./new/cryptomappings";
+import { symbolToName } from "../../_components/utils/cryptomappings";
 
 type TickerData = {
   p: any;
@@ -97,7 +97,6 @@ const Page = () => {
     const pairWithoutUSDT = pair.replace("usdt", "");
     const symbol = pairWithoutUSDT.split("/")[0];
     if (symbolToName[symbol]) {
-      // Replace the symbol with its corresponding name
       const pairWithName = pairWithoutUSDT.replace(
         symbol,
         symbolToName[symbol]
