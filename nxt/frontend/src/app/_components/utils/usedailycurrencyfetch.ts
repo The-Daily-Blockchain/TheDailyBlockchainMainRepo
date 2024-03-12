@@ -17,6 +17,10 @@ export const useDailyCurrencyFetch = () => {
           const response = await axios.get(currencyUrl);
           intervalRef.current = response.data.rates.PHP;
           localStorage.setItem("currencyLastFetched", currentDate);
+          localStorage.setItem(
+            "cachedCurrencyData",
+            JSON.stringify(response.data.rates.PHP)
+          );
         } catch (error) {
           console.error("Error fetching currency data:", error);
         }
