@@ -30,6 +30,7 @@ export const useGetGraph = () => {
       `/api/graph?symbol=${symbol}&startTime=${startTime}&interval=${interval}`
   );
   const debounceUrls = useDebouncedValue(urls, 86400000);
+
   const newData = useRef({});
   useEffect(() => {
     const fetchData = async () => {

@@ -24,7 +24,10 @@ const StreamComponent = ({ params, name }: any) => {
   const { data: dataStream } = useCryptoStream(params) as { data: any };
   const { arrowIcon, valueClassName } = useValueArrow(dataStream.w);
   const symbol = dataStream.s?.split("USDT")[0];
+
   const { imageUrl } = convertSymbolToName(symbol);
+
+  console.log(imageUrl, "image:");
 
   return (
     <>
