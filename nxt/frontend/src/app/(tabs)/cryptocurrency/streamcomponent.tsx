@@ -18,6 +18,7 @@ import {
 } from "@/app/_components/utils/formatamount";
 import useValueArrow from "@/app/_components/utils/usevaluearrow";
 import { convertSymbolToName } from "@/app/_components/utils/convertsymboltoname";
+import PriceBarChart from "./pricebarchart";
 
 const StreamComponent = ({ params, name }: any) => {
   const { data: marketCap } = useFetchMarketCap(name);
@@ -27,58 +28,76 @@ const StreamComponent = ({ params, name }: any) => {
 
   const { imageUrl } = convertSymbolToName(symbol);
 
-  console.log(imageUrl, "image:");
+  const formattedData = [
+    {
+      name: dataStream.s,
+      high: parseFloat(dataStream.h),
+      low: parseFloat(dataStream.l),
+      current: parseFloat(dataStream.w),
+    },
+  ];
 
   return (
     <>
-      <Table className="mt-3">
+      <Table className="mt-3 content-center">
         <TableHeader>
-          <TableRow className="relative text-center grid grid-cols-2 mt-5">
-            <TableHead className="flex text-xl text-black">
-              <span className="mt-1 mr-1">
-                <Image src={imageUrl} alt="" width={20} height={20} />
+          <TableRow noBorder={true} className="grid justify-center mt-5">
+            <TableHead
+              noBorder={true}
+              className="flex text-left text-xl text-black w-[200px]"
+            >
+              <span className="mr-2">
+                <Image
+                  className="rounded-full"
+                  src={imageUrl}
+                  alt=""
+                  width={30}
+                  height={30}
+                />
               </span>
-              <span> {capitalizeFirstLetter(name)}</span>
+              {capitalizeFirstLetter(name)}
             </TableHead>
-            <TableHead> </TableHead>
-            <TableHead>
-              <span className="text-3xl font-bold text-black">
+            <TableHead
+              noBorder={true}
+              className="grid grid-cols-2 justify-center"
+            >
+              <span className="text-3xl text-left font-bold text-black w-[100px]">
                 ${newFormatAmount(parseFloat(dataStream.w))}
               </span>
-            </TableHead>
-            <TableHead className="absolute -bottom-3 left-32">
-              <span className={valueClassName}>
-                {arrowIcon} {parseFloat(dataStream.P)}%
+              <span className={`${valueClassName} ml-2 w-[160px]`}>
+                {arrowIcon} {newFormatAmount(parseFloat(dataStream.P))}%
               </span>
             </TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>
-          <TableRow>
-            <TableCell className="font-medium w-[230px]">
-              Market Capitalization
+        <div className="flex justify-center">
+          <PriceBarChart data={formattedData} />
+        </div>
+        <TableBody className="grid justify-center">
+          <TableRow noBorder={true}>
+            <TableCell className="font-medium ">
+              <span className="mr-3">Market Capitalization</span>
+              {formatAmount(marketCap)}
             </TableCell>
-            <TableCell>{formatAmount(marketCap)}</TableCell>
           </TableRow>
-          <TableRow>
-            <TableCell className="font-medium w-[230px]">
-              24 Hour Trading Volume
+          <TableRow noBorder={true}>
+            <TableCell className="font-medium">
+              <span className="mr-3">24 Hour Trading Volume</span>
+              {newFormatAmount(parseFloat(dataStream.q))}
             </TableCell>
-            <TableCell>{newFormatAmount(parseFloat(dataStream.q))}</TableCell>
           </TableRow>
-          <TableRow>
-            <TableCell className="font-medium w-[230px]">
-              24 Hour High
+          <TableRow noBorder={true}>
+            <TableCell className="font-medium">
+              <span className="mr-3">24 Hour High</span>
+
+              {newFormatAmount(parseFloat(dataStream.h))}
             </TableCell>
-            <TableCell>{newFormatAmount(parseFloat(dataStream.h))}</TableCell>
           </TableRow>
-          <TableRow>
-            <TableCell className="font-medium w-[230px]">24 Hour Low</TableCell>
-            <TableCell>{newFormatAmount(parseFloat(dataStream.l))}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell className="font-medium w-[230px]">INV001</TableCell>
-            <TableCell>Paid</TableCell>
+          <TableRow noBorder={true}>
+            <TableCell className="font-medium">
+              <span className="mr-3">24 Hour Low</span>
+              {newFormatAmount(parseFloat(dataStream.l))}
+            </TableCell>
           </TableRow>
         </TableBody>
       </Table>

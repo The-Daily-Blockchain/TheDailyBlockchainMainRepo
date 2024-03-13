@@ -18,7 +18,6 @@ export const useFetchMarketCap = (name: any) => {
 
     fetchData();
   }, [debounceEndpoint, name]);
-  console.log(intervalRef.current);
 
   return { data: intervalRef.current };
 };
