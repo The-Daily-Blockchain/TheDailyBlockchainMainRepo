@@ -13,3 +13,7 @@ export const newFormatAmount = (amount: number | string): string => {
     maximumFractionDigits: 2,
   });
 };
+
+export const formatNumberWithCommas = (number: any) => {
+  return number.toLocaleString();
+};

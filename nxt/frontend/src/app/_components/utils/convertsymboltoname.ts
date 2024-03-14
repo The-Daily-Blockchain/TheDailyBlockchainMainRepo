@@ -36,7 +36,6 @@ const CACHE_KEY_PREFIX = "symbol_cache_";
 
 export const convertSymbolToName = (symbol: string) => {
   if (!symbol) {
-    console.error("Symbol is undefined or empty.");
     return { name: "", imageUrl: "" };
   }
 
