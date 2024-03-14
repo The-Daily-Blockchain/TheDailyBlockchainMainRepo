@@ -20,6 +20,7 @@ import useValueArrow from "@/app/_components/utils/usevaluearrow";
 import { convertSymbolToName } from "@/app/_components/utils/convertsymboltoname";
 import PriceBarChart from "./pricebarchart";
 import Loader from "@/app/loader";
+import { useMarketData } from "@/app/_components/hooks/marketData";
 
 const StreamComponent = ({ params, name }: any) => {
   const [isClient, setIsClient] = useState(false);
@@ -42,6 +43,10 @@ const StreamComponent = ({ params, name }: any) => {
       current: parseFloat(dataStream.w),
     },
   ];
+
+  const crypto = "bitcoin";
+  const { data: marketData, isLoading } = useMarketData(crypto); // brain not working
+  console.log(marketData);
 
   return (
     <>
