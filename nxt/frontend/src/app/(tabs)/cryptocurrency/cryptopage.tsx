@@ -10,7 +10,9 @@ const CryptoPage = ({ params }: any) => {
   const symbolWithUSDT = symbol + "usdt";
   return (
     <div className="grid grid-cols-[1fr,2fr]">
-      <StreamComponent params={symbolWithUSDT} name={name} />
+      <div className="border-double border-r-4 border border-b-4 rounded-xl mt-10 ml-5 w-[450px]">
+        <StreamComponent params={symbolWithUSDT} name={name} />
+      </div>
       <div>weqe</div>
     </div>
   );

@@ -48,10 +48,10 @@ const StreamComponent = ({ params, name }: any) => {
       {isClient ? (
         <Table className="mt-3 content-center">
           <TableHeader>
-            <TableRow noBorder={true} className="grid justify-center mt-5">
+            <TableRow noBorder={true} className="grid justify-center mt-5 ">
               <TableHead
                 noBorder={true}
-                className="flex text-left text-xl text-black w-[200px]"
+                className="flex text-left text-xl text-black w-[200px] "
               >
                 <span className="mr-2">
                   <Image
