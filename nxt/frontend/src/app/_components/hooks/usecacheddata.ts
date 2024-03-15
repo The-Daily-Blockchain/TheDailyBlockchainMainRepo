@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState, useEffect } from "react";
 
 type CacheOptions<T> = {
@@ -24,11 +25,8 @@ function useCachedData<T>(url: string, cacheOptions: CacheOptions<T>) {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const responseData = await response.json();
+        const response = await axios.get(url);
+        const responseData = await response.data();
         setData(responseData);
         localStorage.setItem(key, JSON.stringify(responseData));
         localStorage.setItem(`${key}_timestamp`, String(new Date().getTime()));
