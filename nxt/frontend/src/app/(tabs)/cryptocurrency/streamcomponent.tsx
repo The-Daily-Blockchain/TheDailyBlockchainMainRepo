@@ -25,10 +25,12 @@ import { useMarketData } from "@/app/_components/hooks/marketData";
 const StreamComponent = ({ params, name }: any) => {
   const [isClient, setIsClient] = useState(false);
   const { data: marketCap } = useFetchMarketCap(name);
+  console.log(marketCap);
   const { data: dataStream } = useCryptoStream(params) as { data: any };
   const { arrowIcon, valueClassName } = useValueArrow(dataStream.w);
   const symbol = dataStream.s?.split("USDT")[0];
-
+  const marketData = useMarketData(name);
+  console.log(marketData);
   const { imageUrl } = convertSymbolToName(symbol);
 
   useEffect(() => {
@@ -43,10 +45,6 @@ const StreamComponent = ({ params, name }: any) => {
       current: parseFloat(dataStream.w),
     },
   ];
-
-  const crypto = "bitcoin";
-  const { data: marketData, isLoading } = useMarketData(crypto); // brain not working
-  console.log(marketData);
 
   return (
     <>

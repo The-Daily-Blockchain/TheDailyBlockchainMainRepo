@@ -9,10 +9,12 @@ export async function GET(req: NextRequest) {
 
   //   ${symbol}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false
 
-  const response = await axios.get(`https://api.coingecko.com/api/v3/coins/`, {
-    params,
-  });
+  const response = await axios.get(
+    `https://api.coingecko.com/api/v3/coins/${symbol}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false`,
+    {
+      params,
+    }
+  );
   const data = response.data;
   return Response.json(data);
 }
-//need help not working brain
