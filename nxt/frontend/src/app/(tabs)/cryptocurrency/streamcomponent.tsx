@@ -11,7 +11,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { capitalizeFirstLetter } from "@/app/_components/utils/capitalizefirstletter";
-import { useFetchMarketCap } from "@/app/_components/utils/usefetchmarketcap";
 import {
   formatAmount,
   formatNumberWithCommas,
@@ -29,6 +28,7 @@ import {
 } from "@/components/ui/hover-card";
 import { partial } from "lodash";
 import { IoInformationCircleOutline } from "react-icons/io5";
+import PercentBarChart from "./percentbarchart";
 
 const StreamComponent = ({ params, name }: any) => {
   const [isClient, setIsClient] = useState(false);
@@ -36,7 +36,6 @@ const StreamComponent = ({ params, name }: any) => {
   const { arrowIcon, valueClassName } = useValueArrow(dataStream.w);
   const symbol = dataStream.s?.split("USDT")[0];
   const { data: marketData }: { data: any } = useMarketData(name);
-  console.log(marketData);
   const { imageUrl } = convertSymbolToName(symbol);
 
   useEffect(() => {
@@ -49,6 +48,13 @@ const StreamComponent = ({ params, name }: any) => {
       high: parseFloat(dataStream.h),
       low: parseFloat(dataStream.l),
       current: parseFloat(dataStream.w),
+    },
+  ];
+  const reshapePercentPayload = [
+    {
+      cir_supply: marketData?.market_data?.circulating_supply,
+      total_supply: marketData?.market_data?.total_supply,
+      base: 0,
     },
   ];
 
@@ -142,8 +148,11 @@ const StreamComponent = ({ params, name }: any) => {
                   </HoverCard>
                 </span>
               </TableCell>
+              <TableRow noBorder={true}>
+                <PercentBarChart data={reshapePercentPayload} />
+              </TableRow>
             </TableRow>
-            <TableRow noBorder={true}>
+            <TableRow className="mt-3" noBorder={true}>
               <TableCell className="font-medium flex">
                 <span className="mr-3">Total Supply</span>
                 {marketData &&
