@@ -69,7 +69,7 @@ const PriceBarChart = ({ data }: Props) => {
           yAxisId={0}
         />
       </BarChart>
-      <TableRow noBorder={true} className="grid grid-cols-3  ">
+      <TableRow noBorder={true} className="grid grid-cols-3">
         <TableCell className="text-left">
           ${formatNumberWithCommas(data[0].low)}
         </TableCell>

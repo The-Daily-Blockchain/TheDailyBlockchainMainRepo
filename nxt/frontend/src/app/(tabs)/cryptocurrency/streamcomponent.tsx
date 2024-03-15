@@ -19,16 +19,21 @@ import {
 import useValueArrow from "@/app/_components/utils/usevaluearrow";
 import { convertSymbolToName } from "@/app/_components/utils/convertsymboltoname";
 import PriceBarChart from "./pricebarchart";
-import Loader from "@/app/loader";
 import { useMarketData } from "@/app/_components/hooks/marketData";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { partial } from "lodash";
-import { IoInformationCircleOutline } from "react-icons/io5";
+import {
+  IoInformationCircleOutline,
+  IoDocumentsOutline,
+} from "react-icons/io5";
 import PercentBarChart from "./percentbarchart";
+import { Button } from "@/components/ui/button";
+import { IoMdGlobe } from "react-icons/io";
+import { FaGithub } from "react-icons/fa";
+import { MdExplore } from "react-icons/md";
 
 const StreamComponent = ({ params, name }: any) => {
   const [isClient, setIsClient] = useState(false);
@@ -71,7 +76,10 @@ const StreamComponent = ({ params, name }: any) => {
                 Cryptocurrency rank
               </span>
             </TableRow>
-            <TableRow noBorder={true} className="grid justify-center mt-5 ">
+            <TableRow
+              noBorder={true}
+              className="grid justify-items-center items-center mt-5 "
+            >
               <TableHead
                 noBorder={true}
                 className="flex text-left text-xl text-black w-[200px] "
@@ -101,7 +109,9 @@ const StreamComponent = ({ params, name }: any) => {
             </TableRow>
           </TableHeader>
           <TableBody className="grid justify-center">
-            <PriceBarChart data={formattedData} />
+            <TableRow noBorder={true} className="w-[300px]">
+              <PriceBarChart data={formattedData} />
+            </TableRow>
             <TableRow noBorder={true}>
               <TableCell className="font-medium flex">
                 <span className="mr-3">Market Capitalization</span>$
@@ -169,15 +179,106 @@ const StreamComponent = ({ params, name }: any) => {
                     </HoverCardTrigger>
                     <HoverCardContent side="top">
                       Total supply in the realm of cryptocurrency denotes the
-                      maximum quantity of digital coins or tokens that will ever
-                      be created for a specific cryptocurrency, crucial for
-                      understanding the potential inflationary or deflationary
-                      pressures on its value over time.
+                      entire quantity of digital coins or tokens that have been
+                      created or generated for a specific cryptocurrency.
+                      Understanding the total supply is crucial for evaluating
+                      the potential inflationary or deflationary pressures on
+                      its value over time.
                     </HoverCardContent>
                   </HoverCard>
                 </span>
               </TableCell>
             </TableRow>
+            <TableRow noBorder={true}>
+              <TableCell className="font-medium flex">
+                <span className="mr-3">Max Supply</span>
+                {marketData &&
+                marketData.market_data &&
+                marketData.market_data.max_supply
+                  ? formatNumberWithCommas(
+                      parseFloat(marketData.market_data.max_supply)
+                    )
+                  : "∞"}
+                <span className="ml-1 mt-[2px] delay-100">
+                  <HoverCard openDelay={300}>
+                    <HoverCardTrigger className="cursor-pointer">
+                      <IoInformationCircleOutline className="text-gray-600" />
+                    </HoverCardTrigger>
+                    <HoverCardContent side="top">
+                      Max supply in the context of cryptocurrency refers to the
+                      maximum quantity of digital coins or tokens that will ever
+                      be created for a specific cryptocurrency. It establishes a
+                      predefined upper limit for the total number of coins that
+                      can ever be in circulation, influencing factors such as
+                      scarcity and long-term value.
+                    </HoverCardContent>
+                  </HoverCard>
+                </span>
+              </TableCell>
+            </TableRow>
+            <TableRow noBorder={true}>
+              <TableCell className="font-bold">Website</TableCell>
+            </TableRow>
+            <TableRow noBg={true} noBorder={true}>
+              <TableCell className="grid grid-cols-3">
+                {marketData?.links?.homepage?.[0] && (
+                  <Button
+                    variant="outline"
+                    className="text-right mr-2 cursor-pointer"
+                  >
+                    <span className="mr-1">
+                      <IoMdGlobe />
+                    </span>
+                    <a target="_blank" href={marketData?.links?.homepage?.[0]}>
+                      Homepage
+                    </a>
+                  </Button>
+                )}
+                {marketData?.links?.whitepaper && (
+                  <Button variant="outline" className="cursor-pointer mr-2">
+                    <span className="mr-1">
+                      <IoDocumentsOutline />
+                    </span>
+                    <a target="_blank" href={marketData?.links?.whitepaper}>
+                      Whitepaper
+                    </a>
+                  </Button>
+                )}
+                {marketData?.links?.repos_url?.github?.[0] && (
+                  <Button variant="outline" className="cursor-pointer">
+                    <span className="mr-1">
+                      <FaGithub />
+                    </span>
+                    <a
+                      target="_blank"
+                      href={marketData?.links?.repos_url?.github?.[0]}
+                    >
+                      Repository
+                    </a>
+                  </Button>
+                )}
+              </TableCell>
+            </TableRow>
+            {marketData?.links?.blockchain_site?.[0] && (
+              <TableRow noBg={true} noBorder={true}>
+                <TableCell className="flex">
+                  <span className="font-bold mt-2 mr-10">
+                    Blockchain Explorer
+                  </span>
+                  <Button variant="outline">
+                    <span className="mr-1">
+                      <MdExplore />
+                    </span>
+                    <a
+                      target="_blank"
+                      href={marketData?.links?.blockchain_site?.[0]}
+                    >
+                      Explorer
+                    </a>
+                  </Button>
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       ) : (

@@ -10,6 +10,7 @@ interface TableHeadProps extends React.ThHTMLAttributes<HTMLTableCellElement> {
 }
 interface TableRowProps extends React.HTMLAttributes<HTMLTableRowElement> {
   noBorder?: boolean;
+  noBg?: boolean;
 }
 const Table = React.forwardRef<
   HTMLTableElement,
@@ -64,12 +65,12 @@ const TableFooter = React.forwardRef<
 TableFooter.displayName = "TableFooter";
 
 const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
-  ({ className, noBorder, ...props }, ref) => (
+  ({ className, noBg, noBorder, ...props }, ref) => (
     <tr
       ref={ref}
       className={cn(
         "border-b transition-colors hover:bg-slate-100/50 data-[state=selected]:bg-slate-100 dark:hover:bg-slate-800/50 dark:data-[state=selected]:bg-slate-800",
-        { "border-none": noBorder },
+        { "border-none": noBorder, "hover:bg-white": noBg },
         className
       )}
       {...props}
