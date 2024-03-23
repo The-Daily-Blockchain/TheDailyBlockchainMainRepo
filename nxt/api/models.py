@@ -52,3 +52,10 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title_post
+
+
+class CryptoDetail(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
