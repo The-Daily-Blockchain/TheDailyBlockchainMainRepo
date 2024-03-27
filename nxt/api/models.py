@@ -5,8 +5,7 @@ import uuid
 from django.conf import settings
 from tinymce.models import HTMLField
 from cloudinary.models import CloudinaryField
-
-# Create your models here.
+from autoslug import AutoSlugField
 
 
 class User (AbstractUser):
@@ -55,7 +54,11 @@ class Post(models.Model):
 
 
 class CryptoDetail(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField(blank=True)
+    title = models.CharField(unique=True, max_length=100)
+    slug = AutoSlugField(unique=True, populate_from='title')
+    description = HTMLField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title

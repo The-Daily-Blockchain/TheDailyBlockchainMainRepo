@@ -19,4 +19,6 @@ urlpatterns = [
     path('search', views.SearchView.as_view(), name='search'),
     path('search/details/<uuid:id>/',
          views.SearchDetailView.as_view(), name='search-details-view'),
+    path('crypto/<slug:slug>/',
+         views.CryptoDetailAPIView.as_view(), name='crypto_detail'),
 ]

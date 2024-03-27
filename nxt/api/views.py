@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render
-from .models import User, Profile, Article, Post
+from .models import User, Profile, Article, Post, CryptoDetail
 from django.http import HttpRequest
 # rest
 from rest_framework import permissions
@@ -18,7 +18,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from django.contrib.sessions.models import Session
 
-from .serializers import CombinedSerializer, UserSerializer, LoginSerializer, ProfileSerializer, ArticleSerializer, PostSerializer, LogoutSerializer
+from .serializers import CombinedSerializer, UserSerializer, LoginSerializer, ProfileSerializer, ArticleSerializer, PostSerializer, LogoutSerializer, CryptoDetailSerializer
 from django.middleware.csrf import get_token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authentication import TokenAuthentication
@@ -150,7 +150,7 @@ class SearchDetailView(generics.RetrieveAPIView):
     serializer_class = CombinedSerializer
     lookup_field = 'id'
 
-    def get_permissions(self):
+    def get_permissioons(self):
         return [AllowAny()]
 
     def get_queryset(self):
@@ -196,3 +196,10 @@ class UserView(APIView):
         user = request.user
         serializer = UserSerializer(user)
         return Response(serializer.data)
+
+
+class CryptoDetailAPIView(generics.RetrieveAPIView):
+    queryset = CryptoDetail.objects.all()
+    serializer_class = CryptoDetailSerializer
+    lookup_field = 'slug'  # Use the slug field for lookups
+    permission_classes = []

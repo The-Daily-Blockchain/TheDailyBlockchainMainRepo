@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import User, Profile, Article, Post
+from .models import User, Profile, Article, Post, CryptoDetail
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 
@@ -141,3 +141,9 @@ class PostSerializer(ModelSerializer):
         data = super().to_representation(instance)
         data['image'] = self.get_image_post(instance)
         return data
+
+
+class CryptoDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CryptoDetail
+        fields = '__all__'
