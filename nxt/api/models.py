@@ -62,3 +62,16 @@ class CryptoDetail(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class CryptoPost(models.Model):
+    title = models.CharField(unique=False, max_length=100)
+    slug = AutoSlugField(unique=False, populate_from='title')
+    description = HTMLField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    author = models.ForeignKey(
+        User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title

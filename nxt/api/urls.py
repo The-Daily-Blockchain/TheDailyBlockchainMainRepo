@@ -21,4 +21,6 @@ urlpatterns = [
          views.SearchDetailView.as_view(), name='search-details-view'),
     path('crypto/<slug:slug>/',
          views.CryptoDetailAPIView.as_view(), name='crypto_detail'),
+    path('cryptopost/<slug:slug>/index',
+         views.CryptoListPost.as_view(), name='crypto_post'),
 ]

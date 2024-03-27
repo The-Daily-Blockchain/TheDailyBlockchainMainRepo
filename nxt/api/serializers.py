@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import User, Profile, Article, Post, CryptoDetail
+from .models import CryptoPost, User, Profile, Article, Post, CryptoDetail
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 
@@ -146,4 +146,12 @@ class PostSerializer(ModelSerializer):
 class CryptoDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = CryptoDetail
+        fields = '__all__'
+
+
+class CryptoListPostSerializer(serializers.ModelSerializer):
+    author = UserSerializer(read_only=True)
+
+    class Meta:
+        model = CryptoPost
         fields = '__all__'
