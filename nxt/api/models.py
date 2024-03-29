@@ -16,7 +16,7 @@ class User (AbstractUser):
 class Profile(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_image = models.CharField(max_length=1000, null=True, blank=True)
+    profile_image = CloudinaryField('images')
     profile_content = models.TextField(null=True, blank=True)
 
     def __str__(self):
