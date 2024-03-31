@@ -151,6 +151,7 @@ class CryptoDetailSerializer(serializers.ModelSerializer):
 
 class CryptoListPostSerializer(serializers.ModelSerializer):
     author = UserSerializer(read_only=True)
+    profile = ProfileSerializer(source='author.profile', read_only=True)
 
     class Meta:
         model = CryptoPost
