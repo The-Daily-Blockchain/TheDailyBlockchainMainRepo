@@ -96,9 +96,20 @@ class LogoutSerializer(serializers.Serializer):
 
 
 class ProfileSerializer(ModelSerializer):
+    profile_image = serializers.SerializerMethodField()
+
+# this fix the res whole link
+    def get_profile_image(self, obj):
+        return obj.profile_image.url
+
     class Meta:
         model = Profile
         fields = '__all__'
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data['image'] = self.get_profile_image(instance)
+        return data
 
 
 class ArticleSerializer(ModelSerializer):
