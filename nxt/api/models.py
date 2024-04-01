@@ -18,6 +18,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_image = CloudinaryField('images')
     profile_content = models.TextField(null=True, blank=True)
+    nickname = models.CharField(max_length=70, null=True, blank=True)
 
     def __str__(self):
         return self.user.username

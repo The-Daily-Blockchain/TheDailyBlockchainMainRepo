@@ -108,7 +108,7 @@ class ProfileSerializer(ModelSerializer):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        data['image'] = self.get_profile_image(instance)
+        data['profile_image'] = self.get_profile_image(instance)
         return data
 
 
