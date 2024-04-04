@@ -1,4 +1,6 @@
+from django.conf import settings
 from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
 from .models import CryptoPost, User, Profile, Article, Post, CryptoDetail
 from django.http import HttpRequest
 # rest
@@ -78,6 +80,14 @@ class article_list(generics.ListCreateAPIView):
             permission_classes = [IsAuthenticated]
 
         return [permission() for permission in permission_classes]
+
+    def create(self, request, *args, **kwargs):
+        response = super().create(request, *args, **kwargs)
+        if response.status_code == status.HTTP_201_CREATED:
+            article_id = response.data['id']
+            article_url = f"{settings.SITE_URL}/article/{article_id}/"
+            return Response({'article_url': article_url}, status=status.HTTP_201_CREATED)
+        return response
 
 
 class article_detail(generics.RetrieveUpdateDestroyAPIView):

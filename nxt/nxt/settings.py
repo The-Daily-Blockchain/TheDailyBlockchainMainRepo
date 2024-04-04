@@ -151,6 +151,7 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
@@ -179,4 +180,4 @@ cloudinary.config(
 )
 
 
-# SITE_URL = 'https://example.com/' depending to ur site
+SITE_URL = 'http://localhost:3000'

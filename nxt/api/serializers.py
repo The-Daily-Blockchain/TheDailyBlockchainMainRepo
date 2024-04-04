@@ -117,7 +117,12 @@ class ArticleSerializer(ModelSerializer):
     image = serializers.SerializerMethodField()
 
     def get_image(self, obj):
-        return obj.image.url
+        if isinstance(obj.image, str):
+            return obj.image
+        elif obj.image:
+            return obj.image.url
+        else:
+            return None
 
     class Meta:
         model = Article
