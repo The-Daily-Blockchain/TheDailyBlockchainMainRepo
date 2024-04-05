@@ -38,6 +38,7 @@ class Article(models.Model):
     def __str__(self):
         return self.title
 # upload views needed
+# urlfield for article need to add logic for the upload
 
 
 class Post(models.Model):
