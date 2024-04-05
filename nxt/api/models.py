@@ -37,6 +37,7 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+# upload views needed
 
 
 class Post(models.Model):
