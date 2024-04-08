@@ -117,20 +117,29 @@ class ArticleSerializer(ModelSerializer):
     image = serializers.SerializerMethodField()
 
     def get_image(self, obj):
-        # if isinstance(obj.image, str):
-        #     return obj.image
+        if isinstance(obj.image, str):
+            return obj.image
         if obj.image:
             return obj.image.url
-        # else:
-        #     return None
+        else:
+            return None
+
+    def create(self, validated_data):
+        image_url = validated_data.pop('image', None)
+        article = Article.objects.create(**validated_data)
+        if image_url:
+            article.image = image_url
+            article.save()
+
+        return article
 
     class Meta:
         model = Article
         fields = '__all__'
 
-    def create(self, validated_data):
-        validated_data['author'] = self.context['request'].user
-        return super().create(validated_data)
+    # def create(self, validated_data):
+    #     validated_data['author'] = self.context['request'].user
+    #     return super().create(validated_data)
 
     def to_representation(self, instance):
         data = super().to_representation(instance)

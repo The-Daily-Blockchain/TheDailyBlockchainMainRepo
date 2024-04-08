@@ -19,11 +19,13 @@ from rest_framework.views import APIView
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from django.contrib.sessions.models import Session
+from cloudinary.uploader import upload
 
 from .serializers import CombinedSerializer, CryptoListPostSerializer, UserSerializer, LoginSerializer, ProfileSerializer, ArticleSerializer, PostSerializer, LogoutSerializer, CryptoDetailSerializer
 from django.middleware.csrf import get_token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.parsers import MultiPartParser, FormParser
 
 from rest_framework.pagination import PageNumberPagination
 
@@ -66,11 +68,14 @@ def register(request):
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+# wards
+
 
 class article_list(generics.ListCreateAPIView):
     queryset = Article.objects.all().order_by('-time_created')
     serializer_class = ArticleSerializer
     authentication_classes = [TokenAuthentication]
+    parser_classes = (MultiPartParser, FormParser)
 
     def get_permissions(self):
         permission_classes = []
@@ -82,12 +87,29 @@ class article_list(generics.ListCreateAPIView):
         return [permission() for permission in permission_classes]
 
     def create(self, request, *args, **kwargs):
+        if 'image' in request.FILES:
+            file = request.FILES['image']
+            # Upload the file to Cloudinary
+            upload_result = upload(file, folder='article_images')
+            if 'secure_url' in upload_result:
+                # If upload is successful, update the article object with the Cloudinary URL
+                request.data['image'] = upload_result['secure_url']
+            else:
+                # If upload fails, return an error response
+                return Response({'error': 'Failed to upload image to Cloudinary'}, status=status.HTTP_400_BAD_REQUEST)
         response = super().create(request, *args, **kwargs)
         if response.status_code == status.HTTP_201_CREATED:
             article_id = response.data['id']
             article_url = f"{settings.SITE_URL}/article/{article_id}/"
             return Response({'article_url': article_url}, status=status.HTTP_201_CREATED)
         return response
+
+    def perform_create(self, serializer):
+        # Save the article object with the Cloudinary URL
+        instance = serializer.save(author=self.request.user)
+        # Update the image field with the Cloudinary URL
+        instance.image = self.request.data.get('image')
+        instance.save()
 
 
 class article_detail(generics.RetrieveUpdateDestroyAPIView):
