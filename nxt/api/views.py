@@ -111,7 +111,7 @@ class article_list(generics.ListCreateAPIView):
         instance.image = self.request.data.get('image')
         instance.save()
 
-
+# TODO ON POST
 class article_detail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
