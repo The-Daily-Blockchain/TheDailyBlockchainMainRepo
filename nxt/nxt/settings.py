@@ -180,4 +180,6 @@ cloudinary.config(
 )
 
 
-SITE_URL = 'http://localhost:3000'
+# SITE_URL = 'http://localhost:3000'
+
+SITE_URL = 'https://thedailyblockchainph.com'

@@ -100,7 +100,7 @@ class article_list(generics.ListCreateAPIView):
         response = super().create(request, *args, **kwargs)
         if response.status_code == status.HTTP_201_CREATED:
             article_id = response.data['id']
-            article_url = f"{settings.SITE_URL}/article/{article_id}/"
+            article_url = f"{settings.SITE_URL}/article/{article_id}"
             return Response({'article_url': article_url}, status=status.HTTP_201_CREATED)
         return response
 
@@ -112,6 +112,8 @@ class article_list(generics.ListCreateAPIView):
         instance.save()
 
 # TODO ON POST
+
+
 class article_detail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
