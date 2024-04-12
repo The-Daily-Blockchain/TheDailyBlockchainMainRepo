@@ -1,3 +1,5 @@
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import IsAuthenticated
 from django.conf import settings
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
@@ -26,8 +28,7 @@ from django.middleware.csrf import get_token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.parsers import MultiPartParser, FormParser
-
-from rest_framework.pagination import PageNumberPagination
+from django.http import JsonResponse
 
 
 def index(request):
@@ -110,8 +111,6 @@ class article_list(generics.ListCreateAPIView):
         # Update the image field with the Cloudinary URL
         instance.image = self.request.data.get('image')
         instance.save()
-
-# TODO ON POST
 
 
 class article_detail(generics.RetrieveUpdateDestroyAPIView):
@@ -249,3 +248,12 @@ class CryptoListPost(generics.ListCreateAPIView):
             return CryptoPost.objects.filter(slug=slug)
         else:
             return CryptoPost.objects.all()
+
+
+class ValidateTokenView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        # If the request reaches here, the token is valid
+        return JsonResponse({"message": "Token is valid"}, status=200)

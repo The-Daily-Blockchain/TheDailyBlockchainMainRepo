@@ -23,4 +23,6 @@ urlpatterns = [
          views.CryptoDetailAPIView.as_view(), name='crypto_detail'),
     path('cryptopost/<slug:slug>/index',
          views.CryptoListPost.as_view(), name='crypto_post'),
+    path('validate_token/', views.ValidateTokenView.as_view(),
+         name='validate_token'),
 ]
