@@ -212,7 +212,7 @@ class SearchDetailView(generics.RetrieveAPIView):
     serializer_class = CombinedSerializer
     lookup_field = 'id'
 
-    def get_permissioons(self):
+    def get_permissions(self):
         return [AllowAny()]
 
     def get_queryset(self):
