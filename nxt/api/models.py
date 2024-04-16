@@ -44,7 +44,7 @@ class Post(models.Model):
                           default=uuid.uuid4, editable=False)
     title_post = models.CharField(max_length=200)
     content_post = HTMLField()
-    image_post = CloudinaryField('images')
+    image_post = CloudinaryField('images', null=False)
     time_created_post = models.DateTimeField(auto_now_add=True)
     author_post = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="user_post")

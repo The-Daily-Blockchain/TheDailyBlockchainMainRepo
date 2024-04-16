@@ -163,7 +163,7 @@ class PostSerializer(ModelSerializer):
             return None
 
     def create(self, validated_data):
-        image_post_url = validated_data.pop('image', None)
+        image_post_url = validated_data.pop('image_post', None)
         post = Post.objects.create(**validated_data)
         if image_post_url:
             post.image_post = image_post_url
@@ -177,7 +177,7 @@ class PostSerializer(ModelSerializer):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        data['image'] = self.get_image_post(instance)
+        data['image_post'] = self.get_image_post(instance)
         return data
 
 

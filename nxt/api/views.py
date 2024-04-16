@@ -150,10 +150,10 @@ class post_list(generics.ListCreateAPIView):
         if 'image' in request.FILES:
             file = request.FILES['image']
             # Upload the file to Cloudinary
-            upload_result = upload(file, folder='article_images')
+            upload_result = upload(file, folder='post_images')
             if 'secure_url' in upload_result:
                 # If upload is successful, update the article object with the Cloudinary URL
-                request.data['image'] = upload_result['secure_url']
+                request.data['image_post'] = upload_result['secure_url']
             else:
                 # If upload fails, return an error response
                 return Response({'error': 'Failed to upload image to Cloudinary'}, status=status.HTTP_400_BAD_REQUEST)
@@ -168,7 +168,8 @@ class post_list(generics.ListCreateAPIView):
         # Save the article object with the Cloudinary URL
         instance = serializer.save(author_post=self.request.user)
         # Update the image field with the Cloudinary URL
-        instance.image = self.request.data.get('image')
+
+        instance.image_post = self.request.data.get('image_post')
         instance.save()
 
 
