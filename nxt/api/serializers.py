@@ -97,6 +97,9 @@ class LogoutSerializer(serializers.Serializer):
 
 class ProfileSerializer(ModelSerializer):
     profile_image = serializers.SerializerMethodField()
+    first_name = serializers.CharField(
+        source='user.first_name', read_only=True)
+    last_name = serializers.CharField(source='user.last_name', read_only=True)
 
 # this fix the res whole link
     def get_profile_image(self, obj):
