@@ -135,6 +135,7 @@ class post_list(generics.ListCreateAPIView):
     queryset = Post.objects.all().order_by('-time_created_post')
     serializer_class = PostSerializer
     authentication_classes = [TokenAuthentication]
+    parser_classes = (MultiPartParser, FormParser)
 
     def get_permissions(self):
         permission_classes = []
@@ -144,6 +145,31 @@ class post_list(generics.ListCreateAPIView):
             permission_classes = [IsAuthenticated]
 
         return [permission() for permission in permission_classes]
+
+    def create(self, request, *args, **kwargs):
+        if 'image' in request.FILES:
+            file = request.FILES['image']
+            # Upload the file to Cloudinary
+            upload_result = upload(file, folder='article_images')
+            if 'secure_url' in upload_result:
+                # If upload is successful, update the article object with the Cloudinary URL
+                request.data['image'] = upload_result['secure_url']
+            else:
+                # If upload fails, return an error response
+                return Response({'error': 'Failed to upload image to Cloudinary'}, status=status.HTTP_400_BAD_REQUEST)
+        response = super().create(request, *args, **kwargs)
+        if response.status_code == status.HTTP_201_CREATED:
+            post_id = response.data['id']
+            post_url = f"{settings.SITE_URL}/post/{post_id}"
+            return Response({'post_url': post_url}, status=status.HTTP_201_CREATED)
+        return response
+
+    def perform_create(self, serializer):
+        # Save the article object with the Cloudinary URL
+        instance = serializer.save(author_post=self.request.user)
+        # Update the image field with the Cloudinary URL
+        instance.image = self.request.data.get('image')
+        instance.save()
 
 
 class post_detail(generics.RetrieveUpdateDestroyAPIView):

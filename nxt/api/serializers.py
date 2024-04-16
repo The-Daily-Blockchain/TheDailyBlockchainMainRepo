@@ -155,15 +155,25 @@ class PostSerializer(ModelSerializer):
     image_post = serializers.SerializerMethodField()
 
     def get_image_post(self, obj):
-        return obj.image_post.url
+        if isinstance(obj.image_post, str):
+            return obj.image_post
+        if obj.image_post:
+            return obj.image_post.url
+        else:
+            return None
+
+    def create(self, validated_data):
+        image_post_url = validated_data.pop('image', None)
+        post = Post.objects.create(**validated_data)
+        if image_post_url:
+            post.image_post = image_post_url
+            post.save()
+
+        return post
 
     class Meta:
         model = Post
         fields = '__all__'
-
-    def create(self, validated_data):
-        validated_data['author_post'] = self.context['request'].user
-        return super().create(validated_data)
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
