@@ -194,7 +194,10 @@ class SearchView(generics.ListAPIView):
     authentication_classes = [TokenAuthentication]
 
     def get_permissions(self):
-        return [AllowAny()]
+        if self.request.method == 'GET':
+            return [AllowAny()]
+        else:
+            return [IsAuthenticated()]
 
     def get_queryset(self):
         title_query = self.request.query_params.get('title', None)
@@ -213,7 +216,10 @@ class SearchDetailView(generics.RetrieveAPIView):
     lookup_field = 'id'
 
     def get_permissions(self):
-        return [AllowAny()]
+        if self.request.method == 'GET':
+            return [AllowAny()]
+        else:
+            return [IsAuthenticated()]
 
     def get_queryset(self):
         title_query = self.request.query_params.get('title', None)
