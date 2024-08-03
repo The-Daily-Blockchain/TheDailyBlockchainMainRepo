@@ -35,12 +35,13 @@ DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
-CORS_ALLOWED_ORIGINS = [
-    # "http://localhost:3000",
-    "https://thedailyblockchain-frontend-dexterlentes-projects.vercel.app",
-    "https://thedailyblockchain-frontend-git-master-dexterlentes-projects.vercel.app",
-    "https://thedailyblockchainph.com",
-]
+# CORS_ALLOWED_ORIGINS = [
+#     # "http://localhost:3000",
+#     "https://thedailyblockchain-frontend-dexterlentes-projects.vercel.app",
+#     "https://thedailyblockchain-frontend-git-master-dexterlentes-projects.vercel.app",
+#     "https://thedailyblockchainph.com",
+# ]
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Application definition
 
