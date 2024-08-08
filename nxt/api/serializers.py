@@ -201,7 +201,7 @@ class PostSerializer(ModelSerializer):
         if content_post:
             cleaned_content = bleach.clean(content_post, tags=[], strip=True)
             representation['content_post'] = cleaned_content[:400]
-        representation['image_post'] = self.get_image(instance)
+        representation['image_post'] = self.get_image_post(instance)
         return representation
 
     class Meta:
