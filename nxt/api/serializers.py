@@ -2,6 +2,7 @@ from rest_framework.serializers import ModelSerializer
 from .models import CryptoPost, User, Profile, Article, Post, CryptoDetail
 from rest_framework import serializers
 from django.contrib.auth import authenticate
+import bleach
 
 
 class UserSerializer(ModelSerializer):
@@ -136,13 +137,36 @@ class ArticleSerializer(ModelSerializer):
 
         return article
 
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        content = representation.get('content')
+        if content:
+            cleaned_content = bleach.clean(content, tags=[], strip=True)
+            representation['content'] = cleaned_content[:400]
+        representation['image'] = self.get_image(instance)
+        return representation
+
+    class Meta:
+        model = Article
+        fields = ['id', 'title', 'content', 'author',
+                  'image', 'time_created', 'archived']
+
+
+class ArticleDetailSerializer(ModelSerializer):
+    author = UserSerializer(read_only=True)
+    image = serializers.SerializerMethodField()
+
+    def get_image(self, obj):
+        if isinstance(obj.image, str):
+            return obj.image
+        if obj.image:
+            return obj.image.url
+        else:
+            return None
+
     class Meta:
         model = Article
         fields = '__all__'
-
-    # def create(self, validated_data):
-    #     validated_data['author'] = self.context['request'].user
-    #     return super().create(validated_data)
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
@@ -170,6 +194,33 @@ class PostSerializer(ModelSerializer):
             post.save()
 
         return post
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        content_post = representation.get('content_post')
+        if content_post:
+            cleaned_content = bleach.clean(content_post, tags=[], strip=True)
+            representation['content_post'] = cleaned_content[:400]
+        representation['image_post'] = self.get_image(instance)
+        return representation
+
+    class Meta:
+        model = Post
+        fields = ['id', 'title_post', 'content_post', 'author_post',
+                  'image_post', 'time_created_post', 'archived_post']
+
+
+class PostDetailSerializer(ModelSerializer):
+    author_post = UserSerializer(read_only=True)
+    image_post = serializers.SerializerMethodField()
+
+    def get_image_post(self, obj):
+        if isinstance(obj.image_post, str):
+            return obj.image_post
+        if obj.image_post:
+            return obj.image_post.url
+        else:
+            return None
 
     class Meta:
         model = Post

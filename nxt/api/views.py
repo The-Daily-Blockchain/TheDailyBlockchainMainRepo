@@ -23,8 +23,7 @@ from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from django.contrib.sessions.models import Session
 from cloudinary.uploader import upload
 
-from .serializers import CombinedSerializer, CryptoListPostSerializer, UserSerializer, LoginSerializer, ProfileSerializer, ArticleSerializer, PostSerializer, LogoutSerializer, CryptoDetailSerializer
-from django.middleware.csrf import get_token
+from .serializers import CombinedSerializer, CryptoListPostSerializer, UserSerializer, ProfileSerializer, ArticleSerializer, PostSerializer, CryptoDetailSerializer, ArticleDetailSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.parsers import MultiPartParser, FormParser
@@ -117,7 +116,7 @@ class article_list(generics.ListCreateAPIView):
 
 class article_detail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Article.objects.all()
-    serializer_class = ArticleSerializer
+    serializer_class = ArticleDetailSerializer
     lookup_field = 'id'
     authentication_classes = [TokenAuthentication]
 
