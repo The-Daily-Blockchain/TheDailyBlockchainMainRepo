@@ -14,7 +14,6 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 from pathlib import Path
-from datetime import datetime, timedelta
 import dj_database_url
 import os
 from dotenv import load_dotenv

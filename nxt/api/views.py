@@ -1,29 +1,19 @@
-from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from django.conf import settings
-from django.shortcuts import get_object_or_404, render
-from django.urls import reverse
-from .models import CryptoPost, User, Profile, Article, Post, CryptoDetail
-from django.http import HttpRequest
+from django.shortcuts import render
+from .models import CryptoPost, Profile, Article, Post, CryptoDetail
 # rest
-from rest_framework import permissions
 from rest_framework.authtoken.models import Token
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 
-from django.contrib.auth import authenticate, logout, login
-from django.core.exceptions import ValidationError
-from django.contrib.auth.models import User
-from rest_framework import generics, status, serializers
-from rest_framework.request import Request as DRFRequest
+from rest_framework import generics, status
+
 from rest_framework.views import APIView
-from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
-from django.contrib.sessions.models import Session
 from cloudinary.uploader import upload
 
-from .serializers import CombinedSerializer, CryptoListPostSerializer, UserSerializer, ProfileSerializer, ArticleSerializer, PostSerializer, CryptoDetailSerializer, ArticleDetailSerializer
+from .serializers import CombinedSerializer, CryptoListPostSerializer, UserSerializer, ProfileSerializer, ArticleSerializer, PostSerializer, CryptoDetailSerializer, ArticleDetailSerializer, PostDetailSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.parsers import MultiPartParser, FormParser
@@ -174,7 +164,7 @@ class post_list(generics.ListCreateAPIView):
 
 class post_detail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
-    serializer_class = PostSerializer
+    serializer_class = PostDetailSerializer
     lookup_field = 'id'
     authentication_classes = [TokenAuthentication]
 
