@@ -36,7 +36,6 @@ DEBUG = False
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "thedailyblockchainph.com",
     "https://thedailyblockchainph.com",
     "https://secret.thedailyblockchainph.com"
 ]
