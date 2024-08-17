@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'tinymce',
     'cloudinary',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -95,8 +96,10 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = 'nxt.wsgi.application'
 
+ASGI_APPLICATION = 'nxt.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
