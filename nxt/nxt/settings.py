@@ -32,12 +32,11 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "https://thedailyblockchain-frontend-dexterlentes-projects.vercel.app",
-    "https://thedailyblockchain-frontend-git-master-dexterlentes-projects.vercel.app",
+    "thedailyblockchainph.com",
     "https://thedailyblockchainph.com",
     "https://secret.thedailyblockchainph.com"
 ]
