@@ -40,7 +40,6 @@ ALLOWED_HOSTS = ['.thedailyblockchainph.com',
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://thedailyblockchainph.com",
-    r'^https://.*\.thedailyblockchainph\.com$',
     "https://secret.thedailyblockchainph.com"
 ]
 
