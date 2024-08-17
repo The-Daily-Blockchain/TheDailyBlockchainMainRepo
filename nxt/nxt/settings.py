@@ -32,7 +32,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+# ALLOWED_HOSTS = ["*"]
 
 # CORS_ALLOWED_ORIGINS = [
 #     # "http://localhost:3000",
@@ -40,6 +40,8 @@ ALLOWED_HOSTS = ["*"]
 #     "https://thedailyblockchain-frontend-git-master-dexterlentes-projects.vercel.app",
 #     "https://thedailyblockchainph.com",
 # ]
+ALLOWED_HOSTS = ['thedailyblockchainph.com', 'www.thedailyblockchainph.com']
+
 CORS_ALLOW_ALL_ORIGINS = True
 
 # Application definition
