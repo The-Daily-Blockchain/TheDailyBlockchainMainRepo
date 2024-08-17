@@ -24,7 +24,7 @@ application = ProtocolTypeRouter({
         URLRouter([
             path('ws/singleticker/<str:query>',
                  consumers.SingleTickerConsumer.as_asgi()),
-            path('ws/allticker/<str:query>',
+            path('ws/allticker/<path:query>',
                  consumers.AllTickerConsumer.as_asgi()),
         ])
     ),
