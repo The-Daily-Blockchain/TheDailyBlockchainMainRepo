@@ -35,7 +35,7 @@ DEBUG = False
 # ALLOWED_HOSTS = ['*']
 
 ALLOWED_HOSTS = ['.thedailyblockchainph.com',
-                 'www.thedailyblockchainph.com', 'thedailyblockchainph.com']
+                 'www.thedailyblockchainph.com', 'thedailyblockchainph.com', 'thedailyblockchain-frontend-iy6m0bwfi-dexterlentes-projects.vercel.app', 'thedailyblockchain-frontend-git-master-dexterlentes-projects.vercel.app']
 
 # CORS_ALLOWED_ORIGINS = [
 #     "http://localhost:3000",
