@@ -3,15 +3,15 @@
 # from django.views.generic import ListView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-# from rest_framework import status
+from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.views import APIView
 from .models import Daily
-# from .serializers import DailySerializer, DailyDetailSerializer
+from .serializers import CryptoListSerializer, CryptoDetailSerializer
 
 
 class StandardResultsSetPagination(PageNumberPagination):
-    page_size = 10
+    page_size = 20
     page_size_query_param = 'per_page'
     max_page_size = 100
 
@@ -27,32 +27,43 @@ class GetAllCryptoTitleView(APIView):
             'title', flat=True).distinct()
         return Response(list(unique_titles))
 
-# class GetSpecificCryptoListView(APIView):
-#     def get(self, request, title, *args, **kwargs):
-#         page_number = int(request.GET.get('page', 1))
-#         per_page = int(request.GET.get('per_page', 10))
 
-#         queryset = Daily.objects.filter(title=title).order_by('-created_at')
-#         paginator = StandardResultsSetPagination()
-#         paginated_queryset = paginator.paginate_queryset(queryset, request)
+class GetSpecificCryptoListView(APIView):
 
-#         serializer = DailySerializer(paginated_queryset, many=True)
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [AllowAny()]
+        return [IsAuthenticated()]
 
-#         response_data = {
-#             "items": serializer.data,
-#             "total": paginator.page.paginator.count,
-#             "page": paginator.page.number,
-#             "pages": paginator.page.paginator.num_pages,
-#         }
+    def get(self, request, title, *args, **kwargs):
 
-#         return Response(response_data)
+        queryset = Daily.objects.filter(title=title).order_by('-created_at')
+        paginator = StandardResultsSetPagination()
+        paginated_queryset = paginator.paginate_queryset(queryset, request)
+
+        serializer = CryptoListSerializer(paginated_queryset, many=True)
+
+        response_data = {
+            "items": serializer.data,
+            "total": paginator.page.paginator.count,
+            "page": paginator.page.number,
+            "pages": paginator.page.paginator.num_pages,
+        }
+
+        return Response(response_data)
 
 
-# class GetSpecificCryptoDetailsView(APIView):
-#     def get(self, request, generate_tracker, *args, **kwargs):
-#         try:
-#             detail = Daily.objects.get(generate_tracker=generate_tracker)
-#             serializer = DailyDetailSerializer(detail)
-#             return Response(serializer.data)
-#         except Daily.DoesNotExist:
-#             return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
+class GetSpecificCryptoDetailsView(APIView):
+
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [AllowAny()]
+        return [IsAuthenticated()]
+
+    def get(self, request, generate_tracker, *args, **kwargs):
+        try:
+            detail = Daily.objects.get(generate_tracker=generate_tracker)
+            serializer = CryptoDetailSerializer(detail)
+            return Response(serializer.data)
+        except Daily.DoesNotExist:
+            return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
