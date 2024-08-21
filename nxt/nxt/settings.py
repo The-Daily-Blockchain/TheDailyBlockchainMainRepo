@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     'corsheaders',
     # application
     'api.apps.ApiConfig',
+    'generator.apps.GeneratorConfig',
     'rest_framework_simplejwt',
     'tinymce',
     'cloudinary',
