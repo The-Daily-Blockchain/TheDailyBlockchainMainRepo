@@ -44,12 +44,12 @@ ALLOWED_HOSTS = ['*']
 #     "https://signals.thedailyblockchainph.com"
 # ]
 
-# CORS_ALLOW_CREDENTIALS = True
-# CORS_ALLOW_METHODS = [
-#     'GET',
-#     'POST',
-#     'OPTIONS',
-# ]
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'OPTIONS',
+]
 
 CORS_ALLOW_ALL_ORIGINS = True
 
