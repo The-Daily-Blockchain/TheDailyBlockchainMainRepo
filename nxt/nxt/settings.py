@@ -37,21 +37,21 @@ ALLOWED_HOSTS = ['*']
 # ALLOWED_HOSTS = ['.thedailyblockchainph.com',
 #                  'www.thedailyblockchainph.com', 'thedailyblockchainph.com', 'thedailyblockchain-frontend-iy6m0bwfi-dexterlentes-projects.vercel.app', 'thedailyblockchain-frontend-git-master-dexterlentes-projects.vercel.app']
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "https://thedailyblockchainph.com",
-    "https://.thedailyblockchainph.com",
-    "https://signals.thedailyblockchainph.com"
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",
+#     "https://thedailyblockchainph.com",
+#     "https://.thedailyblockchainph.com",
+#     "https://signals.thedailyblockchainph.com"
+# ]
 
-CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_METHODS = [
-    'GET',
-    'POST',
-    'OPTIONS',
-]
+# CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_METHODS = [
+#     'GET',
+#     'POST',
+#     'OPTIONS',
+# ]
 
-# CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Application definition
 
