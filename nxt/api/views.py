@@ -2,6 +2,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.conf import settings
 from django.shortcuts import render
 from .models import CryptoPost, Profile, Article, Post, CryptoDetail
+import os
 # rest
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny
@@ -19,6 +20,9 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.parsers import MultiPartParser, FormParser
 from django.http import JsonResponse
 from rest_framework.pagination import PageNumberPagination
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def index(request):
@@ -53,8 +57,9 @@ class PageNumberPaginationDataOnly(PageNumberPagination):
 
     def mask_url(self, url):
         """Mask or modify the URL as needed."""
+        base_url = os.getenv("BASE_URL")
         if url:
-            return url.replace('http://127.0.0.1:8000', 'https://thedailyblockchainph.com')
+            return url.replace(base_url, 'https://thedailyblockchainph.com')
         return None
 
 
