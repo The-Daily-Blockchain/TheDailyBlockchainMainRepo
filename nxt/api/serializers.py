@@ -10,7 +10,7 @@ class UserSerializer(ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['username',  'password',
+        fields = ['username', 'email', 'password',
                   'password_confirm', 'first_name', 'last_name']
         extra_kwargs = {'password': {'write_only': True}}
 
@@ -27,7 +27,6 @@ class UserSerializer(ModelSerializer):
 
 
 class CustomUserSerializer(ModelSerializer):
-    password_confirm = serializers.CharField(write_only=True)
 
     class Meta:
         model = User
@@ -125,7 +124,7 @@ class ProfileSerializer(ModelSerializer):
 
 
 class ArticleSerializer(ModelSerializer):
-    author = UserSerializer(read_only=True)
+    author = CustomUserSerializer(read_only=True)
     image = serializers.SerializerMethodField()
 
     def get_image(self, obj):
@@ -161,7 +160,7 @@ class ArticleSerializer(ModelSerializer):
 
 
 class ArticleDetailSerializer(ModelSerializer):
-    author = UserSerializer(read_only=True)
+    author = CustomUserSerializer(read_only=True)
     image = serializers.SerializerMethodField()
 
     def get_image(self, obj):
@@ -183,7 +182,7 @@ class ArticleDetailSerializer(ModelSerializer):
 
 
 class PostSerializer(ModelSerializer):
-    author_post = UserSerializer(read_only=True)
+    author_post = CustomUserSerializer(read_only=True)
     image_post = serializers.SerializerMethodField()
 
     def get_image_post(self, obj):
@@ -219,7 +218,7 @@ class PostSerializer(ModelSerializer):
 
 
 class PostDetailSerializer(ModelSerializer):
-    author_post = UserSerializer(read_only=True)
+    author_post = CustomUserSerializer(read_only=True)
     image_post = serializers.SerializerMethodField()
 
     def get_image_post(self, obj):
@@ -247,7 +246,7 @@ class CryptoDetailSerializer(serializers.ModelSerializer):
 
 
 class CryptoListPostSerializer(serializers.ModelSerializer):
-    author = UserSerializer(read_only=True)
+    author = CustomUserSerializer(read_only=True)
     profile = ProfileSerializer(source='author.profile', read_only=True)
 
     class Meta:
