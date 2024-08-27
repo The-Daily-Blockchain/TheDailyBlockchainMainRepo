@@ -18,10 +18,44 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.parsers import MultiPartParser, FormParser
 from django.http import JsonResponse
+from rest_framework.pagination import PageNumberPagination
 
 
 def index(request):
     return render(request, 'frontend/build/index.html')
+
+
+class PageNumberPaginationDataOnly(PageNumberPagination):
+    page_size = 10
+
+    def get_paginated_response(self, data):
+        # Get the original pagination metadata
+        metadata = self.get_paginated_response_metadata(data)
+
+        if 'next' in metadata:
+            metadata['next'] = self.mask_url(metadata['next'])
+        if 'previous' in metadata:
+            metadata['previous'] = self.mask_url(metadata['previous'])
+
+        response_data = {
+            'results': data,
+            **metadata
+        }
+        return Response(response_data)
+
+    def get_paginated_response_metadata(self, data):
+        """Return the metadata used in the paginated response."""
+        return {
+            'count': self.page.paginator.count,
+            'next': self.get_next_link(),
+            'previous': self.get_previous_link(),
+        }
+
+    def mask_url(self, url):
+        """Mask or modify the URL as needed."""
+        if url:
+            return url.replace('http://127.0.0.1:8000', 'https://thedailyblockchainph.com')
+        return None
 
 
 class LoginAPIView(ObtainAuthToken):
@@ -60,14 +94,13 @@ def register(request):
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# wards
-
 
 class article_list(generics.ListCreateAPIView):
     queryset = Article.objects.all().order_by('-time_created')
     serializer_class = ArticleSerializer
     authentication_classes = [TokenAuthentication]
     parser_classes = (MultiPartParser, FormParser)
+    pagination_class = PageNumberPaginationDataOnly
 
     def get_permissions(self):
         permission_classes = []
@@ -125,6 +158,7 @@ class post_list(generics.ListCreateAPIView):
     serializer_class = PostSerializer
     authentication_classes = [TokenAuthentication]
     parser_classes = (MultiPartParser, FormParser)
+    pagination_class = PageNumberPaginationDataOnly
 
     def get_permissions(self):
         permission_classes = []
