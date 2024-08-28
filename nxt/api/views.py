@@ -308,9 +308,9 @@ class CryptoListPost(generics.ListCreateAPIView):
     def get_queryset(self):
         slug = self.kwargs.get('slug')
         if slug:
-            return CryptoPost.objects.filter(slug=slug)
+            return CryptoPost.objects.filter(slug=slug).order_by('-created_at')
         else:
-            return CryptoPost.objects.all()
+            return CryptoPost.objects.all().order_by('-created_at')
 
 
 class ValidateTokenView(APIView):
