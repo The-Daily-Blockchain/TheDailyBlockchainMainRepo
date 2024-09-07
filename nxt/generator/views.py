@@ -11,7 +11,7 @@ from .serializers import CryptoListSerializer, CryptoDetailSerializer
 
 
 class StandardResultsSetPagination(PageNumberPagination):
-    page_size = 20
+    page_size = 31
     page_size_query_param = 'per_page'
     max_page_size = 100
 
@@ -37,7 +37,20 @@ class GetSpecificCryptoListView(APIView):
 
     def get(self, request, title, *args, **kwargs):
 
+        month = request.query_params.get('month')
+        year = request.query_params.get('year')
+
         queryset = Daily.objects.filter(title=title).order_by('-created_at')
+        if month and year:
+            queryset = queryset.filter(
+                created_at__year=year, created_at__month=month)
+        elif year:
+            queryset = queryset.filter(created_at__year=year)
+        elif month:
+            queryset = queryset.filter(created_at__month=month)
+
+    # /your-endpoint-url/?title=Bitcoin&month=9&year=2024 added params for month
+
         paginator = StandardResultsSetPagination()
         paginated_queryset = paginator.paginate_queryset(queryset, request)
 
